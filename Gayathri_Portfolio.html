@@ -125,27 +125,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--s);color:var(--t);overflo
 .ig-title{font-family:'Righteous',sans-serif;font-size:.84rem;letter-spacing:.04em;color:var(--t);margin-bottom:.22rem;border-left:3px solid var(--c);padding-left:.5rem;line-height:1.3}
 .ig-desc{font-size:.7rem;color:var(--m);line-height:1.52}
 
-/* MY JOURNEY PANEL */
-#journey-btn{position:fixed;bottom:1.75rem;right:1.75rem;z-index:450;display:flex;align-items:center;gap:.5rem;padding:.62rem 1.25rem;font-family:'Righteous',sans-serif;font-size:.76rem;letter-spacing:.12em;background:var(--t);color:var(--c);border:3px solid var(--c);cursor:pointer;transition:all .18s;box-shadow:4px 4px 0 rgba(0,0,0,.2)}
-#journey-btn:hover{background:var(--c);color:#fff;box-shadow:6px 6px 0 rgba(0,0,0,.2)}
-#journey-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:480;opacity:0;pointer-events:none;transition:opacity .3s}
-#journey-overlay.open{opacity:1;pointer-events:all}
-#journey-panel{position:fixed;top:0;right:0;bottom:0;z-index:490;width:min(520px,94vw);background:var(--w);border-left:4px solid var(--c);box-shadow:-4px 0 24px rgba(0,0,0,.2);overflow-y:auto;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
-#journey-panel.open{transform:translateX(0)}
-.jp-bar{position:sticky;top:0;z-index:2;background:var(--t);border-bottom:3px solid var(--c);padding:0 1.5rem;height:52px;display:flex;align-items:center;justify-content:space-between}
-.jp-bar-title{font-family:'Righteous',sans-serif;font-size:.88rem;letter-spacing:.08em;color:var(--c)}
-.jp-bar-close{font-family:'Righteous',sans-serif;font-size:1.3rem;line-height:1;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.6);transition:color .15s;padding:0}
-.jp-bar-close:hover{color:#fff}
-.jp-body{padding:2rem 1.75rem}
-.jp-intro{font-family:'Righteous',sans-serif;font-size:.65rem;letter-spacing:.18em;color:var(--li);margin-bottom:1.5rem}
-.jp-entry{border-left:4px solid;padding:1rem 1.15rem;margin-bottom:1rem;background:rgba(0,0,0,.025)}
-.jp-role{font-family:'Righteous',sans-serif;font-size:.88rem;letter-spacing:.03em;color:var(--t);margin-bottom:.15rem}
-.jp-org{font-size:.78rem;font-weight:600;margin-bottom:.12rem}
-.jp-dt{font-size:.7rem;color:var(--li);margin-bottom:.6rem}
-.jp-desc{font-size:.76rem;color:var(--m);line-height:1.68}
-.jp-tags{display:flex;flex-wrap:wrap;gap:.28rem;margin-top:.5rem}
-.jp-tag{font-size:.62rem;font-weight:700;padding:.1rem .42rem;background:rgba(0,0,0,.06);color:var(--m);border-radius:2px}
-
 /* CONTACT */
 #contact{background:var(--t);min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 3rem}
 .ct-eye{font-family:'Righteous',sans-serif;font-size:.7rem;letter-spacing:.25em;color:rgba(255,255,255,.3);margin-bottom:.9rem}
@@ -166,15 +145,105 @@ body{font-family:'DM Sans',sans-serif;background:var(--s);color:var(--t);overflo
 .reveal.vis{opacity:1;transform:none}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(136,176,75,.5)}60%{box-shadow:0 0 0 5px rgba(136,176,75,0)}}
 
+/* ── JOURNEY HORIZONTAL TIMELINE ── */
+#journey-sec{
+  background:var(--t);
+  padding:1.75rem 0 0;
+}
+.jrny-top{
+  padding:0 3rem .6rem;
+  display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;
+}
+.jrny-label{display:flex;flex-direction:column;gap:.5rem}
+.jrny-hint{
+  font-family:'Righteous',sans-serif;font-size:.62rem;
+  letter-spacing:.18em;color:rgba(255,255,255,.3);text-transform:uppercase;
+}
+.jrny-timeline-line{
+  height:2px;background:rgba(255,255,255,.08);
+  margin:0 3rem .4rem;position:relative;
+}
+#journey-track-wrap{
+  overflow-x:auto;overflow-y:hidden;
+  padding:0 3rem 1rem;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  scrollbar-color:var(--c) rgba(255,255,255,.08);
+  cursor:grab;
+}
+#journey-track-wrap:active,#journey-track-wrap.dragging{cursor:grabbing}
+#journey-track-wrap::-webkit-scrollbar{height:4px}
+#journey-track-wrap::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:2px}
+#journey-track-wrap::-webkit-scrollbar-thumb{background:var(--c);border-radius:2px}
+#journey-track{
+  display:flex;gap:1.25rem;
+  min-width:max-content;
+  align-items:stretch;
+  user-select:none;
+}
+.jc{
+  flex-shrink:0;width:278px;
+  background:rgba(255,255,255,.055);
+  border:1.5px solid rgba(255,255,255,.1);
+  border-top:4px solid;
+  padding:1.35rem 1.4rem 1.2rem;
+  position:relative;
+  transition:background .2s,transform .2s;
+  display:flex;flex-direction:column;
+}
+.jc:hover{background:rgba(255,255,255,.09);transform:translateY(-3px)}
+.jc-dot{
+  width:10px;height:10px;border-radius:50%;
+  border:2px solid;background:var(--t);
+  position:absolute;top:-7px;left:1.75rem;
+}
+.jc-badge{
+  font-family:'Righteous',sans-serif;font-size:.58rem;
+  letter-spacing:.12em;padding:.18rem .5rem;
+  border-radius:2px;margin-bottom:.7rem;
+  background:rgba(255,255,255,.07);
+  color:rgba(255,255,255,.45);text-transform:uppercase;
+  display:inline-block;
+}
+.jc-role{
+  font-family:'Righteous',sans-serif;font-size:.88rem;
+  letter-spacing:.02em;color:#fff;line-height:1.3;
+  margin-bottom:.28rem;
+}
+.jc-org{font-size:.76rem;font-weight:600;margin-bottom:.18rem}
+.jc-dt{font-size:.66rem;color:rgba(255,255,255,.32);margin-bottom:.8rem}
+.jc-desc{
+  font-size:.72rem;color:rgba(255,255,255,.58);
+  line-height:1.65;margin-bottom:.8rem;flex:1;
+}
+.jc-tags{display:flex;flex-wrap:wrap;gap:.25rem;margin-top:auto}
+.jc-tag{
+  font-size:.59rem;font-weight:700;padding:.1rem .4rem;
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.45);
+  border-radius:2px;
+}
+.jrny-progress{
+  height:3px;background:rgba(255,255,255,.08);
+  margin:0 3rem 1.4rem;border-radius:2px;flex-shrink:0;
+}
+#jrny-prog{
+  height:100%;border-radius:2px;
+  background:var(--c);width:0%;
+  transition:width .06s linear;
+}
+
 @media(max-width:768px){
   #menubar .mb-links{display:none}
   .sec{padding:0 1.25rem 0}
   .about-grid,.edu-grid,.sk-cols{grid-template-columns:1fr}
   .ig-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}
   .cv-name{font-size:clamp(2.5rem,14vw,6rem)}
-  #journey-btn{bottom:1rem;right:1rem;font-size:.7rem;padding:.5rem 1rem}
+  .jrny-top{padding:0 1.25rem .6rem}
+  #journey-track-wrap{padding:0 1.25rem 1rem}
+  .jrny-timeline-line{margin:0 1.25rem .4rem}
+  .jrny-progress{margin:0 1.25rem 1.25rem}
 }
-@media(max-width:480px){.ig-grid{grid-template-columns:1fr}}
+@media(max-width:480px){.ig-grid{grid-template-columns:1fr}.jc{width:240px}}
 
 /* ── TOOLS SECTION ── */
 .tools-h{font-family:'Righteous',cursive;font-size:clamp(2.6rem,6vw,4rem);color:var(--t);line-height:1;margin-bottom:32px;}
@@ -238,7 +307,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--s);color:var(--t);overflo
   <div class="mb-links">
     <a href="#about">About</a>
     <a href="#projects">Projects</a>
-    <a href="#" onclick="openJourney();return false;">My Journey</a>
+    <a href="#journey">My Journey</a>
     <a href="#education">Education</a>
     <a href="#skills">Skills</a>
     <a href="#contact">Contact</a>
@@ -300,7 +369,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--s);color:var(--t);overflo
 <!-- PROJECTS -->
 <section id="projects" class="sec white">
   <div class="sec-inner">
-    <div class="folder-hd"><span class="icon">📁</span>portfolio_FINAL.zip</div>
+    <div class="folder-hd"><span class="icon">📁</span>projects.zip</div>
     <div class="sec-box">
       <span class="retro-num">02</span>
 
@@ -386,6 +455,97 @@ body{font-family:'DM Sans',sans-serif;background:var(--s);color:var(--t);overflo
       </div>
 
     </div>
+  </div>
+</section>
+
+<div class="retro-div"></div>
+
+<!-- JOURNEY -->
+<section id="journey" style="scroll-margin-top:56px">
+<div id="journey-sec">
+    <div class="jrny-top">
+      <div class="jrny-label">
+        <div class="folder-hd" style="background:rgba(255,255,255,.08);color:var(--c)"><span class="icon">📁</span>career_timeline.log</div>
+      </div>
+      <div class="jrny-hint">scroll or drag to explore →</div>
+    </div>
+    <div class="jrny-timeline-line"></div>
+    <div id="journey-track-wrap">
+      <div id="journey-track">
+
+        <div class="jc" style="border-top-color:var(--li)">
+          <div class="jc-dot" style="border-color:var(--li)"></div>
+          <div class="jc-badge">2020 · Founder</div>
+          <div class="jc-role">Founder & CEO</div>
+          <div class="jc-org" style="color:var(--li)">Passionate Paprika · Chennai</div>
+          <div class="jc-dt">May 2020 – Present</div>
+          <div class="jc-desc">Food blog turned profitable home baking business. 1,000+ followers. 1,400+ orders in 3 months, zero paid spend. Built brand, content & fulfilment solo.</div>
+          <div class="jc-tags"><span class="jc-tag">Founder</span><span class="jc-tag">Brand</span><span class="jc-tag">Content</span><span class="jc-tag">D2C</span></div>
+        </div>
+
+        <div class="jc" style="border-top-color:#8fafcf">
+          <div class="jc-dot" style="border-color:#8fafcf"></div>
+          <div class="jc-badge">2022 · First Role</div>
+          <div class="jc-role">Business Development Intern</div>
+          <div class="jc-org" style="color:#8fafcf">Gamenation · Chennai, India</div>
+          <div class="jc-dt">May – Aug 2022</div>
+          <div class="jc-desc">40% audience engagement growth via social media calendar. Designed a WhatsApp chatbot for customer support. Marketing team support across campaigns.</div>
+          <div class="jc-tags"><span class="jc-tag">Social Media</span><span class="jc-tag">Chatbot</span><span class="jc-tag">BD</span></div>
+        </div>
+
+        <div class="jc" style="border-top-color:var(--p)">
+          <div class="jc-dot" style="border-color:var(--p)"></div>
+          <div class="jc-badge">2022–2023 · Consulting</div>
+          <div class="jc-role">Associate Analyst</div>
+          <div class="jc-org" style="color:var(--p)">Deloitte Consulting USI · Bangalore</div>
+          <div class="jc-dt">Aug 2022 – Aug 2023</div>
+          <div class="jc-desc">Finxact Configuration Engineer on digital banking transformation. Java & MongoDB in insurance sector. 2+ high-priority Azure/Jira tickets resolved daily at scale.</div>
+          <div class="jc-tags"><span class="jc-tag">Java</span><span class="jc-tag">MongoDB</span><span class="jc-tag">Azure</span><span class="jc-tag">Consulting</span></div>
+        </div>
+
+        <div class="jc" style="border-top-color:var(--s)">
+          <div class="jc-dot" style="border-color:var(--s)"></div>
+          <div class="jc-badge">2023–2024 · Energy</div>
+          <div class="jc-role">Digital Marketer & Compliance Manager</div>
+          <div class="jc-org" style="color:var(--s)">Britain Energy · London</div>
+          <div class="jc-dt">Sep 2023 – Sep 2024</div>
+          <div class="jc-desc">156K viewers in 30 days via geo-targeted Meta & Google Ads. 150 organic leads/month. 71% ↓ funder inquiries. Trained & mentored a team of 7.</div>
+          <div class="jc-tags"><span class="jc-tag">Paid Ads</span><span class="jc-tag">Compliance</span><span class="jc-tag">Lead Gen</span><span class="jc-tag">Team Lead</span></div>
+        </div>
+
+        <div class="jc" style="border-top-color:#ddb8d0">
+          <div class="jc-dot" style="border-color:#ddb8d0"></div>
+          <div class="jc-badge">2024 · D2C</div>
+          <div class="jc-role">Digital Marketing Intern</div>
+          <div class="jc-org" style="color:#ddb8d0">The Earthy · London</div>
+          <div class="jc-dt">Mar – Apr 2024</div>
+          <div class="jc-desc">Reach 480 → 1,800 (+1.3K). Reels hitting 2,500+ views. GA4 & Instagram analytics reports built for D2C product launch strategy.</div>
+          <div class="jc-tags"><span class="jc-tag">Instagram</span><span class="jc-tag">GA4</span><span class="jc-tag">D2C</span><span class="jc-tag">Reels</span></div>
+        </div>
+
+        <div class="jc" style="border-top-color:var(--b)">
+          <div class="jc-dot" style="border-color:var(--b)"></div>
+          <div class="jc-badge">2024 · Media</div>
+          <div class="jc-role">Social Media & Brand Associate Intern</div>
+          <div class="jc-org" style="color:var(--b)">International Business Times UK · London</div>
+          <div class="jc-dt">Jun – Sep 2024</div>
+          <div class="jc-desc">63% ↑ TikTok views across 3 handles. "Money Minds" podcast host & producer. 15 C-suite interviews at Reset Connect 2024. 28% QoQ follower growth.</div>
+          <div class="jc-tags"><span class="jc-tag">TikTok</span><span class="jc-tag">Podcast</span><span class="jc-tag">Content</span><span class="jc-tag">Media</span></div>
+        </div>
+
+        <div class="jc" style="border-top-color:var(--c)">
+          <div class="jc-dot" style="border-color:var(--c)"></div>
+          <div class="jc-badge">2024–2026 · Finance</div>
+          <div class="jc-role">Marketing Executive</div>
+          <div class="jc-org" style="color:var(--c)">Union Business Finance Ltd · Hemel Hempstead</div>
+          <div class="jc-dt">Sep 2024 – May 2026</div>
+          <div class="jc-desc">Solo B2B marketing function. 45% ↑ social engagement. 320% brand awareness via Google & Meta. 27+ qualified leads/day. 28% email open rate vs 17% UK avg.</div>
+          <div class="jc-tags"><span class="jc-tag">B2B</span><span class="jc-tag">HubSpot</span><span class="jc-tag">Meta Ads</span><span class="jc-tag">Google Ads</span><span class="jc-tag">SEO</span></div>
+        </div>
+
+      </div>
+    </div>
+    <div class="jrny-progress"><div id="jrny-prog"></div></div>
   </div>
 </section>
 
@@ -527,80 +687,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--s);color:var(--t);overflo
   </div>
 </section>
 
-<!-- MY JOURNEY BUTTON -->
-<button id="journey-btn" onclick="openJourney()">📁 My Journey</button>
-
-<!-- OVERLAY -->
-<div id="journey-overlay" onclick="closeJourney()"></div>
-
-<!-- MY JOURNEY PANEL -->
-<div id="journey-panel" role="dialog" aria-label="My Journey — Career Timeline">
-  <div class="jp-bar">
-    <div class="jp-bar-title">📁 career_history.log — My Journey</div>
-    <button class="jp-bar-close" onclick="closeJourney()" aria-label="Close panel">✕</button>
-  </div>
-  <div class="jp-body">
-    <div class="jp-intro">CAREER TIMELINE — WHERE I'VE BEEN</div>
-
-    <div class="jp-entry" style="border-color:var(--c)">
-      <div class="jp-role">Marketing Executive</div>
-      <div class="jp-org" style="color:var(--c)">Union Business Finance Ltd · Hemel Hempstead, UK</div>
-      <div class="jp-dt">Sep 2024 – May 2026</div>
-      <div class="jp-desc">Solo B2B marketing function. 45% ↑ social engagement. 320% brand awareness via Google &amp; Meta. 27+ qualified leads/day. 28% email open rate (vs 17% UK avg). HubSpot + Zoho CRM. 8 business plans/month.</div>
-      <div class="jp-tags"><span class="jp-tag">B2B</span><span class="jp-tag">HubSpot</span><span class="jp-tag">Meta Ads</span><span class="jp-tag">Google Ads</span><span class="jp-tag">SEO</span></div>
-    </div>
-
-    <div class="jp-entry" style="border-color:var(--b)">
-      <div class="jp-role">Social Media &amp; Brand Associate Intern</div>
-      <div class="jp-org" style="color:var(--b)">International Business Times UK · London</div>
-      <div class="jp-dt">Jun – Sep 2024</div>
-      <div class="jp-desc">63% ↑ TikTok views across 3 handles. "Money Minds" podcast host &amp; producer. 15 C-suite interviews at Reset Connect 2024. 28% QoQ follower growth.</div>
-      <div class="jp-tags"><span class="jp-tag">TikTok</span><span class="jp-tag">Podcast</span><span class="jp-tag">Content</span><span class="jp-tag">Media</span></div>
-    </div>
-
-    <div class="jp-entry" style="border-color:var(--bl)">
-      <div class="jp-role">Digital Marketing Intern</div>
-      <div class="jp-org" style="color:#9e4f87">The Earthy · London</div>
-      <div class="jp-dt">Mar – Apr 2024</div>
-      <div class="jp-desc">Reach 480→1,800 (+1.3k). Reels hitting 2,500+. GA4 &amp; Instagram analytics reports for D2C product launch strategy.</div>
-      <div class="jp-tags"><span class="jp-tag">Instagram</span><span class="jp-tag">GA4</span><span class="jp-tag">D2C</span></div>
-    </div>
-
-    <div class="jp-entry" style="border-color:var(--s)">
-      <div class="jp-role">Digital Marketer &amp; Compliance Manager</div>
-      <div class="jp-org" style="color:var(--s)">Britain Energy · London</div>
-      <div class="jp-dt">Sep 2023 – Sep 2024</div>
-      <div class="jp-desc">156K viewers in 30 days via geo-targeted Meta &amp; Google Ads. 150 organic leads/month. 71% ↓ funder inquiries. Trained &amp; mentored team of 7.</div>
-      <div class="jp-tags"><span class="jp-tag">Paid Ads</span><span class="jp-tag">Compliance</span><span class="jp-tag">Lead Gen</span><span class="jp-tag">Team Lead</span></div>
-    </div>
-
-    <div class="jp-entry" style="border-color:var(--p)">
-      <div class="jp-role">Associate Analyst</div>
-      <div class="jp-org" style="color:var(--p)">Deloitte Consulting USI · Bangalore, India</div>
-      <div class="jp-dt">Aug 2022 – Aug 2023</div>
-      <div class="jp-desc">Finxact Configuration Engineer on digital banking transformation. Advanced Java &amp; MongoDB in insurance sector. 2+ high-priority Azure/Jira tickets daily. Tech-minded analyst at scale.</div>
-      <div class="jp-tags"><span class="jp-tag">Java</span><span class="jp-tag">MongoDB</span><span class="jp-tag">Azure</span><span class="jp-tag">Consulting</span></div>
-    </div>
-
-    <div class="jp-entry" style="border-color:var(--li)">
-      <div class="jp-role">Business Development Intern</div>
-      <div class="jp-org" style="color:var(--li)">Gamenation · Chennai, India</div>
-      <div class="jp-dt">May – Aug 2022</div>
-      <div class="jp-desc">40% audience engagement growth via social media calendar. Designed WhatsApp chatbot. Marketing team support.</div>
-      <div class="jp-tags"><span class="jp-tag">Social</span><span class="jp-tag">Chatbot</span><span class="jp-tag">BD</span></div>
-    </div>
-
-  </div>
-</div>
 
 <script>
 const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('vis')})},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 const skObs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){setTimeout(()=>{document.querySelectorAll('.sk-fi').forEach(b=>b.style.width=b.dataset.w+'%')},200);skObs.unobserve(el.target)}})},{threshold:.2});
 document.querySelectorAll('#sk-sec').forEach(el=>skObs.observe(el));
-function openJourney(){document.getElementById('journey-panel').classList.add('open');document.getElementById('journey-overlay').classList.add('open');document.body.style.overflow='hidden'}
-function closeJourney(){document.getElementById('journey-panel').classList.remove('open');document.getElementById('journey-overlay').classList.remove('open');document.body.style.overflow=''}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeJourney()})
 
 function igLike(e) {
   const el = document.querySelector('[ondblclick="igLike(event)"][style*="flex:1"]')
@@ -664,6 +756,32 @@ function igLike(e) {
         '</div>';
     }
   }, 1000);
+})();
+
+/* ── HORIZONTAL JOURNEY SCROLL ── */
+(function(){
+  var wrap=document.getElementById('journey-track-wrap');
+  var prog=document.getElementById('jrny-prog');
+  if(!wrap) return;
+
+  wrap.addEventListener('scroll',function(){
+    var max=wrap.scrollWidth-wrap.clientWidth;
+    if(max<=0||!prog) return;
+    prog.style.width=(wrap.scrollLeft/max*100)+'%';
+  },{passive:true});
+
+  var isDragging=false,startX=0,startScroll=0;
+  wrap.addEventListener('mousedown',function(e){
+    isDragging=true; startX=e.clientX; startScroll=wrap.scrollLeft;
+    wrap.classList.add('dragging'); e.preventDefault();
+  });
+  window.addEventListener('mousemove',function(e){
+    if(!isDragging) return;
+    wrap.scrollLeft=startScroll-(e.clientX-startX);
+  });
+  window.addEventListener('mouseup',function(){
+    isDragging=false; wrap.classList.remove('dragging');
+  });
 })();
 
 /* ── SCROLL POSITION RESTORE ── */
