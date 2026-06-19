@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paid Media & Performance Advertising</title>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --sage:#a8c6a6;--coral:#c36ba2;--blush:#e8c8e0;
+  --blue:#92A8D1;--purple:#7a5e8c;--dark:#2a1f3d;
+  --white:#FFFDF9;--card:rgba(255,253,249,0.93);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:var(--sage);
+  font-family:'DM Sans',sans-serif;
+  color:var(--dark);min-height:100vh;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(circle at 10% 20%,rgba(107,91,149,.18) 0%,transparent 45%),
+    radial-gradient(circle at 90% 75%,rgba(255,111,97,.15) 0%,transparent 45%),
+    radial-gradient(circle at 60% 40%,rgba(146,168,209,.12) 0%,transparent 38%);
+  pointer-events:none;z-index:0;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+
+/* HEADER */
+.header{text-align:center;padding:64px 24px 44px;position:relative;z-index:1;}
+.badge{
+  display:inline-block;background:var(--dark);color:var(--blush);
+  font-family:'Righteous',cursive;font-size:.72rem;letter-spacing:.16em;
+  text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:22px;
+}
+.header h1{
+  font-family:'Righteous',cursive;
+  font-size:clamp(2.2rem,5.5vw,3.8rem);
+  color:var(--white);text-shadow:3px 3px 0 var(--dark);
+  line-height:1.08;margin-bottom:14px;
+}
+.header .sub{
+  font-size:1.05rem;font-weight:700;color:var(--dark);
+  letter-spacing:.03em;margin-bottom:28px;
+}
+.intro-box{
+  max-width:740px;margin:0 auto;
+  background:var(--card);border-radius:18px;
+  padding:26px 32px;font-size:.97rem;line-height:1.75;
+  border-left:4px solid var(--coral);
+  box-shadow:0 6px 28px rgba(42,31,61,.13);text-align:left;
+}
+
+/* SECTIONS */
+.section{padding:52px 0;position:relative;z-index:1;}
+.sec-head{margin-bottom:32px;}
+.sec-head h2{
+  font-family:'Righteous',cursive;font-size:1.85rem;
+  color:var(--white);text-shadow:2px 2px 0 var(--dark);margin-bottom:6px;
+}
+.sec-head p{font-size:.93rem;color:var(--dark);font-weight:500;max-width:680px;line-height:1.6;}
+
+/* HERO STATS */
+.hero-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+.hero-card{
+  background:var(--card);border-radius:20px;
+  padding:30px 24px;text-align:center;
+  box-shadow:0 6px 24px rgba(42,31,61,.12);
+  border-top:5px solid var(--coral);transition:transform .2s;
+}
+.hero-card:hover{transform:translateY(-5px);}
+.hero-card:nth-child(2){border-top-color:var(--purple);}
+.hero-card:nth-child(3){border-top-color:var(--blue);}
+.hero-card:nth-child(4){border-top-color:var(--sage);}
+.hero-num{
+  font-family:'Righteous',cursive;font-size:2.8rem;
+  color:var(--coral);line-height:1;margin-bottom:10px;
+}
+.hero-card:nth-child(2) .hero-num{color:var(--purple);}
+.hero-card:nth-child(3) .hero-num{color:var(--blue);}
+.hero-card:nth-child(4) .hero-num{color:var(--sage);}
+.hero-label{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.hero-desc{font-size:.8rem;color:#666;}
+
+/* PLATFORM PROOF SECTIONS */
+.platform-section{
+  background:var(--card);border-radius:24px;
+  padding:36px 36px;margin-bottom:32px;
+  box-shadow:0 8px 32px rgba(42,31,61,.13);
+}
+.platform-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:36px;align-items:start;
+}
+@media(max-width:800px){.platform-inner{grid-template-columns:1fr;}}
+
+/* PLATFORM BADGE */
+.platform-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Righteous',cursive;font-size:.75rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 14px;border-radius:50px;margin-bottom:14px;
+  color:#fff;
+}
+.tag-tiktok{background:#010101;}
+.tag-meta{background:linear-gradient(135deg,#0064e0,#0082fb);}
+.tag-google{background:linear-gradient(135deg,#4285F4,#34A853);}
+
+/* INSTAGRAM POST MOCKUP */
+.ig-post{
+  background:#fff;border-radius:14px;
+  border:1px solid #dbdbdb;
+  max-width:100%;font-size:13px;
+  box-shadow:0 4px 20px rgba(0,0,0,.1);
+  overflow:hidden;
+}
+.ig-header{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-bottom:1px solid #f0f0f0;
+}
+.ig-avatar{
+  width:34px;height:34px;border-radius:50%;
+  background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:14px;font-weight:700;
+}
+.ig-userinfo{flex:1;}
+.ig-username{font-weight:700;font-size:.8rem;color:#111;line-height:1.2;}
+.ig-sponsored{font-size:.72rem;color:#8e8e8e;margin-top:1px;}
+.ig-more{color:#111;font-size:1.1rem;letter-spacing:.06em;}
+.ig-img{
+  width:100%;display:block;
+  object-fit:cover;max-height:420px;
+  background:#f5f5f5;
+}
+.ig-actions{
+  display:flex;align-items:center;
+  padding:10px 12px 6px;gap:14px;
+}
+.ig-actions svg{width:22px;height:22px;stroke:#111;fill:none;stroke-width:2;}
+.ig-save{margin-left:auto;}
+.ig-likes{
+  padding:0 12px 4px;font-size:.8rem;font-weight:700;color:#111;
+}
+.ig-caption{
+  padding:2px 12px 14px;font-size:.8rem;
+  line-height:1.45;color:#333;
+}
+.ig-caption b{color:#111;}
+
+/* STATS PANEL (right of IG post) */
+.stats-panel h3{
+  font-family:'Righteous',cursive;font-size:1.5rem;
+  color:var(--dark);margin-bottom:6px;
+}
+.stats-panel .platform-intro{
+  font-size:.92rem;line-height:1.65;color:#555;margin-bottom:22px;
+}
+.stat-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;}
+.chip{
+  border-radius:50px;padding:8px 16px;font-size:.82rem;font-weight:700;
+  display:flex;align-items:center;gap:6px;
+}
+.chip-spend{background:var(--dark);color:var(--white);}
+.chip-result{background:var(--blush);color:var(--dark);}
+.chip-format{background:var(--sage);color:var(--dark);}
+
+.metric-row{display:flex;flex-direction:column;gap:12px;}
+.metric-item{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(42,31,61,.04);
+  border-radius:12px;padding:14px 16px;
+}
+.metric-icon{
+  font-size:1.5rem;width:42px;height:42px;
+  border-radius:12px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.metric-val{font-family:'Righteous',cursive;font-size:1.4rem;color:var(--dark);line-height:1;}
+.metric-lbl{font-size:.78rem;color:#777;margin-top:3px;}
+
+/* GOOGLE SECTION */
+.google-section{
+  background:var(--card);border-radius:24px;
+  padding:36px;margin-bottom:32px;
+  box-shadow:0 8px 32px rgba(42,31,61,.13);
+}
+.google-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:32px;align-items:start;
+}
+@media(max-width:800px){.google-inner{grid-template-columns:1fr;}}
+
+/* GOOGLE BROWSER MOCKUP */
+.browser-mock{
+  background:#f5f5f5;border-radius:14px;
+  overflow:hidden;border:1px solid #e0e0e0;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+.browser-bar{
+  background:#fff;padding:10px 14px;
+  display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid #e8e8e8;
+}
+.b-dots{display:flex;gap:5px;}
+.b-dot{width:10px;height:10px;border-radius:50%;}
+.b-dot:nth-child(1){background:#ff5f57;}
+.b-dot:nth-child(2){background:#ffbd2e;}
+.b-dot:nth-child(3){background:#28ca41;}
+.b-url{
+  flex:1;background:#f0f0f0;border-radius:6px;
+  padding:5px 12px;font-size:.75rem;color:#666;
+  font-family:monospace;
+}
+.browser-body{padding:20px;}
+.g-header-row{
+  display:flex;align-items:center;gap:10px;margin-bottom:16px;
+}
+.g-logo{
+  font-size:1.1rem;font-weight:700;
+  background:linear-gradient(90deg,#4285F4,#EA4335,#FBBC04,#34A853);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.g-label{font-size:.78rem;color:#666;background:#f0f0f0;padding:3px 8px;border-radius:4px;}
+.g-kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.g-kpi{
+  background:#fff;border-radius:10px;
+  padding:14px 12px;border:1px solid #e8e8e8;text-align:center;
+}
+.g-kpi-val{font-family:'Righteous',cursive;font-size:1.3rem;color:var(--purple);line-height:1;}
+.g-kpi-lbl{font-size:.72rem;color:#888;margin-top:3px;}
+.g-bar{margin-top:12px;}
+.g-bar-lbl{font-size:.75rem;color:#666;display:flex;justify-content:space-between;margin-bottom:4px;}
+.g-bar-track{height:8px;background:#e8e8e8;border-radius:4px;overflow:hidden;}
+.g-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#4285F4,#34A853);}
+.g-note{font-size:.72rem;color:#888;margin-top:6px;font-style:italic;}
+
+/* AD TYPES */
+.adtype-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;}
+.adtype-card{
+  background:var(--card);border-radius:18px;
+  padding:24px 18px;text-align:center;
+  box-shadow:0 4px 16px rgba(42,31,61,.1);
+  transition:transform .2s;border-top:4px solid var(--coral);
+}
+.adtype-card:hover{transform:translateY(-5px);}
+.adtype-card:nth-child(2){border-top-color:var(--purple);}
+.adtype-card:nth-child(3){border-top-color:var(--blue);}
+.adtype-card:nth-child(4){border-top-color:var(--sage);}
+.adtype-card:nth-child(5){border-top-color:#c8a08a;}
+.adtype-card:nth-child(6){border-top-color:var(--blush);}
+.adtype-icon{font-size:2rem;margin-bottom:10px;}
+.adtype-name{font-family:'Righteous',cursive;font-size:.9rem;color:var(--dark);margin-bottom:6px;}
+.adtype-desc{font-size:.77rem;color:#666;line-height:1.45;}
+
+/* CAMPAIGN TRACK RECORD */
+.track-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;}
+@media(max-width:768px){.track-grid{grid-template-columns:1fr;}}
+.chart-card{
+  background:var(--card);border-radius:20px;
+  padding:28px 24px;box-shadow:0 6px 24px rgba(42,31,61,.12);
+}
+.chart-title{font-family:'Righteous',cursive;font-size:1rem;color:var(--dark);margin-bottom:4px;}
+.chart-note{font-size:.78rem;color:#888;margin-bottom:0;}
+.chart-wrap{position:relative;height:240px;margin-top:16px;}
+.track-stats{display:flex;flex-direction:column;gap:14px;}
+.track-item{
+  background:var(--card);border-radius:16px;
+  padding:18px 20px;box-shadow:0 4px 16px rgba(42,31,61,.1);
+  display:flex;align-items:center;gap:14px;
+}
+.track-icon{font-size:1.6rem;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.track-val{font-family:'Righteous',cursive;font-size:1.5rem;color:var(--dark);line-height:1;}
+.track-lbl{font-size:.78rem;color:#777;margin-top:3px;}
+
+/* PLATFORMS LIST */
+.platforms-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;}
+.plt-badge{
+  display:flex;align-items:center;gap:8px;
+  background:var(--card);border-radius:50px;
+  padding:10px 18px;font-weight:700;font-size:.85rem;
+  box-shadow:0 3px 12px rgba(42,31,61,.1);
+}
+.plt-dot{width:10px;height:10px;border-radius:50%;}
+
+/* WINS */
+.wins-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
+.win-card{
+  background:var(--dark);border-radius:20px;padding:28px 24px;
+  color:var(--white);box-shadow:0 8px 28px rgba(42,31,61,.22);
+  position:relative;overflow:hidden;transition:transform .2s;
+}
+.win-card:hover{transform:translateY(-5px);}
+.win-blob{position:absolute;top:-24px;right:-24px;width:90px;height:90px;border-radius:50%;opacity:.12;}
+.win-card:nth-child(1) .win-blob{background:var(--coral);}
+.win-card:nth-child(2) .win-blob{background:var(--blue);}
+.win-card:nth-child(3) .win-blob{background:var(--purple);}
+.win-card:nth-child(4) .win-blob{background:var(--sage);}
+.win-ico{font-size:1.9rem;margin-bottom:12px;}
+.win-title{font-family:'Righteous',cursive;font-size:1rem;color:var(--blush);margin-bottom:8px;line-height:1.3;}
+.win-body{font-size:.86rem;line-height:1.65;color:rgba(255,253,249,.82);}
+
+/* FOOTER */
+.footer{text-align:center;padding:44px 24px 56px;position:relative;z-index:1;}
+.footer p{display:inline-block;background:var(--dark);color:rgba(255,253,249,.65);padding:13px 28px;border-radius:50px;font-size:.8rem;}
+
+/* DIVIDER */
+.divider{height:1px;background:rgba(42,31,61,.08);margin:0 0 32px;}
+
+/* BG SYMBOLS */
+.bg-symbols{
+  position:fixed;inset:0;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+.bg-sym{
+  position:absolute;
+  fill:var(--dark);
+  opacity:.045;
+}
+</style>
+</head>
+<body>
+<a href="v1.2.html" id="back-home-btn" style="position:fixed;top:20px;left:20px;z-index:9999;background:#2a1f3d;color:#FFFDF9;font-family:'Righteous',cursive;font-size:.8rem;font-weight:400;padding:10px 20px;border-radius:50px;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,.28);display:inline-flex;align-items:center;gap:8px;letter-spacing:.06em;transition:background .2s,transform .18s;" onmouseover="this.style.background='#c36ba2';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#2a1f3d';this.style.transform='translateY(0)'">&#8592; Home</a>
+
+<!-- ── BACKGROUND TEXTURE SYMBOLS ── -->
+<div class="bg-symbols" aria-hidden="true">
+
+  <!-- TikTok -->
+  <svg class="bg-sym" style="width:110px;top:4%;left:3%;transform:rotate(-12deg)" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.79 1.53V6.78a4.85 4.85 0 0 1-1.02-.09z"/></svg>
+
+  <!-- Google G -->
+  <svg class="bg-sym" style="width:130px;top:2%;right:8%;transform:rotate(8deg)" viewBox="0 0 24 24"><path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z"/></svg>
+
+  <!-- Meta infinity -->
+  <svg class="bg-sym" style="width:160px;top:12%;left:55%;transform:rotate(5deg)" viewBox="0 0 200 80"><path d="M30 40 C30 15 48 5 64 20 C76 32 86 55 100 55 C114 55 124 32 136 20 C152 5 170 15 170 40 C170 65 152 75 136 60 C124 48 114 25 100 25 C86 25 76 48 64 60 C48 75 30 65 30 40 Z" fill="var(--dark)"/></svg>
+
+  <!-- TikTok -->
+  <svg class="bg-sym" style="width:80px;top:28%;right:4%;transform:rotate(15deg)" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.79 1.53V6.78a4.85 4.85 0 0 1-1.02-.09z"/></svg>
+
+  <!-- Google G -->
+  <svg class="bg-sym" style="width:90px;top:38%;left:6%;transform:rotate(-8deg)" viewBox="0 0 24 24"><path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z"/></svg>
+
+  <!-- Meta infinity -->
+  <svg class="bg-sym" style="width:120px;top:45%;right:2%;transform:rotate(-10deg)" viewBox="0 0 200 80"><path d="M30 40 C30 15 48 5 64 20 C76 32 86 55 100 55 C114 55 124 32 136 20 C152 5 170 15 170 40 C170 65 152 75 136 60 C124 48 114 25 100 25 C86 25 76 48 64 60 C48 75 30 65 30 40 Z" fill="var(--dark)"/></svg>
+
+  <!-- TikTok -->
+  <svg class="bg-sym" style="width:140px;top:60%;left:2%;transform:rotate(6deg)" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.79 1.53V6.78a4.85 4.85 0 0 1-1.02-.09z"/></svg>
+
+  <!-- Google G -->
+  <svg class="bg-sym" style="width:150px;top:65%;right:5%;transform:rotate(-6deg)" viewBox="0 0 24 24"><path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z"/></svg>
+
+  <!-- Meta infinity -->
+  <svg class="bg-sym" style="width:100px;top:75%;left:48%;transform:rotate(14deg)" viewBox="0 0 200 80"><path d="M30 40 C30 15 48 5 64 20 C76 32 86 55 100 55 C114 55 124 32 136 20 C152 5 170 15 170 40 C170 65 152 75 136 60 C124 48 114 25 100 25 C86 25 76 48 64 60 C48 75 30 65 30 40 Z" fill="var(--dark)"/></svg>
+
+  <!-- TikTok -->
+  <svg class="bg-sym" style="width:70px;top:85%;right:12%;transform:rotate(-18deg)" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.79 1.53V6.78a4.85 4.85 0 0 1-1.02-.09z"/></svg>
+
+  <!-- Google G -->
+  <svg class="bg-sym" style="width:100px;top:90%;left:20%;transform:rotate(10deg)" viewBox="0 0 24 24"><path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z"/></svg>
+
+  <!-- Meta infinity -->
+  <svg class="bg-sym" style="width:180px;top:92%;left:65%;transform:rotate(-5deg)" viewBox="0 0 200 80"><path d="M30 40 C30 15 48 5 64 20 C76 32 86 55 100 55 C114 55 124 32 136 20 C152 5 170 15 170 40 C170 65 152 75 136 60 C124 48 114 25 100 25 C86 25 76 48 64 60 C48 75 30 65 30 40 Z" fill="var(--dark)"/></svg>
+
+</div>
+
+<!-- ── HEADER ── -->
+<div class="header">
+  <div class="badge">Paid Media &amp; Performance Advertising</div>
+  <h1>Paid Media &amp;<br>Ad Campaign Management</h1>
+  <p class="sub">TikTok Ads · Meta Ads · Google Performance Max · LinkedIn</p>
+  <div class="intro-box">
+    Across 1.9 years of running paid media, I independently managed end-to-end campaigns across TikTok, Meta, Google, and LinkedIn — covering lead generation, brand awareness, and event promotion. From boosting organic content to achieving millions of views, to running Performance Max campaigns within UK industry benchmarks, every campaign was planned, executed, and optimised in-house.
+  </div>
+</div>
+
+<!-- ── OVERALL IMPACT ── -->
+<div class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Overall Impact</h2>
+      <p>1.9 years of paid campaigns across all platforms — consistently growing lead volume quarter over quarter.</p>
+    </div>
+    <div class="hero-grid">
+      <div class="hero-card">
+        <div class="hero-num" data-prefix="£" data-target="1600">0</div>
+        <div class="hero-label">Monthly Ad Spend</div>
+        <div class="hero-desc">Across TikTok, Meta &amp; Google combined</div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-num" data-target="18">0</div>
+        <div class="hero-label">Campaigns Per Quarter</div>
+        <div class="hero-desc">Independently planned, launched &amp; optimised</div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-num" data-target="260">0</div>
+        <div class="hero-label">Peak Quarterly Leads</div>
+        <div class="hero-desc">Grown from 195 leads/quarter over 1.9 years</div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-num" data-target="2" data-suffix="M+">0</div>
+        <div class="hero-label">Views on £200 Spend</div>
+        <div class="hero-desc">Organic boosted content on TikTok</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PLATFORM PROOF ── -->
+<div class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Platform Performance</h2>
+      <p>Real results from paid campaigns — each section shows the proof from the platform alongside the numbers that matter.</p>
+    </div>
+
+    <!-- TIKTOK -->
+    <div class="platform-section">
+      <div class="platform-inner">
+
+        <!-- IG-style post mockup — TikTok -->
+        <div>
+          <div class="ig-post">
+            <div class="ig-header">
+              <div class="ig-avatar">▶</div>
+              <div class="ig-userinfo">
+                <div class="ig-username">uk_media_brand</div>
+                <div class="ig-sponsored">Boosted Content · TikTok</div>
+              </div>
+              <div class="ig-more">···</div>
+            </div>
+            <img class="ig-img" src="images/tiktok-proof.png" alt="TikTok pinned videos — 2.8M, 3.1M and 255K views">
+            <div class="ig-actions">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <div class="ig-save" style="margin-left:auto">
+                <svg viewBox="0 0 24 24"><polygon points="19 21 12 16 5 21 5 3 19 3 19 21"/></svg>
+              </div>
+            </div>
+            <div class="ig-likes">2.8M · 3.1M · 255K views — pinned top content</div>
+            <div class="ig-caption"><b>uk_media_brand</b> Organic video content boosted via TikTok Ads — reaching millions with a £200 monthly budget. Pinned posts driving sustained traffic and brand visibility. <span style="color:#00a1f1">#TikTokAds #ContentMarketing #PaidMedia</span></div>
+          </div>
+        </div>
+
+        <!-- Stats panel -->
+        <div class="stats-panel">
+          <div class="platform-tag tag-tiktok">📱 TikTok Ads</div>
+          <h3>UK Media Company</h3>
+          <p class="platform-intro">Boosted high-performing organic videos to amplify reach far beyond the existing audience. By identifying content that was already gaining traction and putting paid spend behind it, the campaign achieved over 2 million views on a tight £200/month budget — proving the power of strategic boosting over broad cold audiences.</p>
+
+          <div class="stat-chips">
+            <span class="chip chip-spend">£200 / month</span>
+            <span class="chip chip-result">2M+ views</span>
+            <span class="chip chip-format">Organic Boosted</span>
+            <span class="chip chip-format">Video Ads</span>
+          </div>
+
+          <div class="metric-row">
+            <div class="metric-item">
+              <div class="metric-icon" style="background:rgba(1,1,1,.06);">👁️</div>
+              <div>
+                <div class="metric-val">2M+</div>
+                <div class="metric-lbl">Total views achieved from £200 monthly spend</div>
+              </div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-icon" style="background:rgba(255,111,97,.1);">📌</div>
+              <div>
+                <div class="metric-val">3 pinned</div>
+                <div class="metric-lbl">Top performing boosted posts — 2.8M, 3.1M &amp; 255K views</div>
+              </div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-icon" style="background:rgba(136,176,75,.1);">💸</div>
+              <div>
+                <div class="metric-val">10,000x</div>
+                <div class="metric-lbl">Estimated view-to-spend ratio — exceptional organic amplification</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- META -->
+    <div class="platform-section">
+      <div class="platform-inner">
+
+        <!-- IG-style post mockup — Meta -->
+        <div style="order:2">
+          <div class="ig-post">
+            <div class="ig-header">
+              <div class="ig-avatar" style="background:linear-gradient(135deg,#0064e0,#0082fb);">f</div>
+              <div class="ig-userinfo">
+                <div class="ig-username">uk_energy_provider</div>
+                <div class="ig-sponsored">Sponsored · Meta Business Suite</div>
+              </div>
+              <div class="ig-more">···</div>
+            </div>
+            <img class="ig-img" src="images/What-is-Meta-Business-Suite-3.webp" alt="Meta Business Suite dashboard">
+            <div class="ig-actions">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <div class="ig-save" style="margin-left:auto">
+                <svg viewBox="0 0 24 24"><polygon points="19 21 12 16 5 21 5 3 19 3 19 21"/></svg>
+              </div>
+            </div>
+            <div class="ig-likes">6,000 accounts reached · 56 qualified leads</div>
+            <div class="ig-caption"><b>uk_energy_provider</b> Managed all paid campaigns via Meta Business Suite — running lead generation and brand awareness ads across Facebook &amp; Instagram to drive measurable business results. <span style="color:#0082fb">#MetaAds #LeadGeneration #FacebookAds</span></div>
+          </div>
+        </div>
+
+        <!-- Stats panel -->
+        <div class="stats-panel" style="order:1">
+          <div class="platform-tag tag-meta">📘 Meta Ads</div>
+          <h3>UK Energy Provider</h3>
+          <p class="platform-intro">Planned, designed, and managed Meta ad campaigns across Facebook and Instagram via Meta Business Suite — running lead generation forms, brand awareness placements, and event promotion ads. Each asset consistently reached 6,000+ accounts with highly qualified lead conversion at £400/month budget.</p>
+
+          <div class="stat-chips">
+            <span class="chip chip-spend">£400 / month</span>
+            <span class="chip chip-result">56 qualified leads</span>
+            <span class="chip chip-result">6,000 reach / asset</span>
+            <span class="chip chip-format">Facebook + Instagram</span>
+          </div>
+
+          <div class="metric-row">
+            <div class="metric-item">
+              <div class="metric-icon" style="background:rgba(0,100,224,.08);">🎯</div>
+              <div>
+                <div class="metric-val">56</div>
+                <div class="metric-lbl">Qualified leads generated per month</div>
+              </div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-icon" style="background:rgba(107,91,149,.1);">👥</div>
+              <div>
+                <div class="metric-val">70</div>
+                <div class="metric-lbl">New followers gained per month from paid activity</div>
+              </div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-icon" style="background:rgba(136,176,75,.1);">📡</div>
+              <div>
+                <div class="metric-val">6,000</div>
+                <div class="metric-lbl">Accounts reached per asset — consistent per campaign</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- GOOGLE -->
+    <div class="google-section">
+      <div class="platform-tag tag-google" style="margin-bottom:18px;">🔍 Google Ads — Performance Max</div>
+      <div class="google-inner">
+
+        <!-- Browser mockup -->
+        <div class="browser-mock">
+          <div class="browser-bar">
+            <div class="b-dots">
+              <span class="b-dot"></span><span class="b-dot"></span><span class="b-dot"></span>
+            </div>
+            <div class="b-url">ads.google.com/aw/campaigns</div>
+          </div>
+          <div class="browser-body">
+            <div class="g-header-row">
+              <span class="g-logo">Google Ads</span>
+              <span class="g-label">Performance Max</span>
+            </div>
+            <div class="g-kpi-grid">
+              <div class="g-kpi">
+                <div class="g-kpi-val">45</div>
+                <div class="g-kpi-lbl">Weekly Qualified Leads</div>
+              </div>
+              <div class="g-kpi">
+                <div class="g-kpi-val" style="color:var(--sage);">13%</div>
+                <div class="g-kpi-lbl">Below UK Benchmark CPR</div>
+              </div>
+              <div class="g-kpi">
+                <div class="g-kpi-val" style="color:var(--coral);">£1,000</div>
+                <div class="g-kpi-lbl">Monthly Budget</div>
+              </div>
+              <div class="g-kpi">
+                <div class="g-kpi-val" style="color:var(--blue);">UK 🇬🇧</div>
+                <div class="g-kpi-lbl">Geo Target</div>
+              </div>
+            </div>
+            <div class="g-bar">
+              <div class="g-bar-lbl"><span>Cost Per Result vs UK Industry Benchmark</span><span>13% below</span></div>
+              <div class="g-bar-track"><div class="g-bar-fill" style="width:87%;"></div></div>
+              <div class="g-note">Achieved CPR 13% below the UK industry benchmark — delivering more leads per pound spent</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text panel -->
+        <div class="stats-panel">
+          <h3>Google Performance Max</h3>
+          <p class="platform-intro" style="margin-bottom:22px;">Managed Google Performance Max campaigns targeting qualified leads within the UK. Performance Max uses Google's full inventory — Search, Display, YouTube, Gmail, Maps — with AI-driven optimisation. Achieved consistent weekly lead volume while maintaining a cost per result 13% within the UK industry benchmark, demonstrating efficient budget utilisation.</p>
+
+          <div class="stat-chips" style="margin-bottom:20px;">
+            <span class="chip chip-spend">£1,000 / month</span>
+            <span class="chip chip-result">45 weekly leads</span>
+            <span class="chip chip-result">13% below UK CPR</span>
+            <span class="chip chip-format">Performance Max</span>
+          </div>
+
+          <div class="metric-row">
+            <div class="metric-item">
+              <div class="metric-icon" style="background:rgba(66,133,244,.1);">📊</div>
+              <div>
+                <div class="metric-val">Pmax</div>
+                <div class="metric-lbl">Full Google inventory — Search, Display, YouTube, Gmail, Maps</div>
+              </div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-icon" style="background:rgba(52,168,83,.1);">🎯</div>
+              <div>
+                <div class="metric-val">UK Only</div>
+                <div class="metric-lbl">Geo-targeted campaigns ensuring high intent, relevant leads</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── AD TYPES & FORMATS ── -->
+<div class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Ad Types &amp; Formats</h2>
+      <p>A full range of ad objectives and creative formats managed across platforms — tailored to each campaign goal.</p>
+    </div>
+    <div class="adtype-grid">
+      <div class="adtype-card">
+        <div class="adtype-icon">🎯</div>
+        <div class="adtype-name">Lead Generation</div>
+        <div class="adtype-desc">Native lead forms on Meta &amp; Google capturing qualified prospect details directly within the platform</div>
+      </div>
+      <div class="adtype-card">
+        <div class="adtype-icon">📣</div>
+        <div class="adtype-name">Brand Awareness</div>
+        <div class="adtype-desc">Reach-optimised campaigns on TikTok &amp; Meta to maximise brand visibility to cold audiences</div>
+      </div>
+      <div class="adtype-card">
+        <div class="adtype-icon">📅</div>
+        <div class="adtype-name">Event Promotions</div>
+        <div class="adtype-desc">Time-sensitive campaigns promoting events with retargeting and audience-layered targeting</div>
+      </div>
+      <div class="adtype-card">
+        <div class="adtype-icon">🎬</div>
+        <div class="adtype-name">Video Ads</div>
+        <div class="adtype-desc">Short-form video content boosted on TikTok; in-feed and story video placements on Meta</div>
+      </div>
+      <div class="adtype-card">
+        <div class="adtype-icon">🖼️</div>
+        <div class="adtype-name">Static Image Ads</div>
+        <div class="adtype-desc">Single image placements across Facebook, Instagram feed and Google Display Network</div>
+      </div>
+      <div class="adtype-card">
+        <div class="adtype-icon">🔁</div>
+        <div class="adtype-name">Carousel &amp; Stories</div>
+        <div class="adtype-desc">Multi-frame carousel ads and full-screen story placements used for product and offer showcasing</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CAMPAIGN TRACK RECORD ── -->
+<div class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Campaign Track Record</h2>
+      <p>1.9 years of consistent paid media delivery — growing lead volume quarter over quarter across all platforms.</p>
+    </div>
+    <div class="track-grid">
+      <div class="chart-card">
+        <div class="chart-title">Qualified Leads Per Quarter</div>
+        <div class="chart-note">Growth trajectory over 1.9 years of active campaign management</div>
+        <div class="chart-wrap"><canvas id="leadsChart"></canvas></div>
+      </div>
+      <div class="track-stats">
+        <div class="track-item">
+          <div class="track-icon" style="background:rgba(255,111,97,.1);">📈</div>
+          <div>
+            <div class="track-val">195 → 260</div>
+            <div class="track-lbl">Leads per quarter — starting average to peak</div>
+          </div>
+        </div>
+        <div class="track-item">
+          <div class="track-icon" style="background:rgba(107,91,149,.1);">📆</div>
+          <div>
+            <div class="track-val">18 / quarter</div>
+            <div class="track-lbl">Paid campaigns run each quarter across all platforms</div>
+          </div>
+        </div>
+        <div class="track-item">
+          <div class="track-icon" style="background:rgba(136,176,75,.1);">⏱️</div>
+          <div>
+            <div class="track-val">1.9 years</div>
+            <div class="track-lbl">Continuous paid media management — ~136 campaigns total</div>
+          </div>
+        </div>
+        <div class="track-item">
+          <div class="track-icon" style="background:rgba(146,168,209,.15);">🌐</div>
+          <div>
+            <div class="track-val">4 platforms</div>
+            <div class="track-lbl">Meta · TikTok · Google · LinkedIn</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Platforms row -->
+    <div style="margin-top:32px;">
+      <p style="font-family:'Righteous',cursive;color:var(--white);font-size:1rem;text-shadow:1px 1px 0 var(--dark);margin-bottom:14px;">Platforms Managed</p>
+      <div class="platforms-row">
+        <div class="plt-badge"><span class="plt-dot" style="background:#010101;"></span>TikTok Ads</div>
+        <div class="plt-badge"><span class="plt-dot" style="background:#0082fb;"></span>Meta Ads (Facebook + Instagram)</div>
+        <div class="plt-badge"><span class="plt-dot" style="background:#4285F4;"></span>Google Performance Max</div>
+        <div class="plt-badge"><span class="plt-dot" style="background:#0A66C2;"></span>LinkedIn Ads</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── KEY WINS ── -->
+<div class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Key Wins</h2>
+      <p>The standout outcomes from 1.9 years of paid media across multiple platforms and industries.</p>
+    </div>
+    <div class="wins-grid">
+      <div class="win-card">
+        <div class="win-blob"></div>
+        <div class="win-ico">🚀</div>
+        <div class="win-title">2M+ Views on a £200 Budget</div>
+        <div class="win-body">Turned organic TikTok content into a paid amplification engine — achieving over 2 million views monthly by strategically boosting already-performing posts for a UK media brand.</div>
+      </div>
+      <div class="win-card">
+        <div class="win-blob"></div>
+        <div class="win-ico">🎯</div>
+        <div class="win-title">56 Qualified Leads from Meta at £400/mo</div>
+        <div class="win-body">Delivered consistent, qualified lead volume for a UK energy provider through targeted Meta lead generation campaigns — plus 70 new followers and 6,000 accounts reached per asset.</div>
+      </div>
+      <div class="win-card">
+        <div class="win-blob"></div>
+        <div class="win-ico">📉</div>
+        <div class="win-title">Cost Per Result 13% Below UK Benchmark</div>
+        <div class="win-body">Google Performance Max campaigns delivered 45 qualified leads weekly while maintaining a CPR 13% below the UK industry benchmark — proving efficient budget management under real market conditions.</div>
+      </div>
+      <div class="win-card">
+        <div class="win-blob"></div>
+        <div class="win-ico">📊</div>
+        <div class="win-title">33% Lead Growth Over 1.9 Years</div>
+        <div class="win-body">Grew quarterly lead volume from 195 to 260 — a 33% increase — through continuous campaign optimisation, A/B testing creatives, and refining audience targeting across all platforms.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>All campaign data reflects real performance results. Client details anonymised for portfolio purposes.</p>
+</div>
+
+<script>
+/* COUNT-UP */
+function countUp(el){
+  const target=parseFloat(el.dataset.target);
+  const prefix=el.dataset.prefix||'';
+  const suffix=el.dataset.suffix||'';
+  const dur=1800;const start=performance.now();
+  function tick(now){
+    const p=Math.min((now-start)/dur,1);
+    const ease=1-Math.pow(1-p,4);
+    const v=Math.floor(ease*target);
+    el.textContent=prefix+(target>=1000?v.toLocaleString():v)+suffix;
+    if(p<1)requestAnimationFrame(tick);
+    else el.textContent=prefix+target.toLocaleString()+suffix;
+  }
+  requestAnimationFrame(tick);
+}
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){countUp(e.target);obs.unobserve(e.target);}});
+},{threshold:.3});
+document.querySelectorAll('[data-target]').forEach(el=>obs.observe(el));
+
+/* CHART DEFAULTS */
+Chart.defaults.font.family='DM Sans';
+Chart.defaults.color='#2a1f3d';
+const C={coral:'#c36ba2',purple:'#7a5e8c',blue:'#92A8D1',sage:'#a8c6a6',dark:'#2a1f3d'};
+
+/* LEADS GROWTH CHART */
+new Chart(document.getElementById('leadsChart'),{
+  type:'line',
+  data:{
+    labels:['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8'],
+    datasets:[{
+      label:'Qualified Leads',
+      data:[195,203,212,222,234,245,252,260],
+      borderColor:C.coral,
+      backgroundColor:'rgba(255,111,97,.12)',
+      fill:true,
+      tension:.4,
+      pointBackgroundColor:C.coral,
+      pointRadius:5,
+      pointHoverRadius:7,
+      borderWidth:2.5,
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{
+        callbacks:{
+          title:ctx=>'Quarter '+ctx[0].label.replace('Q',''),
+          label:ctx=>`${ctx.raw} qualified leads`
+        }
+      }
+    },
+    scales:{
+      x:{grid:{display:false},title:{display:true,text:'Quarter (over 1.9 years)'}},
+      y:{
+        beginAtZero:false,min:175,
+        grid:{color:'rgba(0,0,0,.05)'},
+        title:{display:true,text:'Leads'},
+        ticks:{stepSize:20}
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

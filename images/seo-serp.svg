@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <!-- Corner dark vignette so stat pills show up on the white bg -->
+    <radialGradient id="vTL" cx="0%" cy="0%" r="55%">
+      <stop offset="0%" stop-color="#2a1f3d" stop-opacity=".42"/>
+      <stop offset="100%" stop-color="#2a1f3d" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vTR" cx="100%" cy="0%" r="55%">
+      <stop offset="0%" stop-color="#2a1f3d" stop-opacity=".42"/>
+      <stop offset="100%" stop-color="#2a1f3d" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vBL" cx="0%" cy="100%" r="55%">
+      <stop offset="0%" stop-color="#2a1f3d" stop-opacity=".42"/>
+      <stop offset="100%" stop-color="#2a1f3d" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vBR" cx="100%" cy="100%" r="55%">
+      <stop offset="0%" stop-color="#2a1f3d" stop-opacity=".42"/>
+      <stop offset="100%" stop-color="#2a1f3d" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Page background -->
+  <rect width="400" height="400" fill="#fff"/>
+
+  <!-- Browser chrome bar -->
+  <rect width="400" height="28" fill="#e0e0e0"/>
+  <circle cx="14" cy="14" r="5" fill="#f87171"/>
+  <circle cx="27" cy="14" r="5" fill="#fbbf24"/>
+  <circle cx="40" cy="14" r="5" fill="#4ade80"/>
+  <rect x="55" y="6" width="288" height="16" rx="8" fill="#fff" opacity=".75"/>
+  <text x="66" y="18" font-family="Arial,Helvetica,sans-serif" font-size="8.2" fill="#555">google.com/search?q=can+my+dog+understand+me</text>
+
+  <!-- Google logo -->
+  <text x="20" y="60" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="bold">
+    <tspan fill="#4285F4">G</tspan><tspan fill="#EA4335">o</tspan><tspan fill="#FBBC05">o</tspan><tspan fill="#4285F4">g</tspan><tspan fill="#34A853">l</tspan><tspan fill="#EA4335">e</tspan>
+  </text>
+
+  <!-- Search box -->
+  <rect x="18" y="67" width="364" height="34" rx="17" fill="#fff" stroke="#dfe1e5" stroke-width="1.5"/>
+  <text x="38" y="89" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#202124">can my dog understand me</text>
+  <!-- mic icon area -->
+  <circle cx="351" cy="84" r="7.5" fill="none" stroke="#9aa0a6" stroke-width="1.8"/>
+  <line x1="356" y1="89" x2="361" y2="95" stroke="#9aa0a6" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Search tabs -->
+  <text x="18" y="116" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#1a73e8" font-weight="600">All</text>
+  <line x1="18" y1="119" x2="34" y2="119" stroke="#1a73e8" stroke-width="2.5"/>
+  <text x="44" y="116" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#70757a">Images</text>
+  <text x="93" y="116" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#70757a">Videos</text>
+  <text x="143" y="116" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#70757a">News</text>
+  <line x1="0" y1="122" x2="400" y2="122" stroke="#e0e0e0" stroke-width="1"/>
+
+  <!-- Results count -->
+  <text x="18" y="137" font-family="Arial,Helvetica,sans-serif" font-size="10.5" fill="#70757a">About 1,240,000,000 results (0.38 seconds)</text>
+
+  <!-- ── Result 1 ── -->
+  <circle cx="28" cy="156" r="8" fill="#34A853"/>
+  <text x="28" y="160" font-family="Arial,Helvetica,sans-serif" font-size="8.5" fill="#fff" text-anchor="middle" font-weight="bold">A</text>
+  <text x="42" y="154" font-family="Arial,Helvetica,sans-serif" font-size="11.5" fill="#202124">akc.org › expert-advice › lifestyle</text>
+  <text x="42" y="166" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#0d652d">https://www.akc.org › can-dogs-understand-you</text>
+  <text x="18" y="182" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#1a0dab">Can Dogs Understand Human Language? - AKC</text>
+  <line x1="18" y1="184" x2="228" y2="184" stroke="#1a0dab" stroke-width="0.7"/>
+  <text x="18" y="197" font-family="Arial,Helvetica,sans-serif" font-size="11" fill="#4d5156">Research shows dogs can understand words and tone,</text>
+  <text x="18" y="210" font-family="Arial,Helvetica,sans-serif" font-size="11" fill="#4d5156">processing meaning &amp; emotion much like humans do.</text>
+
+  <!-- ── Result 2 ── -->
+  <line x1="18" y1="220" x2="382" y2="220" stroke="#f1f3f4" stroke-width="1"/>
+  <rect x="21" y="229" width="14" height="14" rx="2" fill="#EA4335"/>
+  <text x="28" y="240" font-family="Arial,Helvetica,sans-serif" font-size="8.5" fill="#fff" text-anchor="middle" font-weight="bold">N</text>
+  <text x="42" y="237" font-family="Arial,Helvetica,sans-serif" font-size="11.5" fill="#202124">nationalgeographic.com › animals › dogs</text>
+  <text x="42" y="249" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#0d652d">https://www.nationalgeographic.com › dogs-understand</text>
+  <text x="18" y="265" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#1a0dab">Yes, Your Dog Really Does Understand You</text>
+  <line x1="18" y1="267" x2="216" y2="267" stroke="#1a0dab" stroke-width="0.7"/>
+  <text x="18" y="280" font-family="Arial,Helvetica,sans-serif" font-size="11" fill="#4d5156">Studies show dogs process words and intonation</text>
+  <text x="18" y="293" font-family="Arial,Helvetica,sans-serif" font-size="11" fill="#4d5156">separately — they understand both what and how ...</text>
+
+  <!-- ── Result 3 ── -->
+  <line x1="18" y1="303" x2="382" y2="303" stroke="#f1f3f4" stroke-width="1"/>
+  <circle cx="28" cy="322" r="8" fill="#4285F4"/>
+  <text x="28" y="326" font-family="Arial,Helvetica,sans-serif" font-size="8.5" fill="#fff" text-anchor="middle" font-weight="bold">S</text>
+  <text x="42" y="320" font-family="Arial,Helvetica,sans-serif" font-size="11.5" fill="#202124">scientificamerican.com › article</text>
+  <text x="42" y="332" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#0d652d">https://www.scientificamerican.com › dog-speech</text>
+  <text x="18" y="348" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#1a0dab">How Well Do Dogs Understand Human Speech?</text>
+  <line x1="18" y1="350" x2="232" y2="350" stroke="#1a0dab" stroke-width="0.7"/>
+  <text x="18" y="363" font-family="Arial,Helvetica,sans-serif" font-size="11" fill="#4d5156">Dogs focus on familiar words and emotional tone —</text>
+  <text x="18" y="376" font-family="Arial,Helvetica,sans-serif" font-size="11" fill="#4d5156">new research reveals how they really listen to us ...</text>
+
+  <!-- Corner vignettes so white pills pop -->
+  <rect width="400" height="400" fill="url(#vTL)"/>
+  <rect width="400" height="400" fill="url(#vTR)"/>
+  <rect width="400" height="400" fill="url(#vBL)"/>
+  <rect width="400" height="400" fill="url(#vBR)"/>
+</svg>

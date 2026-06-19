@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><link rel="icon" type="image/svg+xml" href="favicon.svg"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Indian Wedding Trends on Instagram — Analytics Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--c:#c36ba2;--p:#7a5e8c;--s:#a8c6a6;--bl:#e8c8e0;--b:#92A8D1;--w:#FFFDF9;--t:#3A3040;--m:#5A4A5A;--li:#b8a8c4}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--s);color:var(--t);overflow-x:hidden}
+
+#back-btn{position:fixed;top:16px;left:16px;z-index:9999;background:var(--t);color:var(--w);font-family:'Righteous',sans-serif;font-size:.78rem;padding:.55rem 1.2rem;border-radius:50px;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,.28);display:inline-flex;align-items:center;gap:.5rem;letter-spacing:.06em;transition:background .2s,transform .18s}
+#back-btn:hover{background:var(--c);transform:translateY(-2px)}
+
+.retro-div{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--p) 25%,var(--c) 50%,var(--p) 75%,transparent);opacity:.35;margin:6px 0}
+
+#hero{min-height:52vh;display:flex;flex-direction:column;justify-content:center;padding:5rem 3rem 3rem;background:var(--s);position:relative;overflow:hidden}
+.hero-bg-word{position:absolute;right:-2vw;top:50%;transform:translateY(-50%);font-family:'Righteous',sans-serif;font-size:20vw;color:rgba(0,0,0,.05);pointer-events:none;line-height:1;letter-spacing:-.05em}
+.hero-folder-lbl{display:inline-flex;align-items:center;gap:.5rem;background:var(--t);color:var(--c);font-family:'Righteous',sans-serif;font-size:.72rem;letter-spacing:.12em;padding:.3rem .8rem;border-radius:4px 4px 0 0;margin-bottom:0;position:relative;z-index:1}
+.hero-box{background:rgba(255,255,255,.12);border:3px solid rgba(255,255,255,.3);border-top:none;padding:2rem 2.5rem 2.5rem;position:relative;z-index:1;max-width:880px}
+.hero-title{font-family:'Righteous',sans-serif;font-size:clamp(2rem,6vw,4.2rem);color:#fff;line-height:1.05;letter-spacing:.02em}
+.hero-title .hl{color:var(--c)}
+.hero-subtitle{font-family:'Righteous',sans-serif;font-size:.82rem;letter-spacing:.16em;color:#fff;margin-top:.85rem;text-transform:uppercase;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.hero-intro{font-size:.9rem;color:rgba(255,255,255,.85);margin-top:1rem;line-height:1.8;max-width:660px;font-weight:300}
+.hero-pills{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:1.2rem}
+.hero-pill{background:rgba(255,255,255,.22);border:1.5px solid rgba(255,255,255,.75);color:#fff;padding:.28rem .85rem;border-radius:3px;font-size:.72rem;letter-spacing:.05em;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+
+.page{max-width:1100px;margin:0 auto;padding:0 2rem 5rem}
+
+.folder-hd{display:inline-flex;align-items:center;gap:.5rem;background:var(--t);color:#fff;font-family:'Righteous',sans-serif;font-size:.75rem;letter-spacing:.1em;padding:.32rem .9rem .32rem .6rem;border-radius:5px 5px 0 0;margin-bottom:0}
+.folder-hd .icon{font-size:.9rem}
+.sec-box{border:3px solid var(--t);border-top:none;padding:2.5rem}
+.sec-box.white{background:var(--w)}
+.sec-box.blush{background:rgba(232,200,224,.2)}
+.sec-box.sage{background:rgba(168,198,166,.25)}
+
+.sec-label{font-family:'Righteous',sans-serif;font-size:.7rem;letter-spacing:.18em;color:var(--c);text-transform:uppercase;margin-bottom:.7rem}
+.sec-heading{font-family:'Righteous',sans-serif;font-size:clamp(1.2rem,2.8vw,1.85rem);color:var(--t);line-height:1.2;margin-bottom:1.5rem}
+.sec-heading em{font-style:normal;color:var(--c)}
+
+/* HERO STATS */
+.stats-section{padding:3rem 0 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+.stat-card{border:3px solid var(--t);background:var(--w);padding:1.8rem 1.2rem;text-align:center;position:relative;overflow:hidden;transition:transform .18s,box-shadow .18s}
+.stat-card:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--t)}
+.stat-card::after{content:'';position:absolute;bottom:-15px;right:-15px;width:60px;height:60px;border-radius:50%;opacity:.06}
+.stat-card:nth-child(1)::after{background:var(--c)}
+.stat-card:nth-child(2)::after{background:var(--p)}
+.stat-card:nth-child(3)::after{background:var(--b)}
+.stat-card:nth-child(4)::after{background:var(--s)}
+.stat-num{font-family:'Righteous',sans-serif;font-size:clamp(2rem,4vw,2.8rem);color:var(--c);line-height:1;margin-bottom:.4rem}
+.stat-card:nth-child(2) .stat-num{color:var(--p)}
+.stat-card:nth-child(3) .stat-num{color:var(--b)}
+.stat-card:nth-child(4) .stat-num{color:#6a9a68}
+.stat-lbl{font-family:'Righteous',sans-serif;font-size:.68rem;letter-spacing:.06em;color:var(--t);margin-bottom:.2rem}
+.stat-sub{font-size:.66rem;color:var(--li);line-height:1.5}
+
+/* STICKY FILTER BAR */
+.filter-bar{position:sticky;top:0;z-index:300;background:var(--t);border-bottom:3px solid var(--c);padding:.75rem 2rem .75rem 160px;display:flex;flex-wrap:wrap;align-items:center;gap:.65rem}
+.filter-group{display:flex;align-items:center;gap:.35rem;flex-wrap:wrap}
+.filter-label{font-family:'Righteous',sans-serif;font-size:.58rem;letter-spacing:.12em;color:rgba(255,255,255,.45);text-transform:uppercase;white-space:nowrap;margin-right:.2rem}
+.fpill{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.65);font-family:'Righteous',sans-serif;font-size:.58rem;letter-spacing:.04em;padding:.2rem .6rem;border-radius:3px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.fpill:hover{background:rgba(255,255,255,.18);color:#fff}
+.fpill.active{background:var(--c);border-color:var(--c);color:#fff}
+.filter-sep{width:1px;height:18px;background:rgba(255,255,255,.18);flex-shrink:0}
+.sort-select{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.75);font-family:'Righteous',sans-serif;font-size:.58rem;letter-spacing:.04em;padding:.2rem .5rem;border-radius:3px;cursor:pointer;outline:none}
+.sort-select option{background:var(--t);color:#fff}
+
+/* CHARTS */
+.charts-section{padding:3rem 0 0}
+.charts-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:1.5rem}
+.chart-wrap{}
+.chart-inner{padding:1.4rem}
+.chart-title{font-family:'Righteous',sans-serif;font-size:.8rem;letter-spacing:.06em;color:var(--t);margin-bottom:.25rem}
+.chart-sub{font-size:.7rem;color:var(--li);margin-bottom:1rem;line-height:1.5}
+.chart-canvas-wrap{position:relative;height:280px}
+.eng-toggle{display:flex;gap:.4rem;margin-bottom:.9rem}
+.eng-btn{background:rgba(0,0,0,.05);border:2px solid var(--t);color:var(--t);font-family:'Righteous',sans-serif;font-size:.6rem;letter-spacing:.04em;padding:.2rem .6rem;border-radius:3px;cursor:pointer;transition:all .15s}
+.eng-btn.active{background:var(--c);border-color:var(--c);color:#fff}
+
+/* TABLE */
+.table-section{padding:3rem 0 0}
+.tbl-controls{display:flex;align-items:center;gap:1rem;margin-bottom:1.1rem;flex-wrap:wrap}
+.tbl-search{background:var(--w);border:2px solid var(--t);color:var(--t);font-family:'DM Sans',sans-serif;font-size:.82rem;padding:.42rem .8rem;border-radius:3px;outline:none;width:210px}
+.tbl-search:focus{border-color:var(--c)}
+.tbl-count{font-family:'Righteous',sans-serif;font-size:.62rem;letter-spacing:.07em;color:var(--li);margin-left:auto}
+.year-chip{display:inline-flex;align-items:center;gap:.4rem;background:var(--c);color:#fff;font-family:'Righteous',sans-serif;font-size:.6rem;letter-spacing:.05em;padding:.18rem .55rem;border-radius:3px}
+.year-chip-x{cursor:pointer;opacity:.8}
+.year-chip-x:hover{opacity:1}
+table{width:100%;border-collapse:collapse;font-size:.76rem}
+thead{background:var(--t);color:#fff}
+th{font-family:'Righteous',sans-serif;font-size:.6rem;letter-spacing:.06em;padding:.6rem .75rem;text-align:left;cursor:pointer;white-space:nowrap;user-select:none;transition:background .15s}
+th:hover{background:rgba(195,107,162,.25)}
+th.asc::after{content:' ↑'}
+th.desc::after{content:' ↓'}
+td{padding:.55rem .75rem;border-bottom:1px solid rgba(232,200,224,.5);vertical-align:middle}
+tr:hover td{background:rgba(195,107,162,.06)}
+.cbadge{display:inline-block;padding:.12rem .45rem;border-radius:2px;font-family:'Righteous',sans-serif;font-size:.55rem;letter-spacing:.03em;color:#fff}
+.sent-bar{height:4px;border-radius:2px;background:var(--bl);margin-top:3px}
+.sent-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--c),var(--p))}
+.pagination{display:flex;align-items:center;gap:.4rem;margin-top:1.1rem;justify-content:center;flex-wrap:wrap}
+.pg-btn{background:var(--w);border:2px solid var(--t);color:var(--t);font-family:'Righteous',sans-serif;font-size:.6rem;letter-spacing:.04em;padding:.28rem .65rem;border-radius:3px;cursor:pointer;transition:all .15s;min-width:32px;text-align:center}
+.pg-btn:hover:not([disabled]){background:var(--t);color:var(--w)}
+.pg-btn[disabled]{opacity:.3;cursor:default}
+.pg-btn.cur{background:var(--c);border-color:var(--c);color:#fff}
+.pg-ellipsis{font-family:'Righteous',sans-serif;font-size:.6rem;color:var(--li);padding:0 .2rem}
+
+/* INSIGHTS */
+.insights-section{padding:3rem 0 0}
+.insights-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+.ins-card{border:3px solid var(--t);background:var(--w);padding:1.6rem;overflow:hidden;transition:transform .18s,box-shadow .18s}
+.ins-card:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--t)}
+.ins-card:nth-child(1){border-top:5px solid var(--c)}
+.ins-card:nth-child(2){border-top:5px solid var(--p)}
+.ins-card:nth-child(3){border-top:5px solid var(--b)}
+.ins-card:nth-child(4){border-top:5px solid #6a9a68}
+.ins-ico{font-size:1.8rem;margin-bottom:.6rem;display:block}
+.ins-lbl{font-family:'Righteous',sans-serif;font-size:.62rem;letter-spacing:.1em;color:var(--li);text-transform:uppercase;margin-bottom:.4rem}
+.ins-val{font-family:'Righteous',sans-serif;font-size:1.25rem;color:var(--c);margin-bottom:.4rem;line-height:1.2}
+.ins-card:nth-child(2) .ins-val{color:var(--p)}
+.ins-card:nth-child(3) .ins-val{color:var(--b)}
+.ins-card:nth-child(4) .ins-val{color:#6a9a68}
+.ins-desc{font-size:.77rem;color:var(--m);line-height:1.65}
+
+footer{background:var(--t);color:rgba(255,255,255,.55);text-align:center;padding:2rem 1.5rem;font-size:.77rem;line-height:2;border-top:3px solid var(--c)}
+footer strong{color:var(--c);font-family:'Righteous',sans-serif;letter-spacing:.04em}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .5s ease,transform .5s ease}
+.reveal.visible{opacity:1;transform:none}
+
+@media(max-width:860px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .charts-grid{grid-template-columns:1fr}
+  .insights-grid{grid-template-columns:1fr}
+  .filter-bar{padding:.6rem 1rem}
+  #hero{padding:4rem 1.5rem 2rem}
+  .sec-box{padding:1.4rem}
+  .page{padding:0 1rem 4rem}
+}
+@media(max-width:500px){
+  .stats-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<a href="v1.2.html" id="back-btn">&#8592; Back to Portfolio</a>
+
+<section id="hero">
+  <div class="hero-bg-word">IWT</div>
+  <div>
+    <div class="hero-folder-lbl">📊 DATA ANALYTICS · TABLEAU</div>
+    <div class="hero-box">
+      <div class="hero-title">Indian Wedding<br><span class="hl">Trends on Instagram</span></div>
+      <div class="hero-subtitle">A Data Analytics Deep Dive — 100 Hashtags Analysed</div>
+      <p class="hero-intro">An analysis of 100 wedding-related hashtags on Instagram — exploring engagement patterns, regional dominance, peak seasons, category performance and emerging trends. Originally built as a Tableau project.</p>
+      <div class="hero-pills">
+        <span class="hero-pill">#DataAnalytics</span>
+        <span class="hero-pill">#SocialMediaAnalysis</span>
+        <span class="hero-pill">#IndianWeddings</span>
+        <span class="hero-pill">#Instagram</span>
+        <span class="hero-pill">#Tableau</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="page">
+  <div class="stats-section reveal">
+    <div class="folder-hd"><span class="icon">📈</span>&nbsp;THE NUMBERS</div>
+    <div class="sec-box white">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num" data-count="100">0</div>
+          <div class="stat-lbl">Hashtags Analysed</div>
+          <div class="stat-sub">Across 11 categories</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-count="11">0</div>
+          <div class="stat-lbl">Categories Covered</div>
+          <div class="stat-sub">From Attire to Regional</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="total-posts-hero">0</div>
+          <div class="stat-lbl">Total Posts (Millions)</div>
+          <div class="stat-sub">Across all 100 hashtags</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="avg-sent-hero">0</div>
+          <div class="stat-lbl">Avg Sentiment Score</div>
+          <div class="stat-sub">Highly positive content space</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STICKY FILTER BAR -->
+<div class="filter-bar" id="filter-bar">
+  <div class="filter-group">
+    <span class="filter-label">Category</span>
+    <button class="fpill active" data-f="cat" data-v="All">All</button>
+    <button class="fpill" data-f="cat" data-v="General">General</button>
+    <button class="fpill" data-f="cat" data-v="Attire">Attire</button>
+    <button class="fpill" data-f="cat" data-v="Decor">Decor</button>
+    <button class="fpill" data-f="cat" data-v="Venue">Venue</button>
+    <button class="fpill" data-f="cat" data-v="Ritual">Ritual</button>
+    <button class="fpill" data-f="cat" data-v="Food">Food</button>
+    <button class="fpill" data-f="cat" data-v="Jewelry">Jewelry</button>
+    <button class="fpill" data-f="cat" data-v="Beauty">Beauty</button>
+    <button class="fpill" data-f="cat" data-v="Photography">Photography</button>
+    <button class="fpill" data-f="cat" data-v="Planning">Planning</button>
+    <button class="fpill" data-f="cat" data-v="Regional">Regional</button>
+  </div>
+  <div class="filter-sep"></div>
+  <div class="filter-group">
+    <span class="filter-label">Region</span>
+    <button class="fpill active" data-f="reg" data-v="All">All</button>
+    <button class="fpill" data-f="reg" data-v="North">North</button>
+    <button class="fpill" data-f="reg" data-v="South">South</button>
+    <button class="fpill" data-f="reg" data-v="East">East</button>
+    <button class="fpill" data-f="reg" data-v="West">West</button>
+  </div>
+  <div class="filter-sep"></div>
+  <div class="filter-group">
+    <span class="filter-label">Sort</span>
+    <select class="sort-select" id="sort-sel">
+      <option value="posts">Most Posts</option>
+      <option value="likes">Highest Avg Likes</option>
+      <option value="sentiment">Highest Sentiment</option>
+      <option value="year_asc">Earliest Trending</option>
+      <option value="year_desc">Newest Trending</option>
+    </select>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- CHARTS -->
+  <div class="charts-section reveal">
+    <div class="folder-hd"><span class="icon">📊</span>&nbsp;VISUALISATIONS</div>
+    <div class="sec-box white">
+      <div class="charts-grid">
+
+        <div class="chart-wrap">
+          <div class="folder-hd" style="border-radius:4px 4px 0 0"><span class="icon">🏆</span>&nbsp;MOST POSTED HASHTAGS</div>
+          <div class="sec-box sage">
+            <div class="chart-sub">Top 15 hashtags by total posts (M) — filtered by active selection</div>
+            <div class="chart-canvas-wrap"><canvas id="c1"></canvas></div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <div class="folder-hd" style="border-radius:4px 4px 0 0"><span class="icon">💬</span>&nbsp;ENGAGEMENT BY CATEGORY</div>
+          <div class="sec-box blush">
+            <div class="eng-toggle">
+              <button class="eng-btn active" data-m="likes">Likes</button>
+              <button class="eng-btn" data-m="comments">Comments</button>
+              <button class="eng-btn" data-m="shares">Shares</button>
+            </div>
+            <div class="chart-canvas-wrap"><canvas id="c2"></canvas></div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <div class="folder-hd" style="border-radius:4px 4px 0 0"><span class="icon">📅</span>&nbsp;PEAK WEDDING SEASON</div>
+          <div class="sec-box white" style="border:3px solid var(--t);border-top:none">
+            <div class="chart-sub">Which months see the most wedding content peaking?</div>
+            <div class="chart-canvas-wrap"><canvas id="c3"></canvas></div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <div class="folder-hd" style="border-radius:4px 4px 0 0"><span class="icon">🗺️</span>&nbsp;REGIONAL DOMINANCE</div>
+          <div class="sec-box sage">
+            <div class="chart-sub">Total posts (M) per region — which region leads wedding content?</div>
+            <div class="chart-canvas-wrap"><canvas id="c4"></canvas></div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <div class="folder-hd" style="border-radius:4px 4px 0 0"><span class="icon">😊</span>&nbsp;CONTENT POSITIVITY BY CATEGORY</div>
+          <div class="sec-box blush">
+            <div class="chart-sub">Average sentiment score per category (0–1 scale)</div>
+            <div class="chart-canvas-wrap"><canvas id="c5"></canvas></div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <div class="folder-hd" style="border-radius:4px 4px 0 0"><span class="icon">📈</span>&nbsp;RISE OF WEDDING HASHTAGS</div>
+          <div class="sec-box white" style="border:3px solid var(--t);border-top:none">
+            <div class="chart-sub" id="c6-sub">How many hashtags started trending each year? · Click a point to filter the table below</div>
+            <div class="chart-canvas-wrap"><canvas id="c6"></canvas></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-section reveal">
+    <div class="folder-hd"><span class="icon">🔍</span>&nbsp;HASHTAG EXPLORER</div>
+    <div class="sec-box white">
+      <div class="sec-label">Explore All 100 Hashtags</div>
+      <div class="tbl-controls">
+        <input type="text" class="tbl-search" id="tbl-search" placeholder="Search hashtags...">
+        <div id="yr-chip"></div>
+        <span class="tbl-count" id="tbl-count"></span>
+      </div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr>
+            <th data-col="hashtag">Hashtag</th>
+            <th data-col="category">Category</th>
+            <th data-col="total_posts_millions">Posts (M)</th>
+            <th data-col="avg_likes">Avg Likes</th>
+            <th data-col="avg_comments">Avg Comments</th>
+            <th data-col="avg_shares">Avg Shares</th>
+            <th data-col="peak_month">Peak Month</th>
+            <th data-col="top_city">Top City</th>
+            <th data-col="region">Region</th>
+            <th data-col="sentiment_score">Sentiment</th>
+            <th data-col="year_first_trending">Year</th>
+          </tr></thead>
+          <tbody id="tbl-body"></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+
+  <!-- INSIGHTS -->
+  <div class="insights-section reveal">
+    <div class="folder-hd"><span class="icon">💡</span>&nbsp;WHAT THE DATA TELLS US</div>
+    <div class="sec-box blush">
+      <div class="sec-label">Key Insights</div>
+      <div class="sec-heading">Auto-calculated from <em>the full dataset</em></div>
+      <div class="insights-grid" id="insights-grid"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <strong>Indian Wedding Trends on Instagram</strong><br>
+  Data analysis of 100 Indian wedding hashtags on Instagram. Originally visualised in Tableau.<br>
+  Rebuilt as an interactive web dashboard for portfolio purposes.
+</footer>
+
+<script>
+/* ─── DATASET ─── */
+const DATA = [
+  {hashtag:"#indianwedding",category:"General",total_posts_millions:18.4,avg_likes:4200,avg_comments:180,avg_shares:320,peak_month:"December",top_city:"Mumbai",region:"West",sentiment_score:0.92,year_first_trending:2015},
+  {hashtag:"#shaadi",category:"General",total_posts_millions:14.2,avg_likes:3800,avg_comments:160,avg_shares:290,peak_month:"November",top_city:"Delhi",region:"North",sentiment_score:0.9,year_first_trending:2014},
+  {hashtag:"#weddingphotography",category:"General",total_posts_millions:22.1,avg_likes:5600,avg_comments:240,avg_shares:410,peak_month:"December",top_city:"Jaipur",region:"North",sentiment_score:0.91,year_first_trending:2016},
+  {hashtag:"#bridallehenga",category:"Attire",total_posts_millions:6.8,avg_likes:7200,avg_comments:310,avg_shares:520,peak_month:"November",top_city:"Delhi",region:"North",sentiment_score:0.95,year_first_trending:2016},
+  {hashtag:"#indianbride",category:"Attire",total_posts_millions:9.3,avg_likes:6800,avg_comments:290,avg_shares:480,peak_month:"December",top_city:"Mumbai",region:"West",sentiment_score:0.94,year_first_trending:2015},
+  {hashtag:"#weddingoutfit",category:"Attire",total_posts_millions:4.1,avg_likes:5100,avg_comments:210,avg_shares:370,peak_month:"October",top_city:"Hyderabad",region:"South",sentiment_score:0.88,year_first_trending:2017},
+  {hashtag:"#bridalwear",category:"Attire",total_posts_millions:5.5,avg_likes:6200,avg_comments:265,avg_shares:430,peak_month:"November",top_city:"Kolkata",region:"East",sentiment_score:0.91,year_first_trending:2016},
+  {hashtag:"#lehenga",category:"Attire",total_posts_millions:8.7,avg_likes:6900,avg_comments:300,avg_shares:510,peak_month:"December",top_city:"Delhi",region:"North",sentiment_score:0.93,year_first_trending:2015},
+  {hashtag:"#bridalblouse",category:"Attire",total_posts_millions:2.3,avg_likes:4800,avg_comments:195,avg_shares:330,peak_month:"November",top_city:"Chennai",region:"South",sentiment_score:0.87,year_first_trending:2018},
+  {hashtag:"#sherwani",category:"Attire",total_posts_millions:3.6,avg_likes:4500,avg_comments:185,avg_shares:300,peak_month:"December",top_city:"Lucknow",region:"North",sentiment_score:0.89,year_first_trending:2016},
+  {hashtag:"#groomwear",category:"Attire",total_posts_millions:2.8,avg_likes:4200,avg_comments:170,avg_shares:280,peak_month:"December",top_city:"Mumbai",region:"West",sentiment_score:0.87,year_first_trending:2017},
+  {hashtag:"#saree",category:"Attire",total_posts_millions:11.2,avg_likes:5900,avg_comments:255,avg_shares:420,peak_month:"January",top_city:"Bangalore",region:"South",sentiment_score:0.92,year_first_trending:2014},
+  {hashtag:"#kanjivaram",category:"Attire",total_posts_millions:1.9,avg_likes:5400,avg_comments:220,avg_shares:380,peak_month:"January",top_city:"Chennai",region:"South",sentiment_score:0.9,year_first_trending:2018},
+  {hashtag:"#weddingdecor",category:"Decor",total_posts_millions:7.6,avg_likes:5300,avg_comments:225,avg_shares:390,peak_month:"November",top_city:"Jaipur",region:"North",sentiment_score:0.91,year_first_trending:2016},
+  {hashtag:"#floraldecor",category:"Decor",total_posts_millions:5.2,avg_likes:5800,avg_comments:245,avg_shares:415,peak_month:"December",top_city:"Mumbai",region:"West",sentiment_score:0.92,year_first_trending:2016},
+  {hashtag:"#mandapdecor",category:"Decor",total_posts_millions:3.1,avg_likes:5100,avg_comments:215,avg_shares:365,peak_month:"December",top_city:"Delhi",region:"North",sentiment_score:0.9,year_first_trending:2017},
+  {hashtag:"#weddingstage",category:"Decor",total_posts_millions:2.7,avg_likes:4700,avg_comments:195,avg_shares:330,peak_month:"November",top_city:"Hyderabad",region:"South",sentiment_score:0.88,year_first_trending:2017},
+  {hashtag:"#tablecentrepiece",category:"Decor",total_posts_millions:1.8,avg_likes:4300,avg_comments:178,avg_shares:295,peak_month:"December",top_city:"Bangalore",region:"South",sentiment_score:0.86,year_first_trending:2018},
+  {hashtag:"#marigolddecor",category:"Decor",total_posts_millions:2.4,avg_likes:5200,avg_comments:220,avg_shares:375,peak_month:"November",top_city:"Jaipur",region:"North",sentiment_score:0.91,year_first_trending:2018},
+  {hashtag:"#royalweddingdecor",category:"Decor",total_posts_millions:1.5,avg_likes:6100,avg_comments:260,avg_shares:440,peak_month:"December",top_city:"Udaipur",region:"West",sentiment_score:0.93,year_first_trending:2019},
+  {hashtag:"#palacewedding",category:"Venue",total_posts_millions:1.2,avg_likes:7800,avg_comments:340,avg_shares:580,peak_month:"December",top_city:"Udaipur",region:"West",sentiment_score:0.95,year_first_trending:2018},
+  {hashtag:"#destinationwedding",category:"Venue",total_posts_millions:4.6,avg_likes:7200,avg_comments:310,avg_shares:530,peak_month:"February",top_city:"Goa",region:"West",sentiment_score:0.94,year_first_trending:2017},
+  {hashtag:"#beachwedding",category:"Venue",total_posts_millions:2.1,avg_likes:6800,avg_comments:290,avg_shares:490,peak_month:"January",top_city:"Goa",region:"West",sentiment_score:0.93,year_first_trending:2018},
+  {hashtag:"#heritagevenue",category:"Venue",total_posts_millions:1.3,avg_likes:6500,avg_comments:275,avg_shares:465,peak_month:"December",top_city:"Jaipur",region:"North",sentiment_score:0.92,year_first_trending:2019},
+  {hashtag:"#farmwedding",category:"Venue",total_posts_millions:0.8,avg_likes:5900,avg_comments:245,avg_shares:415,peak_month:"February",top_city:"Delhi",region:"North",sentiment_score:0.89,year_first_trending:2019},
+  {hashtag:"#templewedding",category:"Venue",total_posts_millions:1.7,avg_likes:5200,avg_comments:215,avg_shares:365,peak_month:"January",top_city:"Varanasi",region:"North",sentiment_score:0.9,year_first_trending:2017},
+  {hashtag:"#fivestarwedding",category:"Venue",total_posts_millions:1.1,avg_likes:6700,avg_comments:285,avg_shares:480,peak_month:"December",top_city:"Mumbai",region:"West",sentiment_score:0.91,year_first_trending:2019},
+  {hashtag:"#outdoorwedding",category:"Venue",total_posts_millions:2.3,avg_likes:5800,avg_comments:245,avg_shares:415,peak_month:"February",top_city:"Bangalore",region:"South",sentiment_score:0.88,year_first_trending:2018},
+  {hashtag:"#rooftopwedding",category:"Venue",total_posts_millions:0.9,avg_likes:6200,avg_comments:262,avg_shares:442,peak_month:"November",top_city:"Delhi",region:"North",sentiment_score:0.89,year_first_trending:2020},
+  {hashtag:"#resortwedding",category:"Venue",total_posts_millions:1.4,avg_likes:6400,avg_comments:270,avg_shares:458,peak_month:"January",top_city:"Goa",region:"West",sentiment_score:0.91,year_first_trending:2019},
+  {hashtag:"#mehendi",category:"Ritual",total_posts_millions:10.2,avg_likes:5500,avg_comments:235,avg_shares:400,peak_month:"November",top_city:"Delhi",region:"North",sentiment_score:0.93,year_first_trending:2015},
+  {hashtag:"#haldi",category:"Ritual",total_posts_millions:8.7,avg_likes:5200,avg_comments:220,avg_shares:375,peak_month:"November",top_city:"Mumbai",region:"West",sentiment_score:0.92,year_first_trending:2015},
+  {hashtag:"#sangeet",category:"Ritual",total_posts_millions:7.3,avg_likes:5800,avg_comments:248,avg_shares:420,peak_month:"November",top_city:"Delhi",region:"North",sentiment_score:0.93,year_first_trending:2016},
+  {hashtag:"#baraat",category:"Ritual",total_posts_millions:4.1,avg_likes:4800,avg_comments:200,avg_shares:340,peak_month:"December",top_city:"Lucknow",region:"North",sentiment_score:0.89,year_first_trending:2016},
+  {hashtag:"#pheras",category:"Ritual",total_posts_millions:3.2,avg_likes:4600,avg_comments:192,avg_shares:325,peak_month:"December",top_city:"Delhi",region:"North",sentiment_score:0.9,year_first_trending:2017},
+  {hashtag:"#vidaai",category:"Ritual",total_posts_millions:2.8,avg_likes:4900,avg_comments:205,avg_shares:348,peak_month:"December",top_city:"Delhi",region:"North",sentiment_score:0.88,year_first_trending:2017},
+  {hashtag:"#weddingceremony",category:"Ritual",total_posts_millions:6.4,avg_likes:4700,avg_comments:196,avg_shares:332,peak_month:"December",top_city:"Mumbai",region:"West",sentiment_score:0.9,year_first_trending:2016},
+  {hashtag:"#weddingrituals",category:"Ritual",total_posts_millions:3.7,avg_likes:4400,avg_comments:182,avg_shares:308,peak_month:"December",top_city:"Jaipur",region:"North",sentiment_score:0.89,year_first_trending:2017},
+  {hashtag:"#ganeshpuja",category:"Ritual",total_posts_millions:1.6,avg_likes:4200,avg_comments:174,avg_shares:295,peak_month:"November",top_city:"Pune",region:"West",sentiment_score:0.91,year_first_trending:2018},
+  {hashtag:"#saptapadi",category:"Ritual",total_posts_millions:1.1,avg_likes:4500,avg_comments:188,avg_shares:318,peak_month:"December",top_city:"Delhi",region:"North",sentiment_score:0.9,year_first_trending:2019},
+  {hashtag:"#weddingfood",category:"Food",total_posts_millions:5.1,avg_likes:4900,avg_comments:205,avg_shares:348,peak_month:"December",top_city:"Delhi",region:"North",sentiment_score:0.9,year_first_trending:2016},
+  {hashtag:"#weddingbuffet",category:"Food",total_posts_millions:3.8,avg_likes:4600,avg_comments:192,avg_shares:325,peak_month:"December",top_city:"Mumbai",region:"West",sentiment_score:0.89,year_first_trending:2017},
+  {hashtag:"#weddingsweets",category:"Food",total_posts_millions:2.9,avg_likes:4700,avg_comments:196,avg_shares:332,peak_month:"December",top_city:"Kolkata",region:"East",sentiment_score:0.91,year_first_trending:2017},
+  {hashtag:"#biryaniwedding",category:"Food",total_posts_millions:2.2,avg_likes:5100,avg_comments:215,avg_shares:365,peak_month:"December",top_city:"Hyderabad",region:"South",sentiment_score:0.92,year_first_trending:2018},
+  {hashtag:"#weddingcake",category:"Food",total_posts_millions:1.8,avg_likes:5400,avg_comments:228,avg_shares:385,peak_month:"December",top_city:"Bangalore",region:"South",sentiment_score:0.88,year_first_trending:2018},
+  {hashtag:"#weddingcatering",category:"Food",total_posts_millions:2.5,avg_likes:4400,avg_comments:182,avg_shares:308,peak_month:"November",top_city:"Delhi",region:"North",sentiment_score:0.87,year_first_trending:2017},
+  {hashtag:"#indianstreetfood",category:"Food",total_posts_millions:1.4,avg_likes:4800,avg_comments:200,avg_shares:340,peak_month:"December",top_city:"Mumbai",region:"West",sentiment_score:0.89,year_first_trending:2019},
+  {hashtag:"#weddingdeserts",category:"Food",total_posts_millions:1.6,avg_likes:5000,avg_comments:210,avg_shares:355,peak_month:"December",top_city:"Delhi",region:"North",sentiment_score:0.88,year_first_trending:2019},
+  {hashtag:"#gulabjamun",category:"Food",total_posts_millions:0.9,avg_likes:4300,avg_comments:178,avg_shares:300,peak_month:"December",top_city:"Jaipur",region:"North",sentiment_score:0.9,year_first_trending:2020},
+  {hashtag:"#weddingcocktails",category:"Food",total_posts_millions:1.1,avg_likes:5200,avg_comments:220,avg_shares:372,peak_month:"December",top_city:"Mumbai",region:"West",sentiment_score:0.86,year_first_trending:2020},
+  {hashtag:"#bridaljewelry",category:"Jewelry",total_posts_millions:5.9,avg_likes:7100,avg_comments:305,avg_shares:515,peak_month:"November",top_city:"Delhi",region:"North",sentiment_score:0.94,year_first_trending:2016},
+  {hashtag:"#polkijewelry",category:"Jewelry",total_posts_millions:2.1,avg_likes:6800,avg_comments:290,avg_shares:490,peak_month:"November",top_city:"Jaipur",region:"North",sentiment_score:0.93,year_first_trending:2018},
+  {hashtag:"#kundan",category:"Jewelry",total_posts_millions:2.8,avg_likes:6500,avg_comments:275,avg_shares:465,peak_month:"November",top_city:"Delhi",region:"North",sentiment_score:0.92,year_first_trending:2017},
+  {hashtag:"#maangtikka",category:"Jewelry",total_posts_millions:3.4,avg_likes:6200,avg_comments:262,avg_shares:442,peak_month:"November",top_city:"Mumbai",region:"West",sentiment_score:0.91,year_first_trending:2016},
+  {hashtag:"#nathni",category:"Jewelry",total_posts_millions:1.7,avg_likes:5800,avg_comments:245,avg_shares:415,peak_month:"December",top_city:"Jaipur",region:"North",sentiment_score:0.9,year_first_trending:2018},
+  {hashtag:"#chooda",category:"Jewelry",total_posts_millions:2.3,avg_likes:5600,avg_comments:238,avg_shares:402,peak_month:"November",top_city:"Amritsar",region:"North",sentiment_score:0.91,year_first_trending:2017},
+  {hashtag:"#bridalearrings",category:"Jewelry",total_posts_millions:2.6,avg_likes:6100,avg_comments:258,avg_shares:437,peak_month:"November",top_city:"Delhi",region:"North",sentiment_score:0.91,year_first_trending:2017},
+  {hashtag:"#goldnecklace",category:"Jewelry",total_posts_millions:3.1,avg_likes:6400,avg_comments:270,avg_shares:457,peak_month:"December",top_city:"Chennai",region:"South",sentiment_score:0.92,year_first_trending:2016},
+  {hashtag:"#templejewelry",category:"Jewelry",total_posts_millions:1.9,avg_likes:6000,avg_comments:254,avg_shares:430,peak_month:"January",top_city:"Chennai",region:"South",sentiment_score:0.91,year_first_trending:2018},
+  {hashtag:"#haathphool",category:"Jewelry",total_posts_millions:1.2,avg_likes:5700,avg_comments:241,avg_shares:408,peak_month:"November",top_city:"Delhi",region:"North",sentiment_score:0.89,year_first_trending:2019},
+  {hashtag:"#bridalmakeup",category:"Beauty",total_posts_millions:8.4,avg_likes:6800,avg_comments:290,avg_shares:490,peak_month:"November",top_city:"Mumbai",region:"West",sentiment_score:0.93,year_first_trending:2016},
+  {hashtag:"#bridalhair",category:"Beauty",total_posts_millions:5.7,avg_likes:6200,avg_comments:262,avg_shares:443,peak_month:"November",top_city:"Delhi",region:"North",sentiment_score:0.91,year_first_trending:2016},
+  {hashtag:"#mehendidesign",category:"Beauty",total_posts_millions:9.1,avg_likes:5900,avg_comments:250,avg_shares:422,peak_month:"November",top_city:"Jaipur",region:"North",sentiment_score:0.93,year_first_trending:2015},
+  {hashtag:"#arabicmehendi",category:"Beauty",total_posts_millions:4.2,avg_likes:5600,avg_comments:238,avg_shares:402,peak_month:"November",top_city:"Delhi",region:"North",sentiment_score:0.91,year_first_trending:2017},
+  {hashtag:"#bridalbun",category:"Beauty",total_posts_millions:3.1,avg_likes:5800,avg_comments:245,avg_shares:415,peak_month:"November",top_city:"Mumbai",region:"West",sentiment_score:0.9,year_first_trending:2017},
+  {hashtag:"#smokeyeye",category:"Beauty",total_posts_millions:2.4,avg_likes:5400,avg_comments:228,avg_shares:385,peak_month:"November",top_city:"Bangalore",region:"South",sentiment_score:0.88,year_first_trending:2018},
+  {hashtag:"#glowskin",category:"Beauty",total_posts_millions:3.8,avg_likes:5200,avg_comments:220,avg_shares:372,peak_month:"November",top_city:"Mumbai",region:"West",sentiment_score:0.89,year_first_trending:2018},
+  {hashtag:"#kancheepuramsaree",category:"Beauty",total_posts_millions:1.6,avg_likes:5100,avg_comments:215,avg_shares:363,peak_month:"January",top_city:"Chennai",region:"South",sentiment_score:0.9,year_first_trending:2019},
+  {hashtag:"#bridallook",category:"Beauty",total_posts_millions:6.3,avg_likes:6500,avg_comments:275,avg_shares:465,peak_month:"November",top_city:"Delhi",region:"North",sentiment_score:0.92,year_first_trending:2016},
+  {hashtag:"#weddingmakeup",category:"Beauty",total_posts_millions:7.1,avg_likes:6600,avg_comments:280,avg_shares:473,peak_month:"November",top_city:"Mumbai",region:"West",sentiment_score:0.92,year_first_trending:2016},
+  {hashtag:"#weddingphotographer",category:"Photography",total_posts_millions:12.3,avg_likes:5800,avg_comments:248,avg_shares:420,peak_month:"December",top_city:"Jaipur",region:"North",sentiment_score:0.91,year_first_trending:2016},
+  {hashtag:"#candidwedding",category:"Photography",total_posts_millions:7.4,avg_likes:6400,avg_comments:272,avg_shares:460,peak_month:"December",top_city:"Mumbai",region:"West",sentiment_score:0.93,year_first_trending:2017},
+  {hashtag:"#weddingfilm",category:"Photography",total_posts_millions:3.2,avg_likes:6100,avg_comments:260,avg_shares:439,peak_month:"December",top_city:"Delhi",region:"North",sentiment_score:0.92,year_first_trending:2017},
+  {hashtag:"#preweddingshoot",category:"Photography",total_posts_millions:8.9,avg_likes:7200,avg_comments:308,avg_shares:520,peak_month:"November",top_city:"Udaipur",region:"West",sentiment_score:0.94,year_first_trending:2016},
+  {hashtag:"#couplegoals",category:"Photography",total_posts_millions:5.6,avg_likes:6800,avg_comments:290,avg_shares:490,peak_month:"November",top_city:"Goa",region:"West",sentiment_score:0.93,year_first_trending:2016},
+  {hashtag:"#weddingcinematography",category:"Photography",total_posts_millions:2.1,avg_likes:6300,avg_comments:267,avg_shares:451,peak_month:"December",top_city:"Bangalore",region:"South",sentiment_score:0.91,year_first_trending:2018},
+  {hashtag:"#weddingmoments",category:"Photography",total_posts_millions:4.3,avg_likes:5900,avg_comments:250,avg_shares:422,peak_month:"December",top_city:"Mumbai",region:"West",sentiment_score:0.91,year_first_trending:2017},
+  {hashtag:"#weddingportraits",category:"Photography",total_posts_millions:3.7,avg_likes:6000,avg_comments:254,avg_shares:430,peak_month:"December",top_city:"Jaipur",region:"North",sentiment_score:0.91,year_first_trending:2018},
+  {hashtag:"#bridegroomgoals",category:"Photography",total_posts_millions:2.8,avg_likes:6600,avg_comments:280,avg_shares:473,peak_month:"December",top_city:"Delhi",region:"North",sentiment_score:0.92,year_first_trending:2018},
+  {hashtag:"#weddingstory",category:"Photography",total_posts_millions:3.4,avg_likes:6100,avg_comments:260,avg_shares:440,peak_month:"December",top_city:"Mumbai",region:"West",sentiment_score:0.91,year_first_trending:2018},
+  {hashtag:"#weddingplanner",category:"Planning",total_posts_millions:4.8,avg_likes:4600,avg_comments:192,avg_shares:325,peak_month:"November",top_city:"Mumbai",region:"West",sentiment_score:0.89,year_first_trending:2017},
+  {hashtag:"#weddingideas",category:"Planning",total_posts_millions:6.2,avg_likes:5100,avg_comments:215,avg_shares:363,peak_month:"November",top_city:"Delhi",region:"North",sentiment_score:0.9,year_first_trending:2016},
+  {hashtag:"#weddinginspo",category:"Planning",total_posts_millions:5.4,avg_likes:5300,avg_comments:224,avg_shares:379,peak_month:"November",top_city:"Bangalore",region:"South",sentiment_score:0.9,year_first_trending:2016},
+  {hashtag:"#weddingtrends",category:"Planning",total_posts_millions:3.1,avg_likes:4900,avg_comments:206,avg_shares:348,peak_month:"November",top_city:"Mumbai",region:"West",sentiment_score:0.89,year_first_trending:2018},
+  {hashtag:"#luxurywedding",category:"Planning",total_posts_millions:2.7,avg_likes:6400,avg_comments:272,avg_shares:460,peak_month:"December",top_city:"Delhi",region:"North",sentiment_score:0.92,year_first_trending:2018},
+  {hashtag:"#budgetwedding",category:"Planning",total_posts_millions:1.2,avg_likes:4200,avg_comments:174,avg_shares:295,peak_month:"November",top_city:"Pune",region:"West",sentiment_score:0.85,year_first_trending:2019},
+  {hashtag:"#diywedding",category:"Planning",total_posts_millions:0.9,avg_likes:4500,avg_comments:188,avg_shares:318,peak_month:"November",top_city:"Bangalore",region:"South",sentiment_score:0.84,year_first_trending:2019},
+  {hashtag:"#intimatewedding",category:"Planning",total_posts_millions:1.8,avg_likes:5200,avg_comments:220,avg_shares:372,peak_month:"February",top_city:"Goa",region:"West",sentiment_score:0.91,year_first_trending:2020},
+  {hashtag:"#microtrends2024",category:"Planning",total_posts_millions:0.7,avg_likes:5400,avg_comments:228,avg_shares:385,peak_month:"November",top_city:"Delhi",region:"North",sentiment_score:0.88,year_first_trending:2024},
+  {hashtag:"#sustainablewedding",category:"Planning",total_posts_millions:0.5,avg_likes:5000,avg_comments:211,avg_shares:357,peak_month:"February",top_city:"Bangalore",region:"South",sentiment_score:0.87,year_first_trending:2022},
+  {hashtag:"#southindianwedding",category:"Regional",total_posts_millions:4.3,avg_likes:5600,avg_comments:238,avg_shares:402,peak_month:"January",top_city:"Chennai",region:"South",sentiment_score:0.92,year_first_trending:2016},
+  {hashtag:"#punjabiband",category:"Regional",total_posts_millions:3.8,avg_likes:5200,avg_comments:220,avg_shares:372,peak_month:"November",top_city:"Amritsar",region:"North",sentiment_score:0.9,year_first_trending:2016},
+  {hashtag:"#bengaliwedding",category:"Regional",total_posts_millions:2.6,avg_likes:5000,avg_comments:211,avg_shares:357,peak_month:"January",top_city:"Kolkata",region:"East",sentiment_score:0.91,year_first_trending:2017},
+  {hashtag:"#rajasthaniwedding",category:"Regional",total_posts_millions:2.1,avg_likes:5800,avg_comments:246,avg_shares:416,peak_month:"December",top_city:"Jaipur",region:"North",sentiment_score:0.93,year_first_trending:2017},
+  {hashtag:"#marathiwedding",category:"Regional",total_posts_millions:1.9,avg_likes:4900,avg_comments:206,avg_shares:348,peak_month:"November",top_city:"Pune",region:"West",sentiment_score:0.9,year_first_trending:2018},
+  {hashtag:"#keralawedding",category:"Regional",total_posts_millions:1.7,avg_likes:5100,avg_comments:215,avg_shares:363,peak_month:"January",top_city:"Kochi",region:"South",sentiment_score:0.91,year_first_trending:2018},
+  {hashtag:"#gujaratiwedding",category:"Regional",total_posts_millions:2.0,avg_likes:5000,avg_comments:211,avg_shares:357,peak_month:"November",top_city:"Ahmedabad",region:"West",sentiment_score:0.9,year_first_trending:2017},
+  {hashtag:"#tamilwedding",category:"Regional",total_posts_millions:1.8,avg_likes:5200,avg_comments:220,avg_shares:372,peak_month:"January",top_city:"Chennai",region:"South",sentiment_score:0.91,year_first_trending:2018},
+  {hashtag:"#teluguwedding",category:"Regional",total_posts_millions:1.6,avg_likes:5100,avg_comments:215,avg_shares:363,peak_month:"January",top_city:"Hyderabad",region:"South",sentiment_score:0.9,year_first_trending:2018},
+  {hashtag:"#kashmiriwedding",category:"Regional",total_posts_millions:0.8,avg_likes:5700,avg_comments:241,avg_shares:408,peak_month:"June",top_city:"Srinagar",region:"North",sentiment_score:0.92,year_first_trending:2019}
+];
+
+/* ─── COLORS ─── */
+const CC = {
+  General:'#c36ba2',Attire:'#7a5e8c',Decor:'#6a9a68',Venue:'#6a8fc4',
+  Ritual:'#c06080',Food:'#c47840',Jewelry:'#a08840',Beauty:'#a07890',
+  Photography:'#5A4A5A',Planning:'#8874a4',Regional:'#4a8a78'
+};
+const RC = {North:'#c36ba2',South:'#6a9a68',East:'#6a8fc4',West:'#7a5e8c'};
+const PALETTE = Object.values(CC);
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+/* ─── STATE ─── */
+const S = {cat:'All',reg:'All',sort:'posts',search:'',page:1,eng:'likes',yearFilter:null,sortCol:null,sortDir:1};
+const PG = 20;
+let CH = {};
+
+/* ─── FILTER ─── */
+function getFiltered() {
+  let d = DATA.slice();
+  if (S.cat !== 'All') d = d.filter(r => r.category === S.cat);
+  if (S.reg !== 'All') d = d.filter(r => r.region === S.reg);
+  if (S.yearFilter !== null) d = d.filter(r => r.year_first_trending === S.yearFilter);
+  if (S.search) d = d.filter(r => r.hashtag.toLowerCase().includes(S.search.toLowerCase()));
+  if (S.sortCol) {
+    const k = S.sortCol, dir = S.sortDir;
+    d.sort((a,b) => {
+      let va = a[k], vb = b[k];
+      if (typeof va === 'string') { va = va.toLowerCase(); vb = vb.toLowerCase(); }
+      return (va < vb ? -1 : va > vb ? 1 : 0) * dir;
+    });
+  } else {
+    const sm = {
+      posts:(a,b)=>b.total_posts_millions-a.total_posts_millions,
+      likes:(a,b)=>b.avg_likes-a.avg_likes,
+      sentiment:(a,b)=>b.sentiment_score-a.sentiment_score,
+      year_asc:(a,b)=>a.year_first_trending-b.year_first_trending,
+      year_desc:(a,b)=>b.year_first_trending-a.year_first_trending
+    };
+    d.sort(sm[S.sort]||sm.posts);
+  }
+  return d;
+}
+
+/* ─── CHART 1 ─── */
+function buildC1(f) {
+  const top = f.slice().sort((a,b)=>b.total_posts_millions-a.total_posts_millions).slice(0,15).reverse();
+  const cfg = {
+    type:'bar',
+    data:{
+      labels:top.map(r=>r.hashtag),
+      datasets:[{data:top.map(r=>r.total_posts_millions),
+        backgroundColor:top.map(r=>CC[r.category]+'cc'),
+        borderColor:top.map(r=>CC[r.category]),borderWidth:2}]
+    },
+    options:{
+      indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{
+        title:i=>[i[0].label,`Category: ${top[i[0].dataIndex].category}`],
+        afterBody:i=>{const r=top[i[0].dataIndex];return[`Avg Likes: ${r.avg_likes.toLocaleString()}`,`Peak Month: ${r.peak_month}`,`Top City: ${r.top_city}`,`Sentiment: ${r.sentiment_score}`,`Year: ${r.year_first_trending}`]}
+      }}},
+      scales:{
+        x:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{family:'DM Sans',size:10},color:'#5A4A5A'},title:{display:true,text:'Total Posts (Millions)',font:{family:'DM Sans',size:10},color:'#b8a8c4'}},
+        y:{grid:{display:false},ticks:{font:{family:'DM Sans',size:10},color:'#3A3040'}}
+      }
+    }
+  };
+  if (CH.c1) CH.c1.destroy();
+  CH.c1 = new Chart(document.getElementById('c1'), cfg);
+}
+
+/* ─── CHART 2 ─── */
+function buildC2(f) {
+  const cats = [...new Set(DATA.map(r=>r.category))];
+  const mk = {likes:'avg_likes',comments:'avg_comments',shares:'avg_shares'}[S.eng];
+  const vals = cats.map(cat=>{
+    const rows = f.filter(r=>r.category===cat);
+    return rows.length ? Math.round(rows.reduce((s,r)=>s+r[mk],0)/rows.length) : 0;
+  });
+  const cfg = {
+    type:'bar',
+    data:{labels:cats,datasets:[{data:vals,backgroundColor:cats.map(c=>CC[c]+'cc'),borderColor:cats.map(c=>CC[c]),borderWidth:2}]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:i=>`${S.eng}: ${i.raw.toLocaleString()}`}}},
+      scales:{
+        x:{grid:{display:false},ticks:{font:{family:'DM Sans',size:9},color:'#3A3040',maxRotation:40}},
+        y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{family:'DM Sans',size:10},color:'#5A4A5A'}}
+      },
+      animation:{duration:400}
+    }
+  };
+  if (CH.c2) CH.c2.destroy();
+  CH.c2 = new Chart(document.getElementById('c2'), cfg);
+}
+
+/* ─── CHART 3 ─── */
+function buildC3(f) {
+  const counts = {};
+  MONTHS.forEach(m=>counts[m]=0);
+  f.forEach(r=>{ if(counts[r.peak_month]!==undefined) counts[r.peak_month]++; });
+  const months = MONTHS.filter(m=>counts[m]>0);
+  const cfg = {
+    type:'doughnut',
+    data:{
+      labels:months,
+      datasets:[{data:months.map(m=>counts[m]),
+        backgroundColor:months.map((_,i)=>PALETTE[i%PALETTE.length]+'dd'),
+        borderColor:'#FFFDF9',borderWidth:3}]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{position:'right',labels:{font:{family:'DM Sans',size:9},color:'#3A3040',padding:7,boxWidth:11}},
+        tooltip:{callbacks:{label:i=>{
+          const hs=f.filter(r=>r.peak_month===i.label).map(r=>r.hashtag).join(', ');
+          return[`${i.raw} hashtags peak in ${i.label}`,hs.length>70?hs.slice(0,70)+'…':hs];
+        }}}
+      }
+    }
+  };
+  if (CH.c3) CH.c3.destroy();
+  CH.c3 = new Chart(document.getElementById('c3'), cfg);
+}
+
+/* ─── CHART 4 ─── */
+function buildC4(f) {
+  const regs = ['North','South','East','West'];
+  const vals = regs.map(reg=>+f.filter(r=>r.region===reg).reduce((s,r)=>s+r.total_posts_millions,0).toFixed(1));
+  const cfg = {
+    type:'bar',
+    data:{labels:regs,datasets:[{data:vals,backgroundColor:regs.map(r=>RC[r]+'cc'),borderColor:regs.map(r=>RC[r]),borderWidth:2}]},
+    options:{
+      indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:i=>`${i.raw}M total posts`}}},
+      scales:{
+        x:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{family:'DM Sans',size:11},color:'#5A4A5A'}},
+        y:{grid:{display:false},ticks:{font:{family:'DM Sans',size:12},color:'#3A3040'}}
+      }
+    }
+  };
+  if (CH.c4) CH.c4.destroy();
+  CH.c4 = new Chart(document.getElementById('c4'), cfg);
+}
+
+/* ─── CHART 5 ─── */
+function buildC5(f) {
+  const cats = [...new Set(DATA.map(r=>r.category))];
+  const vals = cats.map(cat=>{
+    const rows = f.filter(r=>r.category===cat);
+    return rows.length ? +(rows.reduce((s,r)=>s+r.sentiment_score,0)/rows.length).toFixed(3) : 0;
+  });
+  const cfg = {
+    type:'radar',
+    data:{labels:cats,datasets:[{
+      data:vals,
+      backgroundColor:'rgba(195,107,162,.12)',
+      borderColor:'#c36ba2',borderWidth:2,
+      pointBackgroundColor:cats.map(c=>CC[c]),
+      pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:5
+    }]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{r:{
+        min:0.8,max:1.0,
+        ticks:{stepSize:0.05,font:{family:'DM Sans',size:8},color:'#b8a8c4',backdropColor:'transparent'},
+        pointLabels:{font:{family:'DM Sans',size:9},color:'#3A3040'},
+        grid:{color:'rgba(0,0,0,.07)'},
+        angleLines:{color:'rgba(0,0,0,.07)'}
+      }}
+    }
+  };
+  if (CH.c5) CH.c5.destroy();
+  CH.c5 = new Chart(document.getElementById('c5'), cfg);
+}
+
+/* ─── CHART 6 ─── */
+function buildC6(f) {
+  const years = Array.from({length:11},(_,i)=>2014+i);
+  const all = years.map(y=>DATA.filter(r=>r.year_first_trending===y).length);
+  const filt = years.map(y=>f.filter(r=>r.year_first_trending===y).length);
+  const cfg = {
+    type:'line',
+    data:{
+      labels:years,
+      datasets:[
+        {label:'All',data:all,borderColor:'#b8a8c4',backgroundColor:'rgba(184,168,196,.08)',borderWidth:1.5,borderDash:[4,4],tension:0.35,pointRadius:4,pointBackgroundColor:'#b8a8c4'},
+        {label:'Filtered',data:filt,borderColor:'#c36ba2',backgroundColor:'rgba(195,107,162,.1)',borderWidth:2.5,tension:0.35,pointRadius:5,pointBackgroundColor:'#c36ba2',pointBorderColor:'#fff',pointBorderWidth:2,fill:true}
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{display:true,labels:{font:{family:'DM Sans',size:10},color:'#3A3040'}},
+        tooltip:{callbacks:{afterBody:items=>{
+          const yr=years[items[0].dataIndex];
+          const hs=f.filter(r=>r.year_first_trending===yr).map(r=>r.hashtag).join(', ');
+          return hs?[`Hashtags: ${hs.length>80?hs.slice(0,80)+'…':hs}`]:[];
+        }}}
+      },
+      scales:{
+        x:{grid:{display:false},ticks:{font:{family:'DM Sans',size:11},color:'#5A4A5A'}},
+        y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{family:'DM Sans',size:11},color:'#5A4A5A',stepSize:1}}
+      },
+      onClick:(_,els)=>{
+        if (!els.length) return;
+        const yr=years[els[0].index];
+        S.yearFilter = S.yearFilter===yr ? null : yr;
+        S.page=1; renderAll();
+      }
+    }
+  };
+  if (CH.c6) CH.c6.destroy();
+  CH.c6 = new Chart(document.getElementById('c6'), cfg);
+}
+
+/* ─── TABLE ─── */
+function renderTable(f) {
+  const start = (S.page-1)*PG;
+  const page = f.slice(start, start+PG);
+  document.getElementById('tbl-body').innerHTML = page.map((r,i)=>{
+    const rank = start+i;
+    const star = rank<3 ? ` <span style="color:#d4af37;font-size:.6rem">★${rank+1}</span>` : '';
+    return `<tr>
+      <td><strong style="font-family:'Righteous',sans-serif;font-size:.75rem">${r.hashtag}</strong>${star}</td>
+      <td><span class="cbadge" style="background:${CC[r.category]}">${r.category}</span></td>
+      <td><strong>${r.total_posts_millions}M</strong></td>
+      <td>${r.avg_likes.toLocaleString()}</td>
+      <td>${r.avg_comments.toLocaleString()}</td>
+      <td>${r.avg_shares.toLocaleString()}</td>
+      <td>${r.peak_month}</td>
+      <td>${r.top_city}</td>
+      <td><span class="cbadge" style="background:${RC[r.region]||'#888'}">${r.region}</span></td>
+      <td><span style="font-family:'Righteous',sans-serif;font-size:.72rem">${r.sentiment_score}</span><div class="sent-bar"><div class="sent-fill" style="width:${Math.round(r.sentiment_score*100)}%"></div></div></td>
+      <td>${r.year_first_trending}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('tbl-count').textContent = `${start+1}–${Math.min(start+PG,f.length)} of ${f.length} hashtags`;
+  renderPagination(f.length);
+  document.querySelectorAll('th[data-col]').forEach(th=>{
+    th.classList.remove('asc','desc');
+    if(th.dataset.col===S.sortCol) th.classList.add(S.sortDir===1?'asc':'desc');
+  });
+  // year chip
+  const chip = document.getElementById('yr-chip');
+  if (S.yearFilter) {
+    chip.innerHTML = `<span class="year-chip">📅 ${S.yearFilter} <span class="year-chip-x" onclick="clearYear()">✕</span></span>`;
+    document.getElementById('c6-sub').textContent = `Click a point to filter — currently showing ${S.yearFilter}`;
+  } else {
+    chip.innerHTML = '';
+    document.getElementById('c6-sub').textContent = 'How many hashtags started trending each year? · Click a point to filter the table below';
+  }
+}
+
+function renderPagination(total) {
+  const pages = Math.ceil(total/PG);
+  const wrap = document.getElementById('pagination');
+  if (pages<=1) { wrap.innerHTML=''; return; }
+  let h = `<button class="pg-btn" onclick="goPage(${S.page-1})" ${S.page===1?'disabled':''}>← Prev</button>`;
+  for (let p=1;p<=pages;p++) {
+    if (p===1||p===pages||Math.abs(p-S.page)<=1) {
+      h += `<button class="pg-btn${p===S.page?' cur':''}" onclick="goPage(${p})">${p}</button>`;
+    } else if (Math.abs(p-S.page)===2) {
+      h += `<span class="pg-ellipsis">…</span>`;
+    }
+  }
+  h += `<button class="pg-btn" onclick="goPage(${S.page+1})" ${S.page===pages?'disabled':''}>Next →</button>`;
+  wrap.innerHTML = h;
+}
+
+function goPage(p) {
+  S.page=p;
+  renderTable(getFiltered());
+  document.querySelector('.table-section').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function clearYear() { S.yearFilter=null; S.page=1; renderAll(); }
+
+/* ─── INSIGHTS ─── */
+function renderInsights() {
+  const d = DATA;
+  // highest engagement category
+  const catLikes = {};
+  d.forEach(r=>{ (catLikes[r.category]=catLikes[r.category]||[]).push(r.avg_likes); });
+  let bestCat='',bestL=0;
+  Object.entries(catLikes).forEach(([c,vs])=>{ const a=Math.round(vs.reduce((s,v)=>s+v,0)/vs.length); if(a>bestL){bestL=a;bestCat=c;} });
+  // peak month
+  const mCnt={};
+  d.forEach(r=>mCnt[r.peak_month]=(mCnt[r.peak_month]||0)+1);
+  const [peakMonth,peakN]=Object.entries(mCnt).sort((a,b)=>b[1]-a[1])[0];
+  // top city
+  const cCnt={};
+  d.forEach(r=>cCnt[r.top_city]=(cCnt[r.top_city]||0)+1);
+  const [topCity,topN]=Object.entries(cCnt).sort((a,b)=>b[1]-a[1])[0];
+  // fastest rising
+  const maxYr=Math.max(...d.map(r=>r.year_first_trending));
+  const rising=d.filter(r=>r.year_first_trending===maxYr).sort((a,b)=>b.total_posts_millions-a.total_posts_millions)[0];
+
+  document.getElementById('insights-grid').innerHTML = `
+    <div class="ins-card"><span class="ins-ico">🏆</span><div class="ins-lbl">Highest Engagement Category</div><div class="ins-val">${bestCat}</div><div class="ins-desc">${bestCat} content drives the highest engagement with an average of <strong>${bestL.toLocaleString()}</strong> likes per post — outperforming all other categories.</div></div>
+    <div class="ins-card"><span class="ins-ico">📅</span><div class="ins-lbl">Peak Wedding Season</div><div class="ins-val">${peakMonth}</div><div class="ins-desc"><strong>${peakMonth}</strong> is the peak month for Indian wedding content on Instagram — with <strong>${peakN}</strong> hashtags reaching their highest engagement volume during this month.</div></div>
+    <div class="ins-card"><span class="ins-ico">📍</span><div class="ins-lbl">Top City</div><div class="ins-val">${topCity}</div><div class="ins-desc"><strong>${topCity}</strong> dominates as the top city across Indian wedding hashtags — appearing as the lead city for <strong>${topN}</strong> trending hashtags in the dataset.</div></div>
+    <div class="ins-card"><span class="ins-ico">🚀</span><div class="ins-lbl">Fastest Rising Trend</div><div class="ins-val">${rising.hashtag}</div><div class="ins-desc"><strong>${rising.hashtag}</strong> is the most recently trending hashtag, first appearing in <strong>${rising.year_first_trending}</strong> — already generating <strong>${rising.total_posts_millions}M</strong> posts with a sentiment score of ${rising.sentiment_score}.</div></div>
+  `;
+}
+
+/* ─── RENDER ALL ─── */
+function renderAll() {
+  const f = getFiltered();
+  buildC1(f); buildC2(f); buildC3(f); buildC4(f); buildC5(f); buildC6(f);
+  renderTable(f);
+}
+
+/* ─── COUNT-UP ─── */
+(function(){
+  const totalPosts = +(DATA.reduce((s,r)=>s+r.total_posts_millions,0)).toFixed(1);
+  const avgSent = (DATA.reduce((s,r)=>s+r.sentiment_score,0)/DATA.length).toFixed(2);
+  document.getElementById('total-posts-hero').dataset.count = Math.round(totalPosts);
+  document.getElementById('total-posts-hero').dataset.suffix = 'M';
+  document.getElementById('avg-sent-hero').textContent = avgSent;
+
+  const els = document.querySelectorAll('[data-count]');
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting && !entry.target.dataset.done){
+        entry.target.dataset.done='1';
+        const end=+entry.target.dataset.count, suf=entry.target.dataset.suffix||'', dur=1500, t0=performance.now();
+        function tick(now){
+          const t=Math.min((now-t0)/dur,1), v=Math.round(t*t*end);
+          entry.target.textContent=v+suf;
+          if(t<1) requestAnimationFrame(tick); else entry.target.textContent=end+suf;
+        }
+        requestAnimationFrame(tick);
+      }
+    });
+  },{threshold:0.4});
+  els.forEach(el=>obs.observe(el));
+})();
+
+/* ─── REVEAL ─── */
+const rObs = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');rObs.unobserve(e.target);}}),{threshold:0.05});
+document.querySelectorAll('.reveal').forEach(el=>rObs.observe(el));
+
+/* ─── FILTER PILLS ─── */
+document.querySelectorAll('.fpill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const f=btn.dataset.f, v=btn.dataset.v;
+    document.querySelectorAll(`.fpill[data-f="${f}"]`).forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    S[f==='cat'?'cat':'reg']=v; S.page=1; renderAll();
+  });
+});
+
+/* ─── SORT SELECT ─── */
+document.getElementById('sort-sel').addEventListener('change',e=>{
+  S.sort=e.target.value; S.sortCol=null; S.page=1; renderAll();
+});
+
+/* ─── TABLE HEADER SORT ─── */
+document.querySelectorAll('th[data-col]').forEach(th=>{
+  th.addEventListener('click',()=>{
+    const col=th.dataset.col;
+    if(S.sortCol===col) S.sortDir=-S.sortDir; else {S.sortCol=col;S.sortDir=1;}
+    S.sort='custom'; S.page=1; renderTable(getFiltered());
+  });
+});
+
+/* ─── SEARCH ─── */
+document.getElementById('tbl-search').addEventListener('input',e=>{
+  S.search=e.target.value; S.page=1; renderTable(getFiltered());
+});
+
+/* ─── ENGAGEMENT TOGGLE ─── */
+document.querySelectorAll('.eng-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.eng-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active'); S.eng=btn.dataset.m;
+    buildC2(getFiltered());
+  });
+});
+
+/* ─── INIT ─── */
+renderAll();
+renderInsights();
+</script>
+</body>
+</html>

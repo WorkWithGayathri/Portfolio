@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consumer Electronics Retailer — SEO & Content Strategy Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --c:#c36ba2;--p:#7a5e8c;--s:#a8c6a6;--bl:#e8c8e0;
+  --b:#92A8D1;--s2:#b5d668;--dark:#2a1f3d;--w:#FFFDF9;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--s);
+  min-height:100vh;color:var(--dark);
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background:repeating-linear-gradient(-55deg,transparent,transparent 36px,rgba(255,255,255,.035) 36px,rgba(255,255,255,.035) 72px);
+  pointer-events:none;z-index:0;
+}
+.page{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:2rem 1.5rem 3rem}
+
+/* ── HEADER ── */
+.hdr{text-align:center;padding:2.5rem 1rem 2rem;margin-bottom:2.5rem}
+.hdr-pill{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--dark);color:var(--bl);
+  font-family:'Righteous',sans-serif;font-size:.7rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  padding:.4rem 1.1rem;border-radius:3px;margin-bottom:1.1rem;
+  border-bottom:3px solid var(--c);
+}
+.hdr h1{
+  font-family:'Righteous',sans-serif;
+  font-size:clamp(1.8rem,4.5vw,3.2rem);
+  color:#fff;text-shadow:5px 5px 0 rgba(0,0,0,.2);
+  line-height:1.05;margin-bottom:.55rem;
+}
+.hdr-sub{color:rgba(255,255,255,.85);font-size:1rem;font-weight:500;margin-bottom:1.1rem}
+.hdr-intro{
+  max-width:780px;margin:0 auto 1.3rem;
+  background:rgba(0,0,0,.18);border-radius:6px;
+  padding:1rem 1.4rem;
+  font-size:.85rem;color:rgba(255,255,255,.88);
+  line-height:1.75;border-left:4px solid var(--bl);
+  text-align:left;
+}
+.hdr-stripe{display:flex;height:5px;border-radius:3px;overflow:hidden;max-width:480px;margin:0 auto}
+.hdr-stripe span{flex:1}
+
+/* ── SECTION HEADING ── */
+.sec-hd{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:'Righteous',sans-serif;font-size:.78rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--dark);background:var(--bl);
+  padding:.32rem .9rem;border-radius:3px;
+  margin-bottom:1.1rem;border-left:5px solid var(--c);
+}
+.channel-intro{
+  background:rgba(255,255,255,.15);
+  border-radius:6px;padding:.85rem 1.1rem;
+  font-size:.8rem;color:rgba(255,255,255,.9);
+  line-height:1.7;margin-bottom:1.1rem;
+  border-left:3px solid rgba(255,255,255,.4);
+}
+
+/* ── HERO CARDS ── */
+.hero-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1.25rem;margin-bottom:2.75rem;
+}
+@media(max-width:900px){.hero-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.hero-grid{grid-template-columns:1fr}}
+
+.hcard{
+  background:#fff;border-radius:6px;padding:1.8rem 1.5rem 1.5rem;
+  box-shadow:6px 6px 0 rgba(0,0,0,.16);border-top:5px solid;
+  position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s;
+}
+.hcard:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 rgba(0,0,0,.14)}
+.hcard:nth-child(1){border-color:var(--s)}
+.hcard:nth-child(2){border-color:var(--c)}
+.hcard:nth-child(3){border-color:var(--p)}
+.hcard:nth-child(4){border-color:var(--b)}
+.hcard::after{
+  content:'';position:absolute;bottom:-18px;right:-18px;
+  width:90px;height:90px;border-radius:50%;opacity:.07;
+}
+.hcard:nth-child(1)::after{background:var(--s)}
+.hcard:nth-child(2)::after{background:var(--c)}
+.hcard:nth-child(3)::after{background:var(--p)}
+.hcard:nth-child(4)::after{background:var(--b)}
+.hcard-ico{font-size:1.55rem;margin-bottom:.6rem;display:block}
+.hcard-num{font-family:'Righteous',sans-serif;font-size:clamp(1.9rem,3vw,2.8rem);line-height:1;margin-bottom:.4rem}
+.hcard:nth-child(1) .hcard-num{color:var(--s)}
+.hcard:nth-child(2) .hcard-num{color:var(--c)}
+.hcard:nth-child(3) .hcard-num{color:var(--p)}
+.hcard:nth-child(4) .hcard-num{color:var(--b)}
+.hcard-lbl{font-size:.82rem;font-weight:700;color:var(--dark);margin-bottom:.22rem}
+.hcard-sub{font-size:.7rem;color:#888;line-height:1.5}
+
+/* ── CHANNEL BLOCKS ── */
+.channel-block{
+  background:#fff;border-radius:6px;
+  box-shadow:5px 5px 0 rgba(0,0,0,.12);
+  margin-bottom:2rem;overflow:hidden;
+}
+.ch-header{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.2rem 1.5rem;border-bottom:2px solid #f0f0f0;
+}
+.ch-ico{
+  width:46px;height:46px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;flex-shrink:0;
+}
+.ch-title-wrap{}
+.ch-title{font-family:'Righteous',sans-serif;font-size:1rem;color:var(--dark);margin-bottom:.15rem}
+.ch-desc{font-size:.77rem;color:#666;line-height:1.5}
+.ch-body{padding:1.4rem 1.5rem}
+
+.ch-stat-row{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:1rem;margin-bottom:1.4rem;
+}
+.ch-stat{
+  background:#f9f9f9;border-radius:5px;
+  padding:.85rem 1rem;border-left:4px solid;
+}
+.ch-stat-v{
+  font-family:'Righteous',sans-serif;font-size:1.5rem;
+  line-height:1;margin-bottom:.2rem;
+}
+.ch-stat-l{font-size:.72rem;color:#666;font-weight:600}
+
+.ch-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+@media(max-width:700px){.ch-grid{grid-template-columns:1fr}}
+.ch-grid-3{display:grid;grid-template-columns:2fr 1fr;gap:1.25rem}
+@media(max-width:700px){.ch-grid-3{grid-template-columns:1fr}}
+
+.ch-chart-box{}
+.ch-chart-title{font-size:.78rem;font-weight:700;color:var(--dark);margin-bottom:.7rem}
+.ch-chart-wrap{position:relative;height:210px}
+.ch-chart-note{font-size:.68rem;color:#999;margin-top:.55rem;font-style:italic}
+
+/* ── EMAIL CAMPAIGN CARDS ── */
+.email-camps{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:.85rem;margin-bottom:1.25rem;
+}
+.ecamp{
+  border-radius:5px;padding:1rem;border-top:4px solid;background:#f9f9f9;
+}
+.ecamp:nth-child(1){border-color:var(--c)}
+.ecamp:nth-child(2){border-color:var(--p)}
+.ecamp:nth-child(3){border-color:var(--b)}
+.ecamp:nth-child(4){border-color:var(--s)}
+.ecamp:nth-child(5){border-color:var(--bl)}
+.ecamp-name{font-weight:700;font-size:.78rem;color:var(--dark);margin-bottom:.6rem}
+.ecamp-row{display:flex;justify-content:space-between;font-size:.73rem;padding:.22rem 0;border-bottom:1px solid #eee}
+.ecamp-row:last-child{border-bottom:none}
+.ecamp-k{color:#777}
+.ecamp-v{font-weight:700;color:var(--dark)}
+
+/* ── AB TEST ── */
+.ab-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.1rem}
+@media(max-width:600px){.ab-row{grid-template-columns:1fr}}
+.ab-card{
+  border-radius:5px;padding:1rem 1.1rem;
+  border:2.5px solid;position:relative;
+}
+.ab-card.win{border-color:var(--s);background:#fafff4}
+.ab-card.lose{border-color:#e0e0e0;background:#fafafa}
+.ab-badge{
+  position:absolute;top:-.65rem;left:.9rem;
+  font-size:.6rem;font-weight:800;letter-spacing:.06em;
+  text-transform:uppercase;padding:.12rem .45rem;border-radius:3px;
+}
+.ab-badge.w{background:var(--s);color:#fff}
+.ab-badge.l{background:#bbb;color:#fff}
+.ab-card-title{font-weight:700;font-size:.8rem;margin:.25rem 0 .65rem;color:var(--dark)}
+.ab-stats{display:flex;gap:1.1rem;flex-wrap:wrap;margin-bottom:.55rem}
+.ab-s-v{font-family:'Righteous',sans-serif;font-size:1.2rem;color:var(--dark)}
+.ab-s-l{font-size:.62rem;text-transform:uppercase;color:#999}
+.ab-insight{font-size:.72rem;line-height:1.6;color:#555;padding:.45rem .6rem;border-radius:4px}
+.ab-card.win .ab-insight{background:#eef5de}
+.ab-card.lose .ab-insight{background:#f5f5f5}
+
+/* ── KW TABLE ── */
+.tbl-outer{overflow-x:auto;margin-top:1.1rem}
+table{width:100%;border-collapse:collapse;min-width:600px}
+thead th{
+  background:var(--dark);color:#fff;
+  font-family:'Righteous',sans-serif;font-size:.7rem;
+  letter-spacing:.07em;padding:.7rem 1rem;
+  text-align:left;cursor:pointer;user-select:none;white-space:nowrap;
+}
+thead th:hover{background:var(--mid,#3e2f5c)}
+thead th .si{opacity:.4;margin-left:.25rem}
+thead th.srt .si{opacity:1;color:var(--bl)}
+tbody tr{border-bottom:1px solid #f0f0f0;transition:background .1s}
+tbody tr:hover{background:#fafafa}
+tbody td{padding:.6rem 1rem;font-size:.78rem;color:#333}
+td.td-kw{font-weight:700;color:var(--dark)}
+.pill{display:inline-block;font-size:.6rem;font-weight:800;padding:.1rem .42rem;border-radius:3px;text-transform:uppercase;letter-spacing:.04em}
+.pg{background:#eef5de;color:#4a7220}
+.pm{background:#ede9f7;color:#5a3f90}
+.pb{background:#f0f4fc;color:#3a5f9e}
+.pr{background:#ffe8e5;color:#c0392b}
+
+/* ── WINS & RANKINGS ── */
+.wins-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+  gap:1.1rem;margin-bottom:2rem;
+}
+.wcard{
+  background:var(--dark);border-radius:6px;padding:1.4rem;
+  box-shadow:5px 5px 0 rgba(0,0,0,.2);border-left:5px solid;
+  display:flex;gap:.8rem;align-items:flex-start;
+}
+.wcard:nth-child(1){border-color:var(--s)}
+.wcard:nth-child(2){border-color:var(--c)}
+.wcard:nth-child(3){border-color:var(--p)}
+.wcard:nth-child(4){border-color:var(--b)}
+.wcard:nth-child(5){border-color:var(--bl)}
+.wcard-ico{font-size:1.6rem;flex-shrink:0}
+.wcard-title{font-family:'Righteous',sans-serif;font-size:.86rem;margin-bottom:.32rem}
+.wcard:nth-child(1) .wcard-title{color:var(--s2)}
+.wcard:nth-child(2) .wcard-title{color:var(--c)}
+.wcard:nth-child(3) .wcard-title{color:#b8a0ea}
+.wcard:nth-child(4) .wcard-title{color:var(--b)}
+.wcard:nth-child(5) .wcard-title{color:var(--bl)}
+.wcard-desc{font-size:.76rem;line-height:1.7;color:rgba(255,255,255,.75)}
+
+.rank-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-bottom:2rem}
+@media(max-width:600px){.rank-row{grid-template-columns:1fr}}
+.rcard{
+  background:#fff;border-radius:6px;padding:1.4rem;
+  box-shadow:5px 5px 0 rgba(0,0,0,.1);text-align:center;border-top:4px solid;
+}
+.rcard:nth-child(1){border-color:var(--s)}
+.rcard:nth-child(2){border-color:var(--p)}
+.rcard:nth-child(3){border-color:var(--b)}
+.rcard-ico{font-size:1.6rem;margin-bottom:.4rem}
+.rcard-num{font-family:'Righteous',sans-serif;font-size:2.1rem;margin-bottom:.2rem}
+.rcard:nth-child(1) .rcard-num{color:var(--s)}
+.rcard:nth-child(2) .rcard-num{color:var(--p)}
+.rcard:nth-child(3) .rcard-num{color:var(--b)}
+.rcard-lbl{font-weight:700;font-size:.8rem;margin-bottom:.18rem}
+.rcard-sub{font-size:.68rem;color:#888}
+
+/* ── DIVIDER ── */
+.divider{height:3px;background:linear-gradient(90deg,var(--c),var(--p),var(--b),var(--s));border-radius:2px;margin:2rem 0;opacity:.4}
+
+/* ── FOOTER ── */
+.footer{text-align:center;padding:1.5rem;font-size:.7rem;color:rgba(255,255,255,.55);line-height:1.9}
+.footer strong{color:rgba(255,255,255,.88)}
+
+/* ── BACKGROUND TEXTURE ── */
+.bg-symbols{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.bg-sym{position:absolute;fill:#2a1f3d;opacity:.045;}
+</style>
+</head>
+<body>
+
+<!-- BG TEXTURE -->
+<div class="bg-symbols" aria-hidden="true">
+  <!-- Magnifying glass (search/SEO) -->
+  <svg class="bg-sym" style="width:85px;top:8%;left:3%;" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+  <svg class="bg-sym" style="width:55px;bottom:20%;right:5%;" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+  <!-- Bar chart (analytics) -->
+  <svg class="bg-sym" style="width:75px;top:28%;right:4%;" viewBox="0 0 24 24"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg>
+  <svg class="bg-sym" style="width:50px;bottom:8%;left:6%;" viewBox="0 0 24 24"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg>
+  <!-- Pen nib (content) -->
+  <svg class="bg-sym" style="width:70px;top:55%;left:2%;" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+  <svg class="bg-sym" style="width:55px;top:5%;right:6%;" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+  <!-- Keyboard (content writing) -->
+  <svg class="bg-sym" style="width:90px;bottom:28%;right:3%;" viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 5H5v-2h2v2zm9 0H8v-2h8v2zm0-3h-2v-2h2v2zm0-3h-2V8h2v2zm3 6h-2v-2h2v2zm0-3h-2v-2h2v2zm0-3h-2V8h2v2z"/></svg>
+  <svg class="bg-sym" style="width:65px;bottom:10%;left:14%;" viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 5H5v-2h2v2zm9 0H8v-2h8v2zm0-3h-2v-2h2v2zm0-3h-2V8h2v2zm3 6h-2v-2h2v2zm0-3h-2v-2h2v2zm0-3h-2V8h2v2z"/></svg>
+</div>
+
+<a href="v1.2.html" id="back-home-btn" style="position:fixed;top:20px;left:20px;z-index:9999;background:#2a1f3d;color:#FFFDF9;font-family:'Righteous',cursive;font-size:.8rem;font-weight:400;padding:10px 20px;border-radius:50px;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,.28);display:inline-flex;align-items:center;gap:8px;letter-spacing:.06em;transition:background .2s,transform .18s;" onmouseover="this.style.background='#c36ba2';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#2a1f3d';this.style.transform='translateY(0)'">&#8592; Home</a>
+<div class="page">
+
+<!-- ═══ HEADER ═══════════════════════════════════════ -->
+<div class="hdr">
+  <div class="hdr-pill">📈 Digital Marketing Performance Report</div>
+  <h1>Consumer Electronics Retailer<br>SEO &amp; Content Strategy</h1>
+  <p class="hdr-sub">Organic Search · Paid Ads · Email · Affiliate · Community</p>
+  <div class="hdr-intro">
+    This report summarises the end-to-end digital marketing strategy executed for a consumer electronics retailer competing in a live market simulation against 41 other businesses. The strategy covered organic search (SEO), paid search advertising, email marketing, affiliate partnerships, and online community management — all built and optimised from the ground up. The goal: drive traffic, grow brand awareness, and maximise conversions and revenue.
+  </div>
+  <div class="hdr-stripe">
+    <span style="background:var(--s)"></span>
+    <span style="background:var(--c)"></span>
+    <span style="background:var(--p)"></span>
+    <span style="background:var(--b)"></span>
+    <span style="background:var(--bl)"></span>
+    <span style="background:var(--c)"></span>
+    <span style="background:var(--s)"></span>
+  </div>
+</div>
+
+<!-- ═══ HERO STATS ════════════════════════════════════ -->
+<div class="sec-hd">🔥 Overall Results at a Glance</div>
+<div class="hero-grid">
+  <div class="hcard">
+    <span class="hcard-ico">💷</span>
+    <div class="hcard-num" data-count="49146" data-prefix="£">0</div>
+    <div class="hcard-lbl">Total Revenue Generated</div>
+    <div class="hcard-sub">Across all marketing channels combined</div>
+  </div>
+  <div class="hcard">
+    <span class="hcard-ico">🎯</span>
+    <div class="hcard-num" data-count="1502">0</div>
+    <div class="hcard-lbl">Total Conversions</div>
+    <div class="hcard-sub">Sales driven by all channels end-to-end</div>
+  </div>
+  <div class="hcard">
+    <span class="hcard-ico">🌱</span>
+    <div class="hcard-num" data-count="85" data-suffix="%">0</div>
+    <div class="hcard-lbl">Organic Traffic Growth</div>
+    <div class="hcard-sub">SEO-driven visitors grew from 848 to 1,570/month</div>
+  </div>
+  <div class="hcard">
+    <span class="hcard-ico">🏆</span>
+    <div class="hcard-num">6<span style="font-size:1.2rem">/42</span></div>
+    <div class="hcard-lbl">Overall Market Ranking</div>
+    <div class="hcard-sub">Ranked 3rd specifically for SEO performance</div>
+  </div>
+</div>
+
+<!-- ═══ SEO / ORGANIC SEARCH ════════════════════════ -->
+<div class="sec-hd">🌱 SEO — Organic Search</div>
+<div class="channel-intro">
+  SEO was the foundation of the entire strategy. The website was built with keyword-rich content, optimised headings, alt text on all images, internal linking, and mobile-friendly design — following Google best practices from day one. Organic traffic consistently outperformed every paid channel and became the single biggest source of visitors throughout the campaign.
+</div>
+<div class="channel-block">
+  <div class="ch-header">
+    <div class="ch-ico" style="background:#eef5de">🌱</div>
+    <div class="ch-title-wrap">
+      <div class="ch-title">Organic Search Performance</div>
+      <div class="ch-desc">Traffic driven purely by SEO — no paid spend. Ranked 3rd out of 42 competing businesses.</div>
+    </div>
+  </div>
+  <div class="ch-body">
+    <div class="ch-stat-row">
+      <div class="ch-stat" style="border-color:var(--s)">
+        <div class="ch-stat-v" style="color:var(--s)" data-count="5852">0</div>
+        <div class="ch-stat-l">Total Organic Visits</div>
+      </div>
+      <div class="ch-stat" style="border-color:var(--s)">
+        <div class="ch-stat-v" style="color:var(--s)">1,570</div>
+        <div class="ch-stat-l">Peak Monthly Visits</div>
+      </div>
+      <div class="ch-stat" style="border-color:var(--s)">
+        <div class="ch-stat-v" style="color:var(--s)">85%</div>
+        <div class="ch-stat-l">Traffic Growth</div>
+      </div>
+      <div class="ch-stat" style="border-color:var(--s)">
+        <div class="ch-stat-v" style="color:var(--s)">3rd</div>
+        <div class="ch-stat-l">SEO Ranking / 42 Teams</div>
+      </div>
+    </div>
+    <div class="ch-grid-3">
+      <div class="ch-chart-box">
+        <div class="ch-chart-title">Monthly Organic Traffic Growth</div>
+        <div class="ch-chart-wrap"><canvas id="organicChart"></canvas></div>
+        <div class="ch-chart-note">Organic traffic grew steadily month-on-month, dipping briefly in Month 3 before recovering strongly — driven by ongoing content and keyword optimisation.</div>
+      </div>
+      <div class="ch-chart-box">
+        <div class="ch-chart-title">Where All Traffic Came From</div>
+        <div class="ch-chart-wrap"><canvas id="sourceDoughnut"></canvas></div>
+        <div class="ch-chart-note">Organic + referral made up the majority of all visits. Paid and email traffic were introduced later.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.4rem">
+      <div class="ch-chart-title">What Made the SEO Work</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.75rem;margin-top:.6rem">
+        <div style="background:#f9f9f9;border-radius:5px;padding:.85rem 1rem;border-left:3px solid var(--s)">
+          <div style="font-weight:700;font-size:.78rem;margin-bottom:.3rem">🔑 Keyword-Optimised Content</div>
+          <div style="font-size:.72rem;color:#555;line-height:1.6">Every product page and landing page was written around high-intent keywords researched using Moz. Headings, descriptions, and CTAs all incorporated target terms naturally.</div>
+        </div>
+        <div style="background:#f9f9f9;border-radius:5px;padding:.85rem 1rem;border-left:3px solid var(--s)">
+          <div style="font-weight:700;font-size:.78rem;margin-bottom:.3rem">🔗 Internal Linking Structure</div>
+          <div style="font-size:.72rem;color:#555;line-height:1.6">Product pages linked to each other and to the main catalogue, keeping users on-site longer and helping search engines understand the site structure.</div>
+        </div>
+        <div style="background:#f9f9f9;border-radius:5px;padding:.85rem 1rem;border-left:3px solid var(--s)">
+          <div style="font-weight:700;font-size:.78rem;margin-bottom:.3rem">📱 Mobile-First Design</div>
+          <div style="font-size:.72rem;color:#555;line-height:1.6">The website was designed to be fully responsive across all devices — a critical factor in search engine rankings and user experience for the target demographics.</div>
+        </div>
+        <div style="background:#f9f9f9;border-radius:5px;padding:.85rem 1rem;border-left:3px solid var(--s)">
+          <div style="font-weight:700;font-size:.78rem;margin-bottom:.3rem">🖼️ Alt Text & Accessibility</div>
+          <div style="font-size:.72rem;color:#555;line-height:1.6">All images included descriptive alt text — improving both search visibility and accessibility for users with disabilities, in line with WCAG guidelines.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAID SEARCH ═══════════════════════════════════ -->
+<div class="sec-hd">💰 Paid Search Advertising (SEM)</div>
+<div class="channel-intro">
+  Paid search ads were introduced mid-campaign to complement organic traffic and target specific product audiences. Five different ad campaigns were created — each targeting a distinct customer segment. The strategy evolved from broad to specific targeting over time, significantly improving results.
+</div>
+<div class="channel-block">
+  <div class="ch-header">
+    <div class="ch-ico" style="background:#ede9f7">💰</div>
+    <div class="ch-title-wrap">
+      <div class="ch-title">Paid Search (Google Ads) Performance</div>
+      <div class="ch-desc">Search ads targeted across 5 campaigns for different product segments and buyer types.</div>
+    </div>
+  </div>
+  <div class="ch-body">
+    <div class="ch-stat-row">
+      <div class="ch-stat" style="border-color:var(--p)">
+        <div class="ch-stat-v" style="color:var(--p)" data-count="114610">0</div>
+        <div class="ch-stat-l">Total Impressions</div>
+      </div>
+      <div class="ch-stat" style="border-color:var(--p)">
+        <div class="ch-stat-v" style="color:var(--p)" data-count="4928">0</div>
+        <div class="ch-stat-l">Total Clicks</div>
+      </div>
+      <div class="ch-stat" style="border-color:var(--p)">
+        <div class="ch-stat-v" style="color:var(--p)">4.9%</div>
+        <div class="ch-stat-l">Peak CTR Achieved</div>
+      </div>
+      <div class="ch-stat" style="border-color:var(--p)">
+        <div class="ch-stat-v" style="color:var(--p)">27</div>
+        <div class="ch-stat-l">Total Ad Conversions</div>
+      </div>
+    </div>
+
+    <div class="ch-grid">
+      <div class="ch-chart-box">
+        <div class="ch-chart-title">Ad Impressions Over Time</div>
+        <div class="ch-chart-wrap"><canvas id="impressionsChart"></canvas></div>
+        <div class="ch-chart-note">Impressions surged as campaigns were refined and expanded. Month 3's dip was caused by two overlapping ads targeting the same keywords — resolved by restructuring the campaign mix.</div>
+      </div>
+      <div class="ch-chart-box">
+        <div class="ch-chart-title">Clicks &amp; Click-Through Rate</div>
+        <div class="ch-chart-wrap"><canvas id="clicksChart"></canvas></div>
+        <div class="ch-chart-note">CTR peaked at 4.9% after restructuring campaigns to remove keyword overlap and refocus on tighter audience segments.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.4rem">
+      <div class="ch-chart-title">Ad Campaigns Run — Keyword Targeting Strategy</div>
+      <div class="tbl-outer">
+        <table id="kwTable">
+          <thead>
+            <tr>
+              <th onclick="sortTable(0)">Ad Campaign <span class="si">⇅</span></th>
+              <th onclick="sortTable(1)">Who It Targeted <span class="si">⇅</span></th>
+              <th onclick="sortTable(2)">Example Keywords <span class="si">⇅</span></th>
+              <th onclick="sortTable(3)">Match Type <span class="si">⇅</span></th>
+              <th onclick="sortTable(4)">Result <span class="si">⇅</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-kw">Best Deals — All Products</td>
+              <td>Price-conscious shoppers</td>
+              <td>best deals, affordable devices, top offers</td>
+              <td><span class="pill pb">Broad</span></td>
+              <td><span class="pill pg">749 clicks · 4.9% CTR</span></td>
+            </tr>
+            <tr>
+              <td class="td-kw">Premium Devices — Creators</td>
+              <td>Content creators, professionals</td>
+              <td>premium device, creator tools, buy online</td>
+              <td><span class="pill pb">Exact</span></td>
+              <td><span class="pill pg">High conversion rate</span></td>
+            </tr>
+            <tr>
+              <td class="td-kw">Lightweight &amp; Travel-Friendly</td>
+              <td>Students, frequent travellers</td>
+              <td>lightweight portable, battery life, travel device</td>
+              <td><span class="pill pb">Phrase</span></td>
+              <td><span class="pill pm">Shopping campaign</span></td>
+            </tr>
+            <tr>
+              <td class="td-kw">Safe &amp; Educational Devices</td>
+              <td>Parents, family buyers</td>
+              <td>safe for kids, parental controls, educational</td>
+              <td><span class="pill pb">Phrase</span></td>
+              <td><span class="pill pm">Shopping campaign</span></td>
+            </tr>
+            <tr>
+              <td class="td-kw">Productivity &amp; Performance</td>
+              <td>Working professionals</td>
+              <td>productivity tools, best reviews, performance</td>
+              <td><span class="pill pb">Exact</span></td>
+              <td><span class="pill pg">2,046 clicks · 4% CTR</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ EMAIL MARKETING ═══════════════════════════════ -->
+<div class="sec-hd">📧 Email Marketing</div>
+<div class="channel-intro">
+  Five targeted email campaigns were designed and sent to segmented customer lists — each tailored to a different buyer type. A/B testing was used to find the best-performing content format. The result: concise, direct emails consistently outperformed longer, detailed ones — a key insight applied across all future campaigns.
+</div>
+<div class="channel-block">
+  <div class="ch-header">
+    <div class="ch-ico" style="background:#ffe8e5">📧</div>
+    <div class="ch-title-wrap">
+      <div class="ch-title">Email Campaign Performance</div>
+      <div class="ch-desc">5 campaigns sent to segmented audiences. A/B tested to optimise content format and copy.</div>
+    </div>
+  </div>
+  <div class="ch-body">
+    <div class="ch-stat-row">
+      <div class="ch-stat" style="border-color:var(--c)">
+        <div class="ch-stat-v" style="color:var(--c)">124,901</div>
+        <div class="ch-stat-l">Total Emails Sent</div>
+      </div>
+      <div class="ch-stat" style="border-color:var(--c)">
+        <div class="ch-stat-v" style="color:var(--c)" data-count="8840">0</div>
+        <div class="ch-stat-l">Total Opens</div>
+      </div>
+      <div class="ch-stat" style="border-color:var(--c)">
+        <div class="ch-stat-v" style="color:var(--c)">8.6%</div>
+        <div class="ch-stat-l">Best Open Rate</div>
+      </div>
+      <div class="ch-stat" style="border-color:var(--c)">
+        <div class="ch-stat-v" style="color:var(--c)" data-count="64">0</div>
+        <div class="ch-stat-l">Total Conversions</div>
+      </div>
+    </div>
+
+    <div class="ch-chart-title" style="margin-bottom:.7rem">Campaign Results by Audience Segment</div>
+    <div class="email-camps">
+      <div class="ecamp">
+        <div class="ecamp-name">Student Segment</div>
+        <div class="ecamp-row"><span class="ecamp-k">Sent to</span><span class="ecamp-v">25,000</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Opened</span><span class="ecamp-v">2,154</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Clicked</span><span class="ecamp-v">159</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Conversions</span><span class="ecamp-v">13</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Open Rate</span><span class="ecamp-v">8.6%</span></div>
+      </div>
+      <div class="ecamp">
+        <div class="ecamp-name">Parent Segment</div>
+        <div class="ecamp-row"><span class="ecamp-k">Sent to</span><span class="ecamp-v">24,985</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Opened</span><span class="ecamp-v">1,657</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Clicked</span><span class="ecamp-v">52</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Conversions</span><span class="ecamp-v">9</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Open Rate</span><span class="ecamp-v">6.6%</span></div>
+      </div>
+      <div class="ecamp">
+        <div class="ecamp-name">Gaming Segment</div>
+        <div class="ecamp-row"><span class="ecamp-k">Sent to</span><span class="ecamp-v">24,989</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Opened</span><span class="ecamp-v">1,007</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Clicked</span><span class="ecamp-v">40</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Conversions</span><span class="ecamp-v">6</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Open Rate</span><span class="ecamp-v">4.0%</span></div>
+      </div>
+      <div class="ecamp">
+        <div class="ecamp-name">Professional Segment</div>
+        <div class="ecamp-row"><span class="ecamp-k">Sent to</span><span class="ecamp-v">24,979</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Opened</span><span class="ecamp-v">2,096</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Clicked</span><span class="ecamp-v">205</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Conversions</span><span class="ecamp-v">21</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Open Rate</span><span class="ecamp-v">8.3%</span></div>
+      </div>
+      <div class="ecamp">
+        <div class="ecamp-name">Productivity Segment</div>
+        <div class="ecamp-row"><span class="ecamp-k">Sent to</span><span class="ecamp-v">24,948</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Opened</span><span class="ecamp-v">1,926</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Clicked</span><span class="ecamp-v">160</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Conversions</span><span class="ecamp-v">15</span></div>
+        <div class="ecamp-row"><span class="ecamp-k">Open Rate</span><span class="ecamp-v">7.7%</span></div>
+      </div>
+    </div>
+
+    <!-- A/B Test -->
+    <div style="margin-top:.5rem">
+      <div class="ch-chart-title">🧪 A/B Content Test — Which Email Format Converts Better?</div>
+      <p style="font-size:.76rem;color:#555;margin-top:.35rem;line-height:1.6">Two email formats were tested against the same audience: a longer, detailed email (Variant A) versus a shorter, punchy email with a single clear call-to-action (Variant B). Both were sent to equal halves of the same list.</p>
+      <div class="ab-row">
+        <div class="ab-card lose">
+          <span class="ab-badge l">Variant A</span>
+          <div class="ab-card-title">Detailed Long-Form Email</div>
+          <div class="ab-stats">
+            <div><div class="ab-s-v">1,102</div><div class="ab-s-l">Opens</div></div>
+            <div><div class="ab-s-v">106</div><div class="ab-s-l">Clicks</div></div>
+            <div><div class="ab-s-v">10</div><div class="ab-s-l">Conversions</div></div>
+          </div>
+          <div class="ab-insight">More information, more clicks — but fewer people actually bought. Longer copy created hesitation at the decision stage.</div>
+        </div>
+        <div class="ab-card win">
+          <span class="ab-badge w">✓ Winner — Variant B</span>
+          <div class="ab-card-title">Short &amp; Direct Email</div>
+          <div class="ab-stats">
+            <div><div class="ab-s-v">994</div><div class="ab-s-l">Opens</div></div>
+            <div><div class="ab-s-v">99</div><div class="ab-s-l">Clicks</div></div>
+            <div><div class="ab-s-v">11</div><div class="ab-s-l">Conversions</div></div>
+          </div>
+          <div class="ab-insight">Fewer clicks, more purchases. Concise copy with one clear CTA made it easier for readers to take action. This format was applied to all future campaigns.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ AFFILIATE MARKETING ═══════════════════════════ -->
+<div class="sec-hd">🤝 Affiliate Marketing</div>
+<div class="channel-intro">
+  An affiliate marketing programme was launched to extend reach through third-party promoters. Affiliates were paid a commission for every sale they drove. The commission rate was actively managed — starting higher to attract early partners, then reduced gradually as the brand gained recognition and trust.
+</div>
+<div class="channel-block">
+  <div class="ch-header">
+    <div class="ch-ico" style="background:#e8eef7">🤝</div>
+    <div class="ch-title-wrap">
+      <div class="ch-title">Affiliate Programme Performance</div>
+      <div class="ch-desc">Partner-driven traffic and conversions. Commission rate optimised from 12% → 8% as brand matured.</div>
+    </div>
+  </div>
+  <div class="ch-body">
+    <div class="ch-stat-row">
+      <div class="ch-stat" style="border-color:var(--b)">
+        <div class="ch-stat-v" style="color:var(--b)" data-count="5823">0</div>
+        <div class="ch-stat-l">Total Affiliate Visits</div>
+      </div>
+      <div class="ch-stat" style="border-color:var(--b)">
+        <div class="ch-stat-v" style="color:var(--b)" data-count="198">0</div>
+        <div class="ch-stat-l">Total Conversions</div>
+      </div>
+      <div class="ch-stat" style="border-color:var(--b)">
+        <div class="ch-stat-v" style="color:var(--b)">£2,755</div>
+        <div class="ch-stat-l">Total Profit via Affiliates</div>
+      </div>
+      <div class="ch-stat" style="border-color:var(--b)">
+        <div class="ch-stat-v" style="color:var(--b)">12%→8%</div>
+        <div class="ch-stat-l">Commission Rate Journey</div>
+      </div>
+    </div>
+    <div class="ch-chart-box">
+      <div class="ch-chart-title">Affiliate Visits &amp; Conversions Over Time</div>
+      <div class="ch-chart-wrap"><canvas id="affiliateChart"></canvas></div>
+      <div class="ch-chart-note">Conversions grew significantly as more affiliates joined the programme and higher-performing product segments were added. Final month saw a 224% jump in conversions.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ COMMUNITY & CONTENT ═══════════════════════════ -->
+<div class="sec-hd">🌐 Community &amp; Content Management</div>
+<div class="channel-intro">
+  Two branded online communities were built to generate organic brand engagement and user-driven content. Gamification features (achievements, challenges, avatars) were added to keep members active and returning. These communities drove referral traffic that grew from 390 to 1,087 monthly visits.
+</div>
+<div class="channel-block">
+  <div class="ch-header">
+    <div class="ch-ico" style="background:#fff0f0">🌐</div>
+    <div class="ch-title-wrap">
+      <div class="ch-title">Online Community Performance</div>
+      <div class="ch-desc">Two branded communities built and managed — a peer marketplace and a social discussion platform.</div>
+    </div>
+  </div>
+  <div class="ch-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.1rem">
+      <div style="background:#f9f9f9;border-radius:6px;padding:1.1rem 1.2rem;border-top:4px solid var(--c)">
+        <div style="font-weight:700;font-size:.85rem;margin-bottom:.55rem;color:var(--dark)">🛒 Peer-to-Peer Marketplace Community</div>
+        <div style="font-size:.74rem;color:#555;line-height:1.65;margin-bottom:.8rem">A buy/sell community for pre-owned electronics — similar to Facebook Marketplace. Members could list, browse, and purchase second-hand devices. Gamification features included virtual environments, trivia, and achievement badges to keep users engaged.</div>
+        <div style="display:flex;gap:1.25rem;flex-wrap:wrap">
+          <div><div style="font-family:'Righteous',sans-serif;font-size:1.4rem;color:var(--c)" data-count="591">0</div><div style="font-size:.68rem;color:#888">Total Members</div></div>
+          <div><div style="font-family:'Righteous',sans-serif;font-size:1.4rem;color:var(--c)">73.5%</div><div style="font-size:.68rem;color:#888">Engagement Rate</div></div>
+        </div>
+      </div>
+      <div style="background:#f9f9f9;border-radius:6px;padding:1.1rem 1.2rem;border-top:4px solid var(--p)">
+        <div style="font-weight:700;font-size:.85rem;margin-bottom:.55rem;color:var(--dark)">💬 Social Discussion Platform</div>
+        <div style="font-size:.74rem;color:#555;line-height:1.65;margin-bottom:.8rem">A content-sharing platform where members posted reviews, tips, and discussions about electronics. Challenges and virtual gifting encouraged consistent posting and peer interaction — generating organic word-of-mouth for the brand.</div>
+        <div style="display:flex;gap:1.25rem;flex-wrap:wrap">
+          <div><div style="font-family:'Righteous',sans-serif;font-size:1.4rem;color:var(--p)" data-count="2121">0</div><div style="font-size:.68rem;color:#888">Total Members</div></div>
+          <div><div style="font-family:'Righteous',sans-serif;font-size:1.4rem;color:var(--p)">15.6%</div><div style="font-size:.68rem;color:#888">Engagement Rate</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:1.1rem;background:#f9f9f9;border-radius:5px;padding:.9rem 1rem;border-left:4px solid var(--s)">
+      <div style="font-weight:700;font-size:.78rem;margin-bottom:.3rem">📈 Impact on Referral Traffic</div>
+      <div style="font-size:.74rem;color:#555;line-height:1.65">Community activity directly drove referral traffic to the main website — growing from 390 visits in Month 1 to <strong>1,087 visits by Month 5</strong> (+179%). Members sharing links, leaving reviews, and recommending products acted as free, organic marketing.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ COMPETITIVE RANKINGS ══════════════════════════ -->
+<div class="sec-hd">🏆 Competitive Rankings</div>
+<div class="rank-row">
+  <div class="rcard">
+    <div class="rcard-ico">🌐</div>
+    <div class="rcard-num">3rd</div>
+    <div class="rcard-lbl">SEO &amp; Web Performance</div>
+    <div class="rcard-sub">Out of 42 competing businesses · £49,146 generated via organic</div>
+  </div>
+  <div class="rcard">
+    <div class="rcard-ico">📧</div>
+    <div class="rcard-num">13th</div>
+    <div class="rcard-lbl">Email Marketing</div>
+    <div class="rcard-sub">Out of 42 competing businesses · £3,386 profit</div>
+  </div>
+  <div class="rcard">
+    <div class="rcard-ico">🏅</div>
+    <div class="rcard-num">6th</div>
+    <div class="rcard-lbl">Overall Market Ranking</div>
+    <div class="rcard-sub">Out of 42 competing businesses · £50,727 total profit</div>
+  </div>
+</div>
+
+<!-- ═══ KEY WINS ═══════════════════════════════════════ -->
+<div class="sec-hd">🏅 Key Wins</div>
+<div class="wins-grid">
+  <div class="wcard">
+    <div class="wcard-ico">🌱</div>
+    <div>
+      <div class="wcard-title">Top 3 SEO Performance Out of 42 Businesses</div>
+      <div class="wcard-desc">The organic-first content strategy consistently outperformed paid channels. Organic traffic grew 85% — from 848 to 1,570 monthly visitors — making SEO the single most powerful channel in the entire campaign.</div>
+    </div>
+  </div>
+  <div class="wcard">
+    <div class="wcard-ico">🧪</div>
+    <div>
+      <div class="wcard-title">A/B Testing Proved Concise Copy Converts Better</div>
+      <div class="wcard-desc">Email A/B testing showed that shorter, direct copy with one clear call-to-action consistently outperformed longer detailed emails on conversions. This finding was rolled out across all future campaigns, improving overall email performance.</div>
+    </div>
+  </div>
+  <div class="wcard">
+    <div class="wcard-ico">💷</div>
+    <div>
+      <div class="wcard-title">£49,146 Revenue from Organic Alone</div>
+      <div class="wcard-desc">The vast majority of total revenue — £49,146 out of £50,727 — was generated through organic web traffic and SEO. Zero paid spend was needed to achieve this, proving the long-term ROI of a strong content and SEO foundation.</div>
+    </div>
+  </div>
+  <div class="wcard">
+    <div class="wcard-ico">📈</div>
+    <div>
+      <div class="wcard-title">Impressions Grew 4,225% After Campaign Restructure</div>
+      <div class="wcard-desc">Paid ad impressions jumped from 1,185 to 46,811 after removing keyword cannibalisation between campaigns and refocusing each ad on a distinct audience segment. A targeted approach dramatically outperformed the initial broad strategy.</div>
+    </div>
+  </div>
+  <div class="wcard">
+    <div class="wcard-ico">🤝</div>
+    <div>
+      <div class="wcard-title">Community Built 73% Engagement Rate</div>
+      <div class="wcard-desc">The peer marketplace community achieved a 73.5% engagement rate — far above industry averages. Community members generated organic referral traffic that grew 179% over the campaign, acting as an always-on, zero-cost marketing channel.</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ FOOTER ════════════════════════════════════════ -->
+<div class="footer">
+  <strong>Consumer Electronics Retailer — SEO &amp; Content Strategy Performance</strong><br>
+  Data represents SEO &amp; content strategy performance. Prepared for portfolio purposes.<br>
+  Tools used: Moz Keyword Research · Google Ads · A/B Email Testing · Analytics Tracking
+</div>
+
+</div>
+
+<script>
+/* ── COUNT-UP ── */
+function countUp(el){
+  const target=+el.dataset.count,suffix=el.dataset.suffix||'',prefix=el.dataset.prefix||'',dur=2000,start=performance.now();
+  const ease=t=>1-Math.pow(2,-10*t);
+  function tick(now){
+    const p=Math.min((now-start)/dur,1),v=Math.round(ease(p)*target);
+    el.textContent=prefix+(target>=1000?v.toLocaleString('en-GB'):v)+suffix;
+    if(p<1)requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+const cObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){countUp(e.target);cObs.unobserve(e.target)}});
+},{threshold:.3});
+document.querySelectorAll('[data-count]').forEach(c=>cObs.observe(c));
+
+Chart.defaults.font.family="'DM Sans',sans-serif";
+Chart.defaults.color='#555';
+const C={sage:'#a8c6a6',coral:'#c36ba2',purple:'#7a5e8c',blue:'#92A8D1',blush:'#e8c8e0',sage2:'#b5d668'};
+
+/* 1. Organic traffic line */
+new Chart(document.getElementById('organicChart'),{
+  type:'line',
+  data:{
+    labels:['Month 1','Month 2','Month 3','Month 4','Month 5'],
+    datasets:[{
+      label:'Organic Visits',
+      data:[848,1207,1059,1168,1570],
+      borderColor:C.sage,backgroundColor:'rgba(136,176,75,.12)',
+      borderWidth:2.5,pointBackgroundColor:C.sage,pointRadius:5,
+      pointHoverRadius:7,tension:.35,fill:true
+    }]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{y:{min:600,grid:{color:'#f0f0f0'}},x:{grid:{display:false}}}
+  }
+});
+
+/* 2. Traffic source doughnut (totals) */
+new Chart(document.getElementById('sourceDoughnut'),{
+  type:'doughnut',
+  data:{
+    labels:['Organic (SEO)','Referral/Affiliate','Email','Paid Ads','Direct'],
+    datasets:[{
+      data:[5852,2956,1139,562,150],
+      backgroundColor:[C.sage,C.blue,C.coral,C.purple,C.blush],
+      borderColor:'#fff',borderWidth:3,hoverOffset:8
+    }]
+  },
+  options:{responsive:true,maintainAspectRatio:false,cutout:'58%',
+    plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:10}}}
+  }
+});
+
+/* 3. Impressions bar */
+new Chart(document.getElementById('impressionsChart'),{
+  type:'bar',
+  data:{
+    labels:['Month 2','Month 3','Month 4','Month 5'],
+    datasets:[{
+      label:'Impressions',
+      data:[15361,1185,46811,51253],
+      backgroundColor:[C.blush,C.coral,C.purple,C.sage],
+      borderRadius:5,borderSkipped:false
+    }]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:ctx=>' '+ctx.parsed.y.toLocaleString('en-GB')+' impressions'}}
+    },
+    scales:{
+      y:{beginAtZero:true,grid:{color:'#f0f0f0'},ticks:{callback:v=>v>=1000?(v/1000).toFixed(0)+'K':v}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+/* 4. Clicks + CTR dual axis */
+new Chart(document.getElementById('clicksChart'),{
+  type:'bar',
+  data:{
+    labels:['Month 2','Month 3','Month 4','Month 5'],
+    datasets:[
+      {label:'Clicks',data:[749,22,2111,2046],backgroundColor:C.purple,borderRadius:5,yAxisID:'y',order:2},
+      {label:'CTR %',type:'line',data:[4.9,1.9,4.5,4.0],
+        borderColor:C.coral,backgroundColor:'rgba(255,111,97,.1)',
+        borderWidth:2.5,pointBackgroundColor:C.coral,pointRadius:5,
+        tension:.3,fill:true,yAxisID:'y1',order:1}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'bottom',labels:{font:{size:11}}}},
+    scales:{
+      y:{beginAtZero:true,position:'left',grid:{color:'#f0f0f0'},title:{display:true,text:'Clicks',font:{size:11}}},
+      y1:{beginAtZero:true,position:'right',grid:{display:false},ticks:{callback:v=>v+'%'},title:{display:true,text:'CTR',font:{size:11}}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+/* 5. Affiliate chart */
+new Chart(document.getElementById('affiliateChart'),{
+  type:'bar',
+  data:{
+    labels:['Month 1','Month 2','Month 3','Month 4','Month 5'],
+    datasets:[
+      {label:'Affiliate Visits',data:[1026,1060,1039,917,1781],backgroundColor:C.blue,borderRadius:5,yAxisID:'y',order:2},
+      {label:'Conversions',type:'line',data:[22,16,20,33,107],
+        borderColor:C.coral,backgroundColor:'rgba(255,111,97,.1)',
+        borderWidth:2.5,pointBackgroundColor:C.coral,pointRadius:5,
+        tension:.35,fill:true,yAxisID:'y1',order:1}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'bottom',labels:{font:{size:11}}}},
+    scales:{
+      y:{beginAtZero:true,position:'left',grid:{color:'#f0f0f0'},title:{display:true,text:'Visits',font:{size:11}}},
+      y1:{beginAtZero:true,position:'right',grid:{display:false},title:{display:true,text:'Conversions',font:{size:11}}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+/* ── SORTABLE TABLE ── */
+let sortDir={};
+function sortTable(col){
+  const tbl=document.getElementById('kwTable'),tbody=tbl.tBodies[0];
+  const rows=Array.from(tbody.rows);
+  sortDir[col]=!sortDir[col];
+  rows.sort((a,b)=>{
+    const va=a.cells[col].innerText.trim().toLowerCase();
+    const vb=b.cells[col].innerText.trim().toLowerCase();
+    return sortDir[col]?(va>vb?1:-1):(va<vb?1:-1);
+  });
+  rows.forEach(r=>tbody.appendChild(r));
+  document.querySelectorAll('thead th').forEach((th,i)=>{
+    th.classList.toggle('srt',i===col);
+    th.querySelector('.si').textContent=i===col?(sortDir[col]?'↓':'↑'):'⇅';
+  });
+}
+</script>
+</body>
+</html>

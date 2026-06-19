@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><link rel="icon" type="image/svg+xml" href="favicon.svg"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Passionate Paprika 🌶️ — Brand Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--c:#c36ba2;--p:#7a5e8c;--s:#a8c6a6;--bl:#e8c8e0;--b:#92A8D1;--w:#FFFDF9;--t:#3A3040;--m:#5A4A5A;--li:#b8a8c4}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--s);color:var(--t);overflow-x:hidden}
+
+/* ── BACK BUTTON ── */
+#back-btn{position:fixed;top:16px;left:16px;z-index:9999;background:var(--t);color:var(--w);font-family:'Righteous',sans-serif;font-size:.78rem;padding:.55rem 1.2rem;border-radius:50px;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,.28);display:inline-flex;align-items:center;gap:.5rem;letter-spacing:.06em;transition:background .2s,transform .18s}
+#back-btn:hover{background:var(--c);transform:translateY(-2px)}
+
+/* ── RETRO DIVIDER ── */
+.retro-div{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--p) 25%,var(--c) 50%,var(--p) 75%,transparent);opacity:.35;margin:6px 0}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:6rem 3rem 4rem;background:var(--s);position:relative;overflow:hidden}
+.hero-bg-word{position:absolute;right:-2vw;top:50%;transform:translateY(-50%);font-family:'Righteous',sans-serif;font-size:28vw;color:rgba(0,0,0,.05);pointer-events:none;line-height:1;letter-spacing:-.05em}
+.hero-folder-lbl{display:inline-flex;align-items:center;gap:.5rem;background:var(--t);color:var(--c);font-family:'Righteous',sans-serif;font-size:.72rem;letter-spacing:.12em;padding:.3rem .8rem;border-radius:4px 4px 0 0;margin-bottom:0;position:relative;z-index:1}
+.hero-box{background:rgba(255,255,255,.12);border:3px solid rgba(255,255,255,.3);border-top:none;padding:2rem 2.5rem 2.5rem;position:relative;z-index:1;max-width:860px}
+.hero-logo{font-family:'Righteous',sans-serif;font-size:clamp(2.8rem,9vw,7.5rem);color:#fff;line-height:.95;letter-spacing:.02em}
+.hero-logo .chilli{color:var(--c)}
+.hero-tagline{font-family:'DM Sans',sans-serif;font-size:clamp(1rem,2vw,1.4rem);font-style:italic;color:rgba(255,255,255,.9);margin-top:1.2rem;font-weight:300;line-height:1.5;text-shadow:0 1px 6px rgba(0,0,0,.3)}
+.hero-sub{font-family:'Righteous',sans-serif;font-size:.82rem;letter-spacing:.16em;color:#fff;margin-top:1rem;text-transform:uppercase;text-shadow:0 1px 6px rgba(0,0,0,.4),0 2px 14px rgba(0,0,0,.25)}
+.hero-pills{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:1.3rem}
+.hero-pill{background:rgba(255,255,255,.22);border:1.5px solid rgba(255,255,255,.75);color:#fff;padding:.28rem .85rem;border-radius:3px;font-size:.72rem;letter-spacing:.05em;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.scroll-hint{margin-top:2rem;font-family:'Righteous',sans-serif;font-size:.68rem;letter-spacing:.15em;color:rgba(255,255,255,.5);text-transform:uppercase;animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ── PAGE WRAPPER ── */
+.page{max-width:960px;margin:0 auto;padding:0 2rem 5rem}
+
+/* ── CHAPTER SECTIONS ── */
+.chapter{padding:3.5rem 0 0}
+.chapter-last{padding-bottom:4rem}
+.folder-hd{display:inline-flex;align-items:center;gap:.5rem;background:var(--t);color:#fff;font-family:'Righteous',sans-serif;font-size:.75rem;letter-spacing:.1em;padding:.32rem .9rem .32rem .6rem;border-radius:5px 5px 0 0;margin-bottom:0}
+.folder-hd .ch-icon{font-size:.9rem}
+.sec-box{border:3px solid var(--t);border-top:none;padding:2.5rem}
+.sec-box.white{background:var(--w)}
+.sec-box.blush{background:rgba(232,200,224,.2)}
+.sec-box.sage{background:rgba(168,198,166,.25)}
+
+.ch-label{font-family:'Righteous',sans-serif;font-size:.7rem;letter-spacing:.18em;color:var(--c);text-transform:uppercase;margin-bottom:.7rem}
+.ch-heading{font-family:'Righteous',sans-serif;font-size:clamp(1.4rem,3.5vw,2.2rem);color:var(--t);line-height:1.2;letter-spacing:.01em;margin-bottom:1.5rem;position:relative;display:inline-block}
+.ch-heading em{font-style:normal;color:var(--c)}
+.ch-body{font-size:.92rem;color:var(--m);line-height:1.88;max-width:680px}
+.ch-body p+p{margin-top:.9rem}
+
+/* ── SIDE-BY-SIDE CHAPTER + PHOTO LAYOUT ── */
+.ch-layout{display:flex;gap:2.2rem;align-items:flex-start}
+.ch-text{flex:1;min-width:0}
+.ch-text .ch-body{max-width:none}
+.ch-photo{flex-shrink:0;width:215px}
+.ch-photo-polaroid{
+  background:#fff;
+  padding:8px;
+  box-shadow:0 6px 28px rgba(0,0,0,.15),0 2px 8px rgba(0,0,0,.09);
+  transition:transform .22s ease,box-shadow .22s ease;
+}
+.ch-photo-polaroid.p1{transform:rotate(-2.1deg)}
+.ch-photo-polaroid.p2{transform:rotate(1.6deg)}
+.ch-photo-polaroid.p3{transform:rotate(-1.0deg)}
+.ch-photo-polaroid.p4{transform:rotate(2.2deg)}
+.ch-photo-polaroid:hover{transform:rotate(0deg) scale(1.045)!important;box-shadow:0 18px 52px rgba(0,0,0,.22),0 4px 16px rgba(0,0,0,.12);z-index:5;position:relative}
+.ch-polaroid-img{width:100%;height:auto;max-height:300px;display:block;object-fit:contain;background:var(--w)}
+.ch-polaroid-cap{padding:7px 4px 4px}
+.polaroid-title{font-family:'Caveat',cursive;font-size:1.05rem;font-weight:600;color:var(--t);line-height:1.2}
+.polaroid-sub{font-family:'Caveat',cursive;font-size:.82rem;color:var(--m);line-height:1.3;margin-top:2px}
+.photo-fallback{width:100%;aspect-ratio:3/4;background:linear-gradient(135deg,var(--s),var(--bl));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem}
+.photo-fallback-icon{font-size:2.2rem;opacity:.5}
+.photo-fallback-txt{font-family:'Righteous',sans-serif;font-size:.58rem;letter-spacing:.12em;color:var(--li);text-transform:uppercase}
+
+/* Revival loading inline photo */
+.ch-revival-wrap{position:relative}
+.polaroid-no-img-inline{width:100%;aspect-ratio:3/4;background:rgba(232,200,224,.3);display:flex;align-items:center;justify-content:center;font-size:3rem;color:rgba(90,74,90,.2)}
+.ch-revival-overlay{position:absolute;inset:0;background:rgba(255,253,249,.82);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;backdrop-filter:blur(3px)}
+.revival-spinner{width:30px;height:30px;border:3px solid var(--bl);border-top-color:var(--c);border-radius:50%;animation:rvspin 1s linear infinite}
+@keyframes rvspin{to{transform:rotate(360deg)}}
+.revival-loading-txt{font-family:'Righteous',sans-serif;font-size:.68rem;letter-spacing:.12em;color:var(--c);text-transform:uppercase}
+.revival-bar{width:78px;height:6px;background:var(--bl);border-radius:3px;overflow:hidden}
+.revival-bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--c),var(--p));border-radius:3px;animation:rvbar 2.5s ease-in-out infinite}
+@keyframes rvbar{0%{width:0}65%{width:78px}85%{width:78px}100%{width:0}}
+
+@media(max-width:700px){
+  .ch-layout{flex-direction:column-reverse}
+  .ch-photo{width:100%;max-width:240px;align-self:center;margin-bottom:1.5rem}
+}
+
+/* ── PULL QUOTE ── */
+.pull-quote{margin:2.5rem 0;padding:1.8rem 2rem;border-left:5px solid var(--c);background:rgba(195,107,162,.07)}
+.pull-quote-text{font-family:'Righteous',sans-serif;font-size:clamp(1.1rem,2.8vw,1.65rem);color:var(--t);line-height:1.35;letter-spacing:.015em}
+.pull-quote-text em{font-style:normal;color:var(--c)}
+.pull-quote::before{content:'\201C';font-family:'Righteous',sans-serif;font-size:4rem;color:var(--c);opacity:.25;display:block;line-height:.6;margin-bottom:.5rem}
+
+/* ── STATS ROW ── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin:2rem 0}
+.stat-card{border:3px solid var(--t);background:var(--w);padding:1.5rem;position:relative;overflow:hidden;transition:transform .18s,box-shadow .18s}
+.stat-card:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--t)}
+.stat-card::after{content:'';position:absolute;bottom:-12px;right:-12px;width:60px;height:60px;border-radius:50%;background:var(--c);opacity:.06}
+.stat-num{font-family:'Righteous',sans-serif;font-size:2.2rem;color:var(--c);line-height:1;margin-bottom:.4rem}
+.stat-lbl{font-family:'Righteous',sans-serif;font-size:.75rem;letter-spacing:.05em;color:var(--t);margin-bottom:.2rem}
+.stat-sub{font-size:.7rem;color:var(--li);line-height:1.5}
+
+/* ── CHIPS ── */
+.chip-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.5rem}
+.chip{background:rgba(255,255,255,.7);border:2px solid var(--t);color:var(--t);font-family:'Righteous',sans-serif;font-size:.72rem;letter-spacing:.05em;padding:.32rem .9rem;border-radius:3px;transition:background .15s}
+.chip:hover{background:var(--bl)}
+
+/* ── CONTENT PILLARS ── */
+.pillars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:1.8rem}
+.pillar-card{background:rgba(255,255,255,.75);border:2px solid rgba(0,0,0,.08);padding:1.1rem 1.2rem;border-radius:4px;transition:transform .15s,box-shadow .15s}
+.pillar-card:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--t)}
+.pillar-icon{font-size:1.5rem;margin-bottom:.5rem;display:block}
+.pillar-name{font-family:'Righteous',sans-serif;font-size:.8rem;letter-spacing:.04em;color:var(--t)}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;margin:2.5rem 0;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:.55rem;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--c),var(--p),var(--b),var(--s));border-radius:2px}
+.tl-item{position:relative;margin-bottom:1.8rem;padding-left:1.8rem}
+.tl-item:last-child{margin-bottom:0}
+.tl-dot{position:absolute;left:-1.5rem;top:.25rem;width:18px;height:18px;border-radius:50%;background:var(--w);border:3px solid var(--c);z-index:1;transition:transform .2s}
+.tl-item:nth-child(2) .tl-dot{border-color:var(--p)}
+.tl-item:nth-child(3) .tl-dot{border-color:var(--b)}
+.tl-item:nth-child(4) .tl-dot{border-color:var(--s)}
+.tl-item:nth-child(5) .tl-dot{border-color:var(--c);background:var(--c)}
+.tl-item:hover .tl-dot{transform:scale(1.25)}
+.tl-year{font-family:'Righteous',sans-serif;font-size:.78rem;letter-spacing:.12em;color:var(--c);text-transform:uppercase;margin-bottom:.2rem}
+.tl-item:nth-child(2) .tl-year{color:var(--p)}
+.tl-item:nth-child(3) .tl-year{color:var(--b)}
+.tl-item:nth-child(4) .tl-year{color:var(--s);filter:brightness(.7)}
+.tl-item:nth-child(5) .tl-year{color:var(--c)}
+.tl-text{font-size:.88rem;color:var(--m);line-height:1.65}
+.tl-text strong{font-family:'Righteous',sans-serif;font-weight:400;color:var(--t);font-size:.92rem;display:block;margin-bottom:.15rem}
+
+/* ── REVIVAL CARDS ── */
+.revival-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.8rem}
+.revival-card{border:3px solid var(--t);background:var(--w);padding:1.5rem;position:relative;transition:transform .18s,box-shadow .18s}
+.revival-card:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--t)}
+.revival-card:nth-child(1){border-top:5px solid var(--c)}
+.revival-card:nth-child(2){border-top:5px solid var(--p)}
+.revival-card:nth-child(3){border-top:5px solid var(--s)}
+.revival-ico{font-size:1.8rem;margin-bottom:.65rem;display:block}
+.revival-name{font-family:'Righteous',sans-serif;font-size:.85rem;letter-spacing:.04em;color:var(--t);margin-bottom:.5rem}
+.revival-desc{font-size:.78rem;color:var(--m);line-height:1.6}
+
+/* ── CTA ── */
+.cta-block{margin-top:2.5rem;padding:2rem 2.5rem;border:3px solid var(--c);background:rgba(195,107,162,.07);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.cta-text{font-family:'Righteous',sans-serif;font-size:1rem;color:var(--t);letter-spacing:.02em}
+.btn-retro{display:inline-block;padding:.65rem 1.6rem;font-family:'Righteous',sans-serif;font-size:.82rem;text-decoration:none;letter-spacing:.08em;border-radius:3px;transition:all .18s}
+.btn-filled{background:var(--c);color:#fff;border:3px solid var(--c)}
+.btn-filled:hover{background:transparent;color:var(--c)}
+
+/* ── SKILL CARDS ── */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.8rem}
+.skill-card{display:flex;align-items:flex-start;gap:.65rem;padding:.9rem 1rem;background:rgba(255,255,255,.7);border:2px solid rgba(0,0,0,.07);border-radius:4px;transition:transform .14s}
+.skill-card:hover{transform:translate(-1px,-1px)}
+.skill-ico{font-size:1.3rem;flex-shrink:0;margin-top:.08rem}
+.skill-name{font-family:'Righteous',sans-serif;font-size:.78rem;letter-spacing:.03em;color:var(--t);margin-bottom:.18rem}
+.skill-desc{font-size:.72rem;color:var(--m);line-height:1.55}
+
+/* ── LIGHTBOX ── */
+#pp-lightbox{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;cursor:zoom-out}
+#pp-lightbox.open{display:flex;animation:lb-in .22s ease}
+@keyframes lb-in{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+#pp-lightbox img{max-width:92vw;max-height:90vh;object-fit:contain;border:6px solid #fff;box-shadow:0 12px 60px rgba(0,0,0,.6)}
+#pp-lb-close{position:absolute;top:18px;right:22px;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;line-height:1;opacity:.75;transition:opacity .15s}
+#pp-lb-close:hover{opacity:1}
+.ch-photo-polaroid{cursor:zoom-in}
+
+/* ── FOOTER ── */
+footer{background:var(--t);color:rgba(255,255,255,.65);text-align:center;padding:2rem 1.5rem;font-size:.78rem;line-height:2;border-top:3px solid var(--c)}
+footer strong{color:var(--c);font-family:'Righteous',sans-serif;letter-spacing:.04em}
+
+/* ── REVEAL ON SCROLL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* ══════════════════════════════════════════════
+   ANIMATIONS & EXTRAS
+   ══════════════════════════════════════════════ */
+
+/* SHIMMER on "Passionate" */
+@keyframes shimmer-sweep{0%{background-position:-300% center}100%{background-position:300% center}}
+.shimmer-text{
+  background:linear-gradient(90deg,#fff 30%,rgba(255,230,160,.95) 46%,#ffd54f 50%,rgba(255,230,160,.95) 54%,#fff 70%);
+  background-size:300% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shimmer-sweep 3.5s linear infinite;
+}
+
+/* CHAPTER HEADING hover chilli */
+.ch-heading:hover::after{content:' 🌶️';display:inline-block;animation:hchilli .5s ease-in-out infinite alternate}
+@keyframes hchilli{from{transform:translateY(0) rotate(-15deg)}to{transform:translateY(-7px) rotate(15deg)}}
+
+/* FLOATING BACKGROUND CHILLIS */
+#float-chillis-bg{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.fc{position:absolute;bottom:-3rem;pointer-events:none;animation:fc-float var(--dur,18s) linear var(--dly,0s) infinite;font-size:var(--sz,1rem)}
+@keyframes fc-float{
+  0%{transform:translateY(0) rotate(0deg);opacity:0}
+  8%{opacity:.055}
+  88%{opacity:.055}
+  100%{transform:translateY(-115vh) rotate(400deg);opacity:0}
+}
+
+
+@media(max-width:700px){
+  .stats-row,.revival-grid,.skills-grid{grid-template-columns:1fr 1fr}
+  .hero-box{padding:1.4rem 1.5rem 1.8rem}
+  .sec-box{padding:1.6rem}
+  .page{padding:0 1rem 4rem}
+  .community-imgs{grid-template-columns:1fr}
+  .numbers-grid{grid-template-columns:1fr 1fr}
+  .menu-badge-row{grid-template-columns:1fr}
+  .quotes-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .stats-row,.skills-grid{grid-template-columns:1fr}
+  .revival-grid{grid-template-columns:1fr}
+  .cta-block{flex-direction:column;align-items:flex-start}
+  .numbers-grid{grid-template-columns:1fr}
+}
+
+/* ── SUB-SECTION HEADER ── */
+.sub-sec{margin-top:2.8rem}
+.sub-sec-lbl{font-family:'Righteous',sans-serif;font-size:.7rem;letter-spacing:.18em;color:var(--c);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.7rem}
+.sub-sec-lbl::before,.sub-sec-lbl::after{content:'';flex:1;height:1px;background:var(--bl)}
+
+/* ── INSTAGRAM FEED ── */
+.feed-wrap{border:3px solid var(--t);background:var(--w);overflow:hidden;cursor:zoom-in;transition:box-shadow .18s}
+.feed-wrap:hover{box-shadow:5px 5px 0 var(--t)}
+.feed-img{width:100%;display:block;object-fit:contain;max-height:360px;background:var(--w)}
+.feed-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--t);color:var(--w);font-family:'Righteous',sans-serif;font-size:.65rem;letter-spacing:.1em;padding:.3rem .8rem;margin-top:.9rem}
+.feed-caption{font-size:.78rem;color:var(--m);line-height:1.75;margin-top:.65rem}
+
+/* ── CAROUSEL ARROW CONTROLS ── */
+.carousel-ctrl-wrap{display:flex;align-items:center;gap:.7rem}
+.carousel-ctrl-wrap .menu-carousel,.carousel-ctrl-wrap .comm-slider{flex:1;min-width:0}
+.car-arrow{flex-shrink:0;width:40px;height:40px;border:3px solid var(--t);background:var(--w);cursor:pointer;font-size:1.1rem;border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--t);transition:background .15s,color .15s,transform .12s;line-height:1}
+.car-arrow:hover{background:var(--t);color:var(--w);transform:scale(1.06)}
+.car-arrow:disabled{opacity:.28;cursor:default;transform:none}
+
+/* ── COMMUNITY SLIDER ── */
+.comm-slider{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.comm-slider::-webkit-scrollbar{display:none}
+.comm-slide{flex:0 0 100%;scroll-snap-align:start}
+.slider-dots{display:flex;align-items:center;justify-content:center;gap:.55rem;margin-top:.85rem}
+.slider-dot{width:9px;height:9px;border-radius:50%;background:var(--bl);border:2px solid var(--t);cursor:pointer;transition:background .15s,transform .15s}
+.slider-dot.active{background:var(--c);transform:scale(1.3)}
+
+/* ── MENU CAROUSEL ── */
+.menu-carousel{display:flex;overflow-x:auto;gap:1.2rem;padding-bottom:1rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--c) var(--bl)}
+.menu-carousel::-webkit-scrollbar{height:5px}
+.menu-carousel::-webkit-scrollbar-track{background:var(--bl)}
+.menu-carousel::-webkit-scrollbar-thumb{background:var(--c);border-radius:3px}
+.menu-item{flex:0 0 190px;scroll-snap-align:start}
+.menu-item .ch-polaroid-img{max-height:250px}
+.menu-badge-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.4rem}
+.menu-badge-card{border:3px solid var(--t);background:var(--w);padding:1rem;text-align:center;transition:transform .18s,box-shadow .18s}
+.menu-badge-card:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--t)}
+.menu-badge-card:nth-child(1){border-top:4px solid var(--c)}
+.menu-badge-card:nth-child(2){border-top:4px solid var(--p)}
+.menu-badge-card:nth-child(3){border-top:4px solid var(--b)}
+.menu-badge-ico{font-size:1.6rem;display:block;margin-bottom:.45rem}
+.menu-badge-lbl{font-family:'Righteous',sans-serif;font-size:.7rem;letter-spacing:.04em;color:var(--t);line-height:1.4}
+
+/* ── COMMUNITY LOVE ── */
+.community-imgs{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.2rem}
+.comment-wrap{border:3px solid var(--t);background:var(--w);overflow:hidden;cursor:zoom-in;transition:transform .18s,box-shadow .18s}
+.comment-wrap:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--t)}
+.comment-img{width:100%;display:block;object-fit:contain;background:var(--w)}
+.quotes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1.5rem;align-items:start}
+.quote-bubble{background:rgba(255,255,255,.85);border:2px solid rgba(0,0,0,.06);border-left:5px solid var(--c);padding:1.1rem 1.2rem;border-radius:0 4px 4px 0;transition:transform .15s,box-shadow .15s}
+.quote-bubble:nth-child(2){border-left-color:var(--p);margin-top:.8rem}
+.quote-bubble:nth-child(3){border-left-color:var(--b)}
+.quote-bubble:nth-child(4){border-left-color:var(--s);margin-top:.8rem}
+.quote-bubble:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--t)}
+.quote-text{font-family:'Caveat',cursive;font-size:1.05rem;color:var(--t);line-height:1.5;margin-bottom:.45rem}
+.quote-attr{font-family:'Righteous',sans-serif;font-size:.6rem;letter-spacing:.07em;color:var(--li);text-transform:uppercase}
+
+/* ── BY THE NUMBERS ── */
+.numbers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:1.8rem}
+.num-card{border:3px solid var(--t);background:var(--w);padding:1.8rem 1.2rem;text-align:center;position:relative;overflow:hidden;transition:transform .18s,box-shadow .18s}
+.num-card:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--t)}
+.num-card::after{content:'';position:absolute;bottom:-18px;right:-18px;width:70px;height:70px;border-radius:50%;opacity:.05}
+.num-card:nth-child(1)::after{background:var(--c)}
+.num-card:nth-child(2)::after{background:var(--p)}
+.num-card:nth-child(3)::after{background:var(--b)}
+.num-card:nth-child(4)::after{background:var(--s)}
+.num-card:nth-child(5)::after{background:var(--c)}
+.num-card:nth-child(6)::after{background:var(--p)}
+.num-big{font-family:'Righteous',sans-serif;font-size:clamp(2.2rem,4.5vw,3rem);color:var(--c);line-height:1;margin-bottom:.4rem}
+.num-card:nth-child(2) .num-big{color:var(--p)}
+.num-card:nth-child(3) .num-big{color:var(--b)}
+.num-card:nth-child(4) .num-big{color:var(--s);filter:brightness(.7)}
+.num-card:nth-child(5) .num-big{color:var(--c)}
+.num-card:nth-child(6) .num-big{color:var(--p)}
+.num-lbl{font-family:'Righteous',sans-serif;font-size:.72rem;letter-spacing:.06em;color:var(--t);margin-bottom:.2rem}
+.num-sub{font-size:.68rem;color:var(--li);line-height:1.5}
+</style>
+</head>
+<body>
+
+<!-- FLOATING BACKGROUND CHILLIS -->
+<div id="float-chillis-bg" aria-hidden="true"></div>
+
+<!-- BACK BUTTON -->
+<a href="v1.2.html" id="back-btn">&#8592; Back to Portfolio</a>
+
+<!-- ═══ HERO ═══════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg-word">PP</div>
+  <div>
+    <div class="hero-folder-lbl">🌶️ BRAND STORY</div>
+    <div class="hero-box">
+      <div class="hero-logo">Passionate<br>Paprika <span class="chilli">🌶️</span></div>
+      <p class="hero-tagline">"A love letter to food, built from scratch."</p>
+      <div class="hero-sub">Founded 2020 · Instagram · India · Solo Founded &amp; Run</div>
+      <div class="hero-pills">
+        <span class="hero-pill">Food Blog</span>
+        <span class="hero-pill">Home Baking</span>
+        <span class="hero-pill">Instagram</span>
+        <span class="hero-pill">Solo Founder</span>
+        <span class="hero-pill">India</span>
+      </div>
+      <div class="scroll-hint">↓ Scroll to read the story</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PAGE CONTENT ═══════════════════════════════ -->
+<div class="page">
+
+  <!-- ── CHAPTER 1 — THE BEGINNING ── -->
+  <div class="chapter reveal">
+    <div class="folder-hd"><span class="ch-icon">🍳</span>&nbsp;01 — THE BEGINNING</div>
+    <div class="sec-box white">
+      <div class="ch-layout">
+        <div class="ch-text">
+          <div class="ch-label">Chapter One</div>
+          <h2 class="ch-heading">Lockdown gave me a kitchen<br>and too much time. <em>I made the most of it.</em></h2>
+          <div class="ch-body">
+            <p>It started the way most good things do — out of necessity and a little boredom. During COVID lockdown in 2020, I found myself in the kitchen every single day, cooking experimental dishes, baking pastries, and trying things I'd always wanted to make but never had the time for.</p>
+            <p>I started posting it — not with a plan, just with genuine excitement. The response from the people around me was immediate and warm. They weren't just watching. They wanted to taste it.</p>
+          </div>
+          <div class="pull-quote">
+            <div class="pull-quote-text">"They weren't just watching.<br><em>They wanted to taste it."</em></div>
+          </div>
+        </div>
+        <div class="ch-photo">
+          <div class="ch-photo-polaroid p1">
+            <img src="images/Social Media Posts/Paprika/First Post .jpeg"
+                 class="ch-polaroid-img" alt="The First Post"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="photo-fallback" style="display:none">
+              <span class="photo-fallback-icon">📱</span>
+              <span class="photo-fallback-txt">First Post</span>
+            </div>
+            <div class="ch-polaroid-cap">
+              <div class="polaroid-title">The First Post 📱</div>
+              <div class="polaroid-sub">One photo. Zero strategy. A hundred supportive comments.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- THE FEED -->
+      <div class="sub-sec">
+        <div class="sub-sec-lbl">The Feed 📱</div>
+        <div class="feed-wrap" id="pp-feed-img-wrap">
+          <img src="images/Social Media Posts/Paprika/social media grid.png"
+               class="feed-img" alt="Passionate Paprika Instagram Grid"
+               onerror="this.closest('.feed-wrap').style.background='var(--bl)'">
+        </div>
+        <div class="feed-badge">📊 155 Posts &nbsp;·&nbsp; Organic Growth Only</div>
+        <div class="feed-caption">Every post was planned, shot, and edited solo — no tools, no budget, just a phone and a lot of heart. The feed spanned Indian cooking, fusion experiments, baked goods, desserts, and behind-the-scenes kitchen moments, building a real community one honest post at a time.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CHAPTER 2 — FROM BLOG TO BUSINESS ── -->
+  <div class="chapter reveal">
+    <div class="folder-hd"><span class="ch-icon">🛍️</span>&nbsp;02 — FROM BLOG TO BUSINESS</div>
+    <div class="sec-box blush">
+      <div class="ch-layout">
+        <div class="ch-text">
+          <div class="ch-label">Chapter Two</div>
+          <h2 class="ch-heading">When your followers become<br><em>your first customers.</em></h2>
+          <div class="ch-body">
+            <p>Word spread through DMs and stories. People started placing orders for my pastries and baked goods. What began as a creative outlet became a real operation — I was handling content creation, order taking, baking, packaging, and delivery, all by myself.</p>
+            <p>No team. No agency. Just me, my kitchen, and an Instagram account.</p>
+          </div>
+          <div class="stats-row">
+            <div class="stat-card">
+              <div class="stat-num">155</div>
+              <div class="stat-lbl">Posts Published</div>
+              <div class="stat-sub">In 2 years, zero paid promotion</div>
+            </div>
+            <div class="stat-card" style="--c:var(--p)">
+              <div class="stat-num" style="color:var(--p)">1K–5K</div>
+              <div class="stat-lbl">Followers at Peak</div>
+              <div class="stat-sub">Organic, community-driven growth</div>
+            </div>
+            <div class="stat-card" style="--c:var(--b)">
+              <div class="stat-num" style="color:var(--b)">100%</div>
+              <div class="stat-lbl">Solo Operation</div>
+              <div class="stat-sub">Every order, post &amp; delivery</div>
+            </div>
+            <div class="stat-card" style="--c:var(--s)">
+              <div class="stat-num" style="color:#6a9a68;font-size:1.75rem">2 Yrs</div>
+              <div class="stat-lbl">2020 – 2022</div>
+              <div class="stat-sub">Built from lockdown to launch</div>
+            </div>
+          </div>
+          <div class="retro-div" style="margin-top:1.8rem"></div>
+          <p style="font-family:'Righteous',sans-serif;font-size:.75rem;letter-spacing:.1em;color:var(--li);margin-top:1.2rem;text-transform:uppercase">What I Sold</p>
+          <div class="chip-row">
+            <span class="chip">🍰 Pastries</span>
+            <span class="chip">🧁 Baked Goods</span>
+            <span class="chip">🍮 Desserts</span>
+            <span class="chip">🍛 Indian Fusion Dishes</span>
+            <span class="chip">🧪 Experimental Recipes</span>
+          </div>
+        </div>
+        <div class="ch-photo">
+          <div class="ch-photo-polaroid p2">
+            <img src="images/Social Media Posts/Paprika/First Order of Paprika.jpeg"
+                 class="ch-polaroid-img" alt="The First Order"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="photo-fallback" style="display:none">
+              <span class="photo-fallback-icon">📦</span>
+              <span class="photo-fallback-txt">First Order</span>
+            </div>
+            <div class="ch-polaroid-cap">
+              <div class="polaroid-title">The First Order 📦</div>
+              <div class="polaroid-sub">The moment a passion project became a real business.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- THE MENU -->
+      <div class="sub-sec">
+        <div class="sub-sec-lbl">The Menu 🧁</div>
+        <div class="carousel-ctrl-wrap">
+          <button class="car-arrow car-prev" id="pp-menu-prev" aria-label="Previous menu page">&#8592;</button>
+          <div class="menu-carousel" id="pp-menu-car">
+            <div class="menu-item">
+              <div class="ch-photo-polaroid p1">
+                <img src="images/Social Media Posts/Paprika/page 1.png"
+                     class="ch-polaroid-img" alt="Menu Page 1"
+                     onerror="this.style.display='none'">
+                <div class="ch-polaroid-cap">
+                  <div class="polaroid-title">The Menu 🍽️</div>
+                  <div class="polaroid-sub">Page 1</div>
+                </div>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="ch-photo-polaroid p2">
+                <img src="images/Social Media Posts/Paprika/page 2.png"
+                     class="ch-polaroid-img" alt="Menu Page 2"
+                     onerror="this.style.display='none'">
+                <div class="ch-polaroid-cap">
+                  <div class="polaroid-title">Bakes &amp; Sweets 🧁</div>
+                  <div class="polaroid-sub">Page 2</div>
+                </div>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="ch-photo-polaroid p3">
+                <img src="images/Social Media Posts/Paprika/page 3.png"
+                     class="ch-polaroid-img" alt="Menu Page 3"
+                     onerror="this.style.display='none'">
+                <div class="ch-polaroid-cap">
+                  <div class="polaroid-title">Desserts 🍮</div>
+                  <div class="polaroid-sub">Page 3</div>
+                </div>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="ch-photo-polaroid p4">
+                <img src="images/Social Media Posts/Paprika/page 4.png"
+                     class="ch-polaroid-img" alt="Menu Page 4"
+                     onerror="this.style.display='none'">
+                <div class="ch-polaroid-cap">
+                  <div class="polaroid-title">How to Order 📋</div>
+                  <div class="polaroid-sub">Page 4</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="car-arrow car-next" id="pp-menu-next" aria-label="Next menu page">&#8594;</button>
+        </div>
+        <div class="feed-caption" style="margin-bottom:1.3rem">A handcrafted menu that grew over two years — pastries, baked goods, desserts, and Indian fusion dishes. All made to order, one batch at a time, from my home kitchen.</div>
+        <div class="menu-badge-row">
+          <div class="menu-badge-card">
+            <span class="menu-badge-ico">📲</span>
+            <div class="menu-badge-lbl">Orders via Instagram DMs</div>
+          </div>
+          <div class="menu-badge-card">
+            <span class="menu-badge-ico">💳</span>
+            <div class="menu-badge-lbl">GPay · PhonePe · Bank Transfer</div>
+          </div>
+          <div class="menu-badge-card">
+            <span class="menu-badge-ico">🛵</span>
+            <div class="menu-badge-lbl">Delivery via Dunzo &amp; Uber</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CHAPTER 3 — THE CREATIVE ── -->
+  <div class="chapter reveal">
+    <div class="folder-hd"><span class="ch-icon">📱</span>&nbsp;03 — THE CREATIVE</div>
+    <div class="sec-box white">
+      <div class="ch-label">Chapter Three</div>
+      <h2 class="ch-heading">No studio. No budget.<br><em>Just a kitchen, a phone, and a vision.</em></h2>
+      <div class="ch-body">
+        <p>The content was raw, real, and personal — just me in my kitchen creating food that excited me. Indian home cooking, fusion experiments, desserts, bakes — no rules, no niche box.</p>
+        <p>The aesthetic was authentic before authentic was a strategy. It connected because it was genuinely me.</p>
+      </div>
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <span class="pillar-icon">🍛</span>
+          <div class="pillar-name">Indian &amp; Fusion Cooking</div>
+        </div>
+        <div class="pillar-card">
+          <span class="pillar-icon">🧁</span>
+          <div class="pillar-name">Bakes &amp; Pastries</div>
+        </div>
+        <div class="pillar-card">
+          <span class="pillar-icon">🍮</span>
+          <div class="pillar-name">Desserts &amp; Sweets</div>
+        </div>
+        <div class="pillar-card">
+          <span class="pillar-icon">🧪</span>
+          <div class="pillar-name">Experimental Dishes</div>
+        </div>
+        <div class="pillar-card">
+          <span class="pillar-icon">📱</span>
+          <div class="pillar-name">Behind the Scenes Kitchen Content</div>
+        </div>
+      </div>
+      <!-- COMMUNITY LOVE -->
+      <div class="sub-sec">
+        <div class="sub-sec-lbl">What People Said 💬</div>
+        <div class="carousel-ctrl-wrap">
+          <button class="car-arrow car-prev" id="pp-comm-prev" aria-label="Previous">&#8592;</button>
+          <div class="comm-slider" id="pp-comm-slider">
+            <div class="comm-slide">
+              <div class="comment-wrap">
+                <img src="images/Social Media Posts/Paprika/comments.png"
+                     class="comment-img" alt="Community Comments"
+                     onerror="this.closest('.comment-wrap').style.background='var(--bl)'">
+              </div>
+            </div>
+            <div class="comm-slide">
+              <div class="comment-wrap">
+                <img src="images/Social Media Posts/Paprika/comments 2.png"
+                     class="comment-img" alt="Community Love"
+                     onerror="this.closest('.comment-wrap').style.background='var(--bl)'">
+              </div>
+            </div>
+            <div class="comm-slide">
+              <div class="comment-wrap">
+                <img src="images/Social Media Posts/Paprika/comments 3.png"
+                     class="comment-img" alt="More Community Love"
+                     onerror="this.closest('.comment-wrap').style.background='var(--bl)'">
+              </div>
+            </div>
+          </div>
+          <button class="car-arrow car-next" id="pp-comm-next" aria-label="Next">&#8594;</button>
+        </div>
+        <div class="slider-dots" id="pp-comm-dots">
+          <span class="slider-dot active" data-idx="0"></span>
+          <span class="slider-dot" data-idx="1"></span>
+          <span class="slider-dot" data-idx="2"></span>
+        </div>
+        <div class="quotes-grid">
+          <div class="quote-bubble">
+            <div class="quote-text">"This is literally the best chocolate tart I've had in my life — and it was made at home?! 😭🍫"</div>
+            <div class="quote-attr">— Instagram follower, 2021</div>
+          </div>
+          <div class="quote-bubble">
+            <div class="quote-text">"Can you do a bulk order for my sister's birthday? Everyone I've shown this to wants one!"</div>
+            <div class="quote-attr">— DM from a regular customer</div>
+          </div>
+          <div class="quote-bubble">
+            <div class="quote-text">"Your feed makes me genuinely hungry every single time. Please never stop posting 🙏🌶️"</div>
+            <div class="quote-attr">— Instagram comment, 2020</div>
+          </div>
+          <div class="quote-bubble">
+            <div class="quote-text">"I've sent your profile to literally all my friends. The packaging is so cute and the food is even better."</div>
+            <div class="quote-attr">— Repeat customer, 2022</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CHAPTER 4 — A BIGGER DREAM ── -->
+  <div class="chapter reveal">
+    <div class="folder-hd"><span class="ch-icon">✈️</span>&nbsp;04 — A BIGGER DREAM</div>
+    <div class="sec-box sage">
+      <div class="ch-layout">
+        <div class="ch-text">
+          <div class="ch-label">Chapter Four</div>
+          <h2 class="ch-heading">Sometimes you have to close one chapter<br><em>to write a better one.</em></h2>
+          <div class="ch-body">
+            <p>In 2022, I made the decision to move to London to pursue my Masters in Digital Marketing. Running a food business solo while navigating international student life on the other side of the world wasn't sustainable.</p>
+            <p>Passionate Paprika went quiet — not because the passion died, but because a bigger ambition called. Looking back, that decision gave me the marketing skills to do it properly the second time around.</p>
+          </div>
+          <div class="pull-quote" style="margin-top:2rem">
+            <div class="pull-quote-text">"The passion never left.<br><em>The timing just wasn't right."</em></div>
+          </div>
+          <p style="font-family:'Righteous',sans-serif;font-size:.75rem;letter-spacing:.1em;color:var(--li);margin-top:2rem;margin-bottom:1rem;text-transform:uppercase">The Journey So Far</p>
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div class="tl-year">2020</div>
+              <div class="tl-text"><strong>Founded during lockdown</strong>Started cooking, posting, and connecting — with no plan and all the passion.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div class="tl-year">2021</div>
+              <div class="tl-text"><strong>Grew to 1K–5K followers · Started selling products</strong>DMs turned into orders. Orders turned into a real business.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div class="tl-year">2022</div>
+              <div class="tl-text"><strong>Paused · Moved to London for Masters</strong>A difficult but deliberate choice. Bigger skills for a bigger version.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div class="tl-year">2023 – 2024</div>
+              <div class="tl-text"><strong>Built a marketing career</strong>Organic social, paid media, email, SEO, CRM — the full toolkit, earned in the field.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div class="tl-year">2026 →</div>
+              <div class="tl-text"><strong>Heading back to India. Passionate Paprika is coming back. 🌶️</strong>This time, it's intentional.</div>
+            </div>
+          </div>
+        </div>
+        <div class="ch-photo">
+          <div class="ch-photo-polaroid p3">
+            <img src="images/Social Media Posts/Paprika/Me in london uni.jpeg"
+                 class="ch-polaroid-img" alt="The Big Move"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="photo-fallback" style="display:none">
+              <span class="photo-fallback-icon">🎓</span>
+              <span class="photo-fallback-txt">The Big Move</span>
+            </div>
+            <div class="ch-polaroid-cap">
+              <div class="polaroid-title">The Big Move 🎓</div>
+              <div class="polaroid-sub">London called. Paprika paused.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CHAPTER 5 — THE REVIVAL ── -->
+  <div class="chapter chapter-last reveal">
+    <div class="folder-hd"><span class="ch-icon">🌶️</span>&nbsp;05 — THE REVIVAL</div>
+    <div class="sec-box blush">
+      <div class="ch-layout">
+        <div class="ch-text">
+          <div class="ch-label">Chapter Five</div>
+          <h2 class="ch-heading">Same passion.<br>Bigger vision. <em>Better skills.</em></h2>
+          <div class="ch-body">
+            <p>I'm heading back to India — and Passionate Paprika is coming with me. This time, armed with a Masters in Digital Marketing, two years of hands-on marketing experience, and a proper understanding of brand building, content strategy, and audience growth.</p>
+            <p>The relaunch will be bigger, better, and more intentional — same authentic food, new creative formats, and products back on the menu.</p>
+          </div>
+          <div class="revival-grid">
+            <div class="revival-card">
+              <span class="revival-ico">🎬</span>
+              <div class="revival-name">New Content Formats</div>
+              <div class="revival-desc">Reels, videos, and storytelling content — built with a real strategy this time.</div>
+            </div>
+            <div class="revival-card">
+              <span class="revival-ico">🛍️</span>
+              <div class="revival-name">Products Back</div>
+              <div class="revival-desc">Pastries and baked goods available to order again — with proper systems behind them.</div>
+            </div>
+            <div class="revival-card">
+              <span class="revival-ico">🌶️</span>
+              <div class="revival-name">Back to Basics</div>
+              <div class="revival-desc">The same authentic kitchen energy that started it all — just with better tools and bigger reach.</div>
+            </div>
+          </div>
+          <div class="cta-block">
+            <div class="cta-text">Want to follow the journey?</div>
+            <a href="https://www.instagram.com/passionate.paprika/" target="_blank" rel="noopener" class="btn-retro btn-filled">Follow @PassionatePaprika</a>
+          </div>
+        </div>
+        <div class="ch-photo">
+          <div class="ch-photo-polaroid p4">
+            <div class="ch-revival-wrap">
+              <div class="polaroid-no-img-inline">🌶️</div>
+              <div class="ch-revival-overlay">
+                <div class="revival-spinner"></div>
+                <div class="revival-loading-txt">Revival Loading...</div>
+                <div class="revival-bar"><div class="revival-bar-fill"></div></div>
+              </div>
+            </div>
+            <div class="ch-polaroid-cap">
+              <div class="polaroid-title">The Comeback 🌶️</div>
+              <div class="polaroid-sub">Not a portfolio. A promise. Something's cooking. 👀</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BY THE NUMBERS ── -->
+  <div class="chapter reveal">
+    <div class="folder-hd"><span class="ch-icon">📊</span>&nbsp;BY THE NUMBERS</div>
+    <div class="sec-box blush">
+      <div class="ch-label">The Stats</div>
+      <h2 class="ch-heading">Two years. One kitchen.<br><em>Real numbers, no team.</em></h2>
+      <div class="numbers-grid">
+        <div class="num-card">
+          <div class="num-big" data-count="155">0</div>
+          <div class="num-lbl">Posts Published</div>
+          <div class="num-sub">All content planned, shot &amp; edited solo</div>
+        </div>
+        <div class="num-card">
+          <div class="num-big">2 Yrs</div>
+          <div class="num-lbl">2020 – 2022</div>
+          <div class="num-sub">Active operation from lockdown to Masters</div>
+        </div>
+        <div class="num-card">
+          <div class="num-big">1K–5K</div>
+          <div class="num-lbl">Followers at Peak</div>
+          <div class="num-sub">Organic community, zero paid ads</div>
+        </div>
+        <div class="num-card">
+          <div class="num-big" data-count="4" data-suffix="+">0</div>
+          <div class="num-lbl">Product Lines</div>
+          <div class="num-sub">Pastries, bakes, desserts &amp; Indian dishes</div>
+        </div>
+        <div class="num-card">
+          <div class="num-big">₹0</div>
+          <div class="num-lbl">Paid Promotion</div>
+          <div class="num-sub">Every follower earned through real content</div>
+        </div>
+        <div class="num-card">
+          <div class="num-big" data-count="1">0</div>
+          <div class="num-lbl">Person Behind It All</div>
+          <div class="num-sub">Content · Baking · Sales · Delivery · Strategy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── WHAT I BUILT ── -->
+  <div class="chapter chapter-last reveal">
+    <div class="folder-hd"><span class="ch-icon">💡</span>&nbsp;WHAT THIS BUILT</div>
+    <div class="sec-box white">
+      <div class="ch-label">Skills &amp; Lessons</div>
+      <h2 class="ch-heading">What Running Passionate Paprika<br><em>Taught Me</em></h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <span class="skill-ico">📸</span>
+          <div>
+            <div class="skill-name">Content Creation</div>
+            <div class="skill-desc">Planned, shot, and edited all content solo on Instagram — before I even knew it was a skill.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <span class="skill-ico">🎨</span>
+          <div>
+            <div class="skill-name">Brand Building</div>
+            <div class="skill-desc">Built a recognisable food brand from zero with no budget, no team, and no playbook.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <span class="skill-ico">🧪</span>
+          <div>
+            <div class="skill-name">Product Development</div>
+            <div class="skill-desc">Created and tested recipes independently — failing, iterating, and shipping what worked.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <span class="skill-ico">📦</span>
+          <div>
+            <div class="skill-name">Operations</div>
+            <div class="skill-desc">Managed end-to-end — orders, baking, packaging, delivery. Every single step, solo.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <span class="skill-ico">🤝</span>
+          <div>
+            <div class="skill-name">Community</div>
+            <div class="skill-desc">Grew an engaged following through authentic, consistent content — not ads, just real connection.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <span class="skill-ico">🚀</span>
+          <div>
+            <div class="skill-name">Entrepreneurship</div>
+            <div class="skill-desc">Ran a real business solo before I knew what that meant. That's the best kind of education.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<!-- LIGHTBOX -->
+<div id="pp-lightbox">
+  <button id="pp-lb-close" aria-label="Close">✕</button>
+  <img id="pp-lb-img" src="" alt="">
+</div>
+
+<!-- ═══ FOOTER ════════════════════════════════════ -->
+<footer>
+  <strong>Passionate Paprika 🌶️</strong><br>
+  Founded 2020, India · A solo food business born in lockdown and built with love.<br>
+  Revival coming soon. 🌶️
+</footer>
+
+<script>
+/* ── REVEAL ON SCROLL ── */
+const revealEls = document.querySelectorAll('.reveal');
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+}, { threshold: 0.08 });
+revealEls.forEach(el => ro.observe(el));
+
+/* ── SCROLL RESTORE ── */
+window.addEventListener('beforeunload', () => {
+  if (document.referrer.includes('v1.2.html') || sessionStorage.getItem('gr_scrollY')) return;
+});
+
+/* ── SHIMMER: wrap "Passionate" in hero logo ── */
+(function(){
+  const logo = document.querySelector('.hero-logo');
+  if (!logo) return;
+  const node = logo.childNodes[0];
+  if (node && node.nodeType === Node.TEXT_NODE) {
+    const span = document.createElement('span');
+    span.className = 'shimmer-text';
+    span.textContent = node.textContent;
+    node.replaceWith(span);
+  }
+})();
+
+/* ── LIGHTBOX ── */
+(function(){
+  const lb = document.getElementById('pp-lightbox');
+  const lbImg = document.getElementById('pp-lb-img');
+  document.querySelectorAll('.ch-photo-polaroid').forEach(card => {
+    const img = card.querySelector('.ch-polaroid-img');
+    if (!img) return;
+    card.addEventListener('click', () => {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  document.getElementById('pp-lb-close').addEventListener('click', e => { e.stopPropagation(); close(); });
+  lb.addEventListener('click', close);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+})();
+
+/* ── MENU CAROUSEL ARROWS ── */
+(function(){
+  const car = document.getElementById('pp-menu-car');
+  if (!car) return;
+  const prev = document.getElementById('pp-menu-prev');
+  const next = document.getElementById('pp-menu-next');
+  function itemW() {
+    const item = car.querySelector('.menu-item');
+    if (!item) return 202;
+    return item.offsetWidth + parseFloat(getComputedStyle(car).gap || 0);
+  }
+  prev.addEventListener('click', () => car.scrollBy({left: -itemW(), behavior: 'smooth'}));
+  next.addEventListener('click', () => car.scrollBy({left: itemW(), behavior: 'smooth'}));
+})();
+
+/* ── COMMUNITY SLIDER ARROWS ── */
+(function(){
+  const slider = document.getElementById('pp-comm-slider');
+  if (!slider) return;
+  const prev = document.getElementById('pp-comm-prev');
+  const next = document.getElementById('pp-comm-next');
+  const dots = document.querySelectorAll('#pp-comm-dots .slider-dot');
+  const total = slider.querySelectorAll('.comm-slide').length;
+  let current = 0;
+
+  function goTo(idx) {
+    current = Math.max(0, Math.min(idx, total - 1));
+    slider.scrollTo({left: current * slider.offsetWidth, behavior: 'smooth'});
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    prev.disabled = current === 0;
+    next.disabled = current === total - 1;
+  }
+  prev.addEventListener('click', () => goTo(current - 1));
+  next.addEventListener('click', () => goTo(current + 1));
+  dots.forEach(dot => dot.addEventListener('click', () => goTo(+dot.dataset.idx)));
+  let scrollTimer;
+  slider.addEventListener('scroll', () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      const idx = Math.round(slider.scrollLeft / slider.offsetWidth);
+      if (idx !== current) { current = idx; dots.forEach((d, i) => d.classList.toggle('active', i === current)); prev.disabled = current === 0; next.disabled = current === total - 1; }
+    }, 80);
+  });
+  goTo(0);
+})();
+
+/* ── COUNT-UP ON SCROLL ── */
+(function(){
+  const cards = document.querySelectorAll('.num-big[data-count]');
+  if (!cards.length) return;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.done) {
+        entry.target.dataset.done = '1';
+        const end = +entry.target.dataset.count;
+        const suffix = entry.target.dataset.suffix || '';
+        const dur = 1400;
+        const start = performance.now();
+        function tick(now) {
+          const t = Math.min((now - start) / dur, 1);
+          const val = Math.round(t * t * end);
+          entry.target.textContent = val + suffix;
+          if (t < 1) requestAnimationFrame(tick);
+          else entry.target.textContent = end + suffix;
+        }
+        requestAnimationFrame(tick);
+      }
+    });
+  }, { threshold: 0.4 });
+  cards.forEach(c => obs.observe(c));
+})();
+
+/* ── COMMENT IMAGE LIGHTBOX ── */
+(function(){
+  const lb = document.getElementById('pp-lightbox');
+  const lbImg = document.getElementById('pp-lb-img');
+  function openLb(src, alt) {
+    lbImg.src = src; lbImg.alt = alt;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  document.querySelectorAll('.comment-wrap').forEach(wrap => {
+    const img = wrap.querySelector('.comment-img');
+    if (!img) return;
+    wrap.addEventListener('click', () => openLb(img.src, img.alt));
+  });
+  const feedWrap = document.getElementById('pp-feed-img-wrap');
+  if (feedWrap) {
+    const img = feedWrap.querySelector('.feed-img');
+    if (img) feedWrap.addEventListener('click', () => openLb(img.src, img.alt));
+  }
+})();
+
+/* ── FLOATING BACKGROUND CHILLIS ── */
+(function(){
+  const bg = document.getElementById('float-chillis-bg');
+  if (!bg) return;
+  for (let i = 0; i < 13; i++) {
+    const el = document.createElement('span');
+    el.className = 'fc';
+    el.textContent = '🌶️';
+    el.style.left = (4 + Math.random() * 92) + '%';
+    el.style.setProperty('--dur', (14 + Math.random() * 14) + 's');
+    el.style.setProperty('--dly', -(Math.random() * 20) + 's');
+    el.style.setProperty('--sz', (.65 + Math.random() * .75) + 'rem');
+    bg.appendChild(el);
+  }
+})();
+
+</script>
+</body>
+</html>
